@@ -10,33 +10,36 @@ from PySide6.QtWidgets import (
 )
 
 
-class Popup(QWidget):
+class PopupSucesso(QWidget):
+
     def __init__(self):
         super().__init__()
 
         self.setWindowTitle("Sucesso")
-        self.setFixedSize(600, 500)
+        self.setFixedSize(1000, 650)
 
         self.setStyleSheet("""
-            QWidget{
-                background:white;
+            QWidget {
+                background-color: white;
             }
         """)
 
         layout = QVBoxLayout()
-        layout.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
-        # Ícone
-        icone = QLabel("✓")
-        icone.setFixedSize(180, 180)
+        layout.setContentsMargins(0, 40, 0, 60)
+        layout.setSpacing(0)
+        layout.setAlignment(Qt.AlignmentFlag.AlignTop)
 
-        icone.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        # Círculo
+        circulo = QLabel("✓")
+        circulo.setFixedSize(210, 210)
+        circulo.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
-        icone.setStyleSheet("""
-            QLabel{
-                background:#d7e8ff;
-                border-radius:90px;
-                font-size:90px;
+        circulo.setStyleSheet("""
+            QLabel {
+                background-color:#d9ebff;
+                border-radius: 105px;
+                font-size: 90px;
             }
         """)
 
@@ -46,58 +49,79 @@ class Popup(QWidget):
         titulo.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
         titulo.setStyleSheet("""
-            QLabel{
-                font-size:30px;
-                font-weight:700;
-                background:white;
+            QLabel {
+                background: green;
+                font-size: 30px;
+                font-weight: 700;
             }
         """)
 
-        # Mensagem
+
+    # Texto 1
         mensagem = QLabel(
-            "Ano adicionado ao sistema com sucesso!"
+            "As informações do ano foram atualizadas!"
         )
 
         mensagem.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
         mensagem.setStyleSheet("""
-            QLabel{
-                font-size:18px;
-                color:#444;
-                background:white;
+            QLabel {
+                background: white;
+                font-size: 21px;
+                color: #444;
+            }
+        """)
+
+        # Texto 2
+        mensagem = QLabel(
+            "Alterações realizadas com sucesso!"
+        )
+
+        mensagem.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
+        mensagem.setStyleSheet("""
+            QLabel {
+                background: white;
+                font-size: 18px;
+                color: #444;
             }
         """)
 
         # Botão
         botao = QPushButton("Fechar")
 
-        botao.setFixedSize(300, 55)
+        botao.setFixedSize(370, 56)
 
         botao.setStyleSheet("""
-            QPushButton{
-                background:#1f2b88;
-                color:white;
-                border:none;
-                border-radius:25px;
-                font-size:20px;
-            }
-
-            QPushButton:hover{
-                background:#26369d;
+            QPushButton {
+                background-color: #1f2d87;
+                color: white;
+                border: none;
+                border-radius: 28px;
+                font-size: 18px;
             }
         """)
 
         botao.clicked.connect(self.close)
 
-        layout.addSpacing(20)
-        layout.addWidget(icone)
-        layout.addSpacing(20)
+        layout.addWidget(
+            circulo,
+            alignment=Qt.AlignmentFlag.AlignHCenter
+        )
+
+        layout.addSpacing(35)
+
         layout.addWidget(titulo)
+
+        layout.addSpacing(10)
+
         layout.addWidget(mensagem)
-        layout.addSpacing(90)
+
+        layout.addSpacing(180)
+
         layout.addWidget(
             botao,
-            alignment=Qt.AlignmentFlag.AlignCenter
+            alignment=Qt.AlignmentFlag.AlignHCenter
         )
 
         self.setLayout(layout)
@@ -105,7 +129,7 @@ class Popup(QWidget):
 
 app = QApplication(sys.argv)
 
-janela = Popup()
+janela = PopupSucesso()
 janela.show()
 
 sys.exit(app.exec())
