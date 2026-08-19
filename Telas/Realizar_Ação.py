@@ -14,10 +14,6 @@ class DragDropUploadArea(QFrame):
         self.setCursor(Qt.PointingHandCursor)
         self.init_ui()
 
-    #Menu Para Voce colocar
-
-    #Final do Menu
-
     def init_ui(self):
         self.setStyleSheet("""
             QFrame {
@@ -50,7 +46,8 @@ class DragDropUploadArea(QFrame):
             }
         """)
 
-        text_label = QLabel("Arraste seus arquivos aqui ou clique para fazer Upload (PDF, DOCX, Imagens...)")
+        # Texto ajustado para ficar mais limpo
+        text_label = QLabel("Arraste seus comprovantes aqui ou clique para selecionar (PDF, DOCX, PNG, JPG)")
         text_label.setStyleSheet("""
             QLabel {
                 font-family: 'Verdana';
@@ -68,14 +65,14 @@ class DragDropUploadArea(QFrame):
     def mousePressEvent(self, event):
         if event.button() == Qt.LeftButton:
             files, _ = QFileDialog.getOpenFileNames(
-                self, "Selecionar Evidências", "", "Arquivos (*.pdf *.docx *.png *.jpg *.jpeg)"
+                self, "Selecionar Comprovantes", "", "Arquivos (*.pdf *.docx *.png *.jpg *.jpeg)"
             )
 
 
 class CriarAcaoWindow(QWidget):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("Ação")
+        self.setWindowTitle("Criar ação")
         self.setFixedSize(1600, 1010)
         
         self.setStyleSheet("""
@@ -99,7 +96,24 @@ class CriarAcaoWindow(QWidget):
     def init_ui(self):
         main_layout = QVBoxLayout(self)
         main_layout.setAlignment(Qt.AlignCenter)
+        main_layout.setSpacing(15)
 
+        # 1. TÍTULO FORA DO FRAME PRINCIPAL
+        title_label = QLabel("Criar ação")
+        title_label.setAlignment(Qt.AlignCenter)
+        title_label.setStyleSheet("""
+            QLabel {
+                font-family: 'Verdana';
+                font-size: 28px;
+                font-weight: bold;
+                color: #000000;
+                border: none;
+                margin-top: 10px;
+            }
+        """)
+        main_layout.addWidget(title_label)
+
+        # 2. CARD PRINCIPAL (FRAME)
         card = QFrame()
         card.setFixedSize(1485, 817)
         card.setStyleSheet("""
@@ -114,21 +128,7 @@ class CriarAcaoWindow(QWidget):
         
         card_layout = QVBoxLayout(card)
         card_layout.setContentsMargins(40, 30, 40, 30)
-        card_layout.setSpacing(20)
-
-        title_label = QLabel("Criar Ação")
-        title_label.setAlignment(Qt.AlignCenter)
-        title_label.setStyleSheet("""
-            QLabel {
-                font-family: 'Verdana';
-                font-size: 28px;
-                font-weight: bold;
-                color: #000000;
-                border: none;
-                margin-bottom: 10px;
-            }
-        """)
-        card_layout.addWidget(title_label)
+        card_layout.setSpacing(15)
 
         input_style = """
             QLineEdit, QTextEdit, QComboBox {
@@ -136,7 +136,7 @@ class CriarAcaoWindow(QWidget):
                 font-weight: bold;
                 border: 1px solid #777777;
                 border-radius: 8px;
-                padding: 10px 14px;
+                padding: 8px 12px;
                 background-color: #ffffff;
                 font-size: 14px;
                 color: #333333;
@@ -146,8 +146,9 @@ class CriarAcaoWindow(QWidget):
             }
         """
 
-        label_style = "font-family: 'Verdana'; font-weight: bold; font-size: 16px; border: none; color: #000000;"
+        label_style = "font-family: 'Verdana'; font-weight: bold; font-size: 15px; border: none; color: #000000;"
 
+        # Nome e Data
         top_row = QHBoxLayout()
 
         nome_box = QVBoxLayout()
@@ -155,6 +156,7 @@ class CriarAcaoWindow(QWidget):
         nome_label.setStyleSheet(label_style)
         self.nome_input = QLineEdit()
         self.nome_input.setPlaceholderText("Digite o nome do artigo aqui...")
+        self.nome_input.setAlignment(Qt.AlignCenter)
         self.nome_input.setStyleSheet(input_style)
         nome_box.addWidget(nome_label)
         nome_box.addWidget(self.nome_input)
@@ -177,15 +179,17 @@ class CriarAcaoWindow(QWidget):
         top_row.addLayout(data_box, stretch=1)
         card_layout.addLayout(top_row)
 
+        # Descrição
         desc_label = QLabel("Descrição:")
         desc_label.setStyleSheet(label_style)
         self.desc_input = QTextEdit()
         self.desc_input.setPlaceholderText("Digite a descrição do artigo aqui...")
         self.desc_input.setStyleSheet(input_style)
-        self.desc_input.setFixedHeight(180)
+        self.desc_input.setFixedHeight(120)
         card_layout.addWidget(desc_label)
         card_layout.addWidget(self.desc_input)
 
+        # ComboBox de Ação
         acao_label = QLabel("Ação:")
         acao_label.setStyleSheet(label_style)
         
@@ -238,15 +242,28 @@ class CriarAcaoWindow(QWidget):
         card_layout.addWidget(acao_label)
         card_layout.addWidget(self.acao_combo)
 
-        upload_label = QLabel("Upload de Evidências:")
+        # URL
+        url_label = QLabel("Comprovante URL:")
+        url_label.setStyleSheet(label_style)
+        self.url_input = QLineEdit()
+        self.url_input.setPlaceholderText("Digite a URL do seu link...")
+        self.url_input.setAlignment(Qt.AlignCenter)
+        self.url_input.setStyleSheet(input_style)
+        
+        card_layout.addWidget(url_label)
+        card_layout.addWidget(self.url_input)
+
+        # Área de Upload
+        upload_label = QLabel("Comprovantes:")
         upload_label.setStyleSheet(label_style)
         self.upload_area = DragDropUploadArea()
-        self.upload_area.setFixedHeight(100)
+        self.upload_area.setFixedHeight(85)
         card_layout.addWidget(upload_label)
         card_layout.addWidget(self.upload_area)
 
         card_layout.addStretch()
 
+        # Botões inferiores
         bottom_layout = QHBoxLayout()
 
         self.btn_cancelar = QPushButton("Cancelar")
@@ -276,7 +293,7 @@ class CriarAcaoWindow(QWidget):
                 font-family: 'Verdana';
                 font-weight: bold;
                 color: #6c757d;
-                font-size: 12px;
+                font-size: 11px;
                 border: none;
             }
         """)
