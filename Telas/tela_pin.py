@@ -2,17 +2,22 @@ from PySide6.QtWidgets import QWidget,QLabel,QLineEdit,QApplication,QVBoxLayout,
 from PySide6.QtGui import QPixmap
 from PySide6.QtCore import Qt
 import sys
+from style import QSS
+
+
 
 LOGO = "Imagens/logo_embrapa.jpg"
-BACKGROUND = "Imagens/background.png"
 
-class tela_pin(QWidget):
-    def __init__(self,):
+
+
+
+class tela_pin(QFrame):
+    def __init__(self):
         super().__init__()
         self.setFixedSize(1920,1080)
         self.setWindowTitle("PIN")
-        self.setStyleSheet("background-color:#356394")
-        # self.setStyleSheet(f"background-image: url({BACKGROUND})")
+        self.setStyleSheet(QSS)
+        
         
 
         layout_principal = QVBoxLayout()
@@ -25,17 +30,21 @@ class tela_pin(QWidget):
         layout_principal.setAlignment(Qt.AlignCenter)
         window_pin.setLayout(layout_pin)
         layout_pin.setAlignment(Qt.AlignCenter)
+        
+        
 
         logo_embrapa = QLabel()
         pixmap = QPixmap(LOGO)
         logo_embrapa.setPixmap(pixmap)
-        logo_embrapa.setFixedSize(308,172)
+        # logo_embrapa.setFixedSize(308,172)
         logo_embrapa.setScaledContents(True)
         layout_pin.addWidget(logo_embrapa)
-        
+        logo_embrapa.setObjectName("Logo")
 
         sub_titulo = QLabel("Digite o PIN enviado para seu E-mail")
+        sub_titulo.setObjectName("sub_t")
         layout_pin.addWidget(sub_titulo)
+        sub_titulo.setAlignment(Qt.AlignCenter)
         
 
         input_pin = QLineEdit()
@@ -45,6 +54,7 @@ class tela_pin(QWidget):
         botao_verificar = QPushButton("VERIFICAR")
         botao_verificar.setFixedSize(530,84)
         layout_pin.addWidget(botao_verificar)
+        
 
 
 
