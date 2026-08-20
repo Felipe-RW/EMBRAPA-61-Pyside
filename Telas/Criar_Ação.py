@@ -13,6 +13,10 @@ class DragDropUploadArea(QFrame):
         self.setAcceptDrops(True)
         self.setCursor(Qt.PointingHandCursor)
         self.init_ui()
+    
+    #Área Para Colocar o Menu
+
+    #Até Aqui
 
     def init_ui(self):
         self.setStyleSheet("""
