@@ -257,7 +257,7 @@ class CriarAcaoWindow(QWidget):
         upload_label = QLabel("Comprovantes:")
         upload_label.setStyleSheet(label_style)
         self.upload_area = DragDropUploadArea()
-        self.upload_area.setFixedHeight(85)
+        self.upload_area.setFixedHeight(100)
         card_layout.addWidget(upload_label)
         card_layout.addWidget(self.upload_area)
 
