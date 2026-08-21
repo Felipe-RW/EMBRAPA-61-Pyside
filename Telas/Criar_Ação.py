@@ -166,7 +166,7 @@ class CriarAcaoWindow(QWidget):
         nome_box.addWidget(self.nome_input)
 
         data_box = QVBoxLayout()
-        data_label = QLabel("Data:")
+        data_label = QLabel("Data de Execução:")
         data_label.setStyleSheet(label_style)
         
         self.data_input = QLineEdit()
