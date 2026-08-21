@@ -31,15 +31,18 @@ class tela_pin(QFrame):
         window_pin.setLayout(layout_pin)
         layout_pin.setAlignment(Qt.AlignCenter)
         
+        layout_pin.setSpacing(50)
+        
         
 
         logo_embrapa = QLabel()
         pixmap = QPixmap(LOGO)
         logo_embrapa.setPixmap(pixmap)
-        # logo_embrapa.setFixedSize(308,172)
         logo_embrapa.setScaledContents(True)
-        layout_pin.addWidget(logo_embrapa)
+        layout_pin.addWidget(logo_embrapa, alignment=Qt.AlignmentFlag.AlignCenter)
         logo_embrapa.setObjectName("Logo")
+        
+        
 
         sub_titulo = QLabel("Digite o PIN enviado para seu E-mail")
         sub_titulo.setObjectName("sub_t")
@@ -48,12 +51,15 @@ class tela_pin(QFrame):
         
 
         input_pin = QLineEdit()
-        layout_pin.addWidget(input_pin)
-        input_pin.setFixedSize(612,100)
+        layout_pin.addWidget(input_pin,alignment=Qt.AlignmentFlag.AlignCenter)
+        input_pin.setFixedSize(612,40)
+        input_pin.setPlaceholderText("Digite o seu PIN.")
+        
 
         botao_verificar = QPushButton("VERIFICAR")
         botao_verificar.setFixedSize(530,84)
-        layout_pin.addWidget(botao_verificar)
+        layout_pin.addWidget(botao_verificar,alignment=Qt.AlignmentFlag.AlignCenter)      
+        botao_verificar.setStyleSheet(QSS)
         
 
 
