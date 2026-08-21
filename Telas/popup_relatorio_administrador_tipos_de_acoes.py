@@ -35,37 +35,44 @@ titulo.setStyleSheet("""
     }
 """)
  
-texto = QLabel("Sua ação foi reenviada para os avaliadores.", janela)
-texto.setGeometry(300, 375, 600, 30)
-texto.setAlignment(Qt.AlignCenter)
-texto.setStyleSheet("""
-    QWidget {
-        color: black;
-        font-size: 24px;
-        font-family: verdana;
-        font-weight: regular;
-        background-color: transparent;
-    }
-""")
- 
-botao = QPushButton("Fechar", janela)
-botao.setGeometry(460, 550, 285, 48)
-botao.setStyleSheet("""
+botao_relatorio_tipos_de_acoes = QPushButton("Relatório de Tipos de Ações", janela)
+botao_relatorio_tipos_de_acoes.setGeometry(54, 150, 303, 40)
+botao_relatorio_tipos_de_acoes.setStyleSheet("""
     QPushButton {
-        background-color: #172b8c;
         color: white;
-        border: none;
-        border-radius: 20px;
-        font-size: 23px;
-    }
-    QPushButton:hover {
-        background-color: #056510;
-    }
-    QPushButton:pressed {
-        background-color: #056510;
+        font-size: 16px;
+        font-family: verdana;
+        font-weight: bold;
+        background-color: #356394;    
+        border-radius: 20px;                 
     }
 """)
- 
+
+botao_relatorio_empregados = QPushButton("Relatório de Empregados", janela)
+botao_relatorio_empregados.setGeometry(375, 150, 303, 40)
+botao_relatorio_empregados.setStyleSheet("""
+    QPushButton {
+        color: black;
+        font-size: 16px;
+        font-family: verdana;
+        font-weight: bold;
+        background-color: #DFDFDF;    
+        border-radius: 20px;                 
+    }
+""")
+
+botao_relatorio_anos = QPushButton("Relatório de Anos", janela)
+botao_relatorio_anos.setGeometry(696, 150, 303, 40)
+botao_relatorio_anos.setStyleSheet("""
+    QPushButton {
+        color: black;
+        font-size: 16px;
+        font-family: verdana;
+        font-weight: bold;
+        background-color: #DFDFDF;    
+        border-radius: 20px;                 
+    }
+""")
  
 janela.show()
  
