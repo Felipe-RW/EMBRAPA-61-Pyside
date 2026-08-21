@@ -1,12 +1,13 @@
 import sys, os
-from PySide6.QtWidgets import QApplication, QMainWindow, QWidget, QHBoxLayout, QVBoxLayout, QPushButton, QFrame, QLineEdit, QLabel
+from PySide6.QtWidgets import QApplication, QMainWindow, QWidget, QHBoxLayout, QVBoxLayout, QFrame, QLabel
 from PySide6.QtGui import QPixmap
 from PySide6.QtCore import Qt
+from btn_layout import btn_layout
 
 BASE = getattr(sys, "_MEIPASS", os.path.dirname(os.path.abspath(__file__)))
 LOGO = os.path.join(BASE, "Imagens/Embrapa-Logo.jpg")
 
-class menu_administrador (QMainWindow):
+class menu_administrador(QMainWindow):
     def __init__(self):
         super().__init__()
         self.resize(800, 500)
@@ -24,11 +25,12 @@ class menu_administrador (QMainWindow):
         self.menu_lateral.setStyleSheet("background-color: #356394;")
 
         menu_lateral_layout = QVBoxLayout(self.menu_lateral)
-        self.btn_home = QPushButton ("Início")
-        self.btn_calendario = QPushButton ("Calendário")
-        self.btn_acoes = QPushButton ("Ações")
-        self.btn_empregados = QPushButton ("Empregados")
-        self.btn_validadores = QPushButton ("Validadores")
+
+        self.btn_home = btn_layout ("Imagens/Painel-Principal-Icone.png", "Início")
+        self.btn_calendario = btn_layout ("Imagens/Calendario-Icone.png", "Calendário")
+        self.btn_acoes = btn_layout ("Imagens/Ações-Icone.png", "Ações")
+        self.btn_empregados = btn_layout ("Imagens/Empregados-Icone.png", "Empregados")
+        self.btn_validadores = btn_layout ("Imagens/Validadores-Icone.png", "Validadores")
 
         logo_label = QLabel (self)
         logo = QPixmap ("Imagens/Embrapa-Logo.jpg")
@@ -37,10 +39,15 @@ class menu_administrador (QMainWindow):
         logo_label.setAlignment (Qt.AlignCenter)
         
         menu_lateral_layout.addWidget(logo_label)
+        menu_lateral_layout.addSpacing(15)
         menu_lateral_layout.addWidget(self.btn_home)
+        menu_lateral_layout.addSpacing(10)
         menu_lateral_layout.addWidget(self.btn_calendario)
+        menu_lateral_layout.addSpacing(10)
         menu_lateral_layout.addWidget(self.btn_acoes)
+        menu_lateral_layout.addSpacing(10)
         menu_lateral_layout.addWidget(self.btn_empregados)
+        menu_lateral_layout.addSpacing(10)
         menu_lateral_layout.addWidget(self.btn_validadores)
 
         for btn in [self.btn_home, self.btn_calendario, self.btn_acoes, self.btn_empregados, self.btn_validadores]:
