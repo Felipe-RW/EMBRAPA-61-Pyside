@@ -1,57 +1,55 @@
 import sys, os
-from PySide6.QtWidgets import QApplication, QMainWindow, QWidget, QHBoxLayout, QVBoxLayout, QFrame, QLabel
+from PySide6.QtWidgets import QApplication, QMainWindow, QWidget, QHBoxLayout, QVBoxLayout, QFrame, QLabel, QButtonGroup
 from PySide6.QtGui import QPixmap
 from PySide6.QtCore import Qt
 from btn_layout import btn_layout
 
 BASE = getattr(sys, "_MEIPASS", os.path.dirname(os.path.abspath(__file__)))
-LOGO = os.path.join(BASE, "Imagens/Embrapa-Logo.jpg")
+LOGO = os.path.join(BASE, "Imagens/Embrapa-Logo.png")
 
 class menu_administrador(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.resize(800, 500)
 
         menu = QWidget()
         self.setCentralWidget(menu)
 
         main_layout = QHBoxLayout(menu)
         main_layout.setContentsMargins(0, 0, 0, 0)
-        main_layout.setSpacing(0)
 
         self.menu_lateral = QFrame()
-        self.menu_lateral.setObjectName("Menu Lateral")
+        self.menu_lateral.setObjectName("menu_lateral")
         self.menu_lateral.setFixedWidth(280)
         self.menu_lateral.setStyleSheet("background-color: #356394;")
 
         menu_lateral_layout = QVBoxLayout(self.menu_lateral)
+        menu_lateral_layout.setContentsMargins(30, 0, 0, 0)
 
-        self.btn_home = btn_layout ("Imagens/Painel-Principal-Icone.png", "Início")
-        self.btn_calendario = btn_layout ("Imagens/Calendario-Icone.png", "Calendário")
-        self.btn_acoes = btn_layout ("Imagens/Ações-Icone.png", "Ações")
-        self.btn_empregados = btn_layout ("Imagens/Empregados-Icone.png", "Empregados")
-        self.btn_validadores = btn_layout ("Imagens/Validadores-Icone.png", "Validadores")
+        self.btn_home = btn_layout (os.path.join(BASE, "Imagens/Painel-Principal-Icone.png"), "Início")
+        self.btn_calendario = btn_layout (os.path.join(BASE, "Imagens/Calendario-Icone.png"), "Calendário")
+        self.btn_acoes = btn_layout (os.path.join(BASE, "Imagens/Ações-Icone.png"), "Ações")
+        self.btn_empregados = btn_layout (os.path.join(BASE, "Imagens/Empregados-Icone.png"), "Empregados")
+        self.btn_validadores = btn_layout (os.path.join(BASE, "Imagens/Validadores-Icone.png"), "Validadores")
 
-        logo_label = QLabel (self)
-        logo = QPixmap ("Imagens/Embrapa-Logo.jpg")
-        logo_certa = logo.scaled (221, 86, Qt.KeepAspectRatio, Qt.SmoothTransformation)
+        logo_label = QLabel ()
+        logo = QPixmap (LOGO)
+        logo_certa = logo.scaled (220, 190, Qt.KeepAspectRatio, Qt.SmoothTransformation)
         logo_label.setPixmap (logo_certa)
-        logo_label.setAlignment (Qt.AlignCenter)
+        logo_label.setAlignment (Qt.AlignLeft)
         
         menu_lateral_layout.addWidget(logo_label)
-        menu_lateral_layout.addSpacing(15)
         menu_lateral_layout.addWidget(self.btn_home)
-        menu_lateral_layout.addSpacing(10)
+        menu_lateral_layout.setSpacing(5)
         menu_lateral_layout.addWidget(self.btn_calendario)
-        menu_lateral_layout.addSpacing(10)
+        menu_lateral_layout.setSpacing(5)
         menu_lateral_layout.addWidget(self.btn_acoes)
-        menu_lateral_layout.addSpacing(10)
+        menu_lateral_layout.setSpacing(5)
         menu_lateral_layout.addWidget(self.btn_empregados)
-        menu_lateral_layout.addSpacing(10)
+        menu_lateral_layout.setSpacing(5)
         menu_lateral_layout.addWidget(self.btn_validadores)
-
-        for btn in [self.btn_home, self.btn_calendario, self.btn_acoes, self.btn_empregados, self.btn_validadores]:
-            btn.setStyleSheet("color: white; text-align: center; padding: 10px; border: none; font-weight: bold; font-family: 'Verdana'; font-size: 20px;")
+            
+        self.grupo_botoes = QButtonGroup(self)
+        self.grupo_botoes.setExclusive(True)
         
         menu_lateral_layout.addStretch()
 
