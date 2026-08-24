@@ -205,7 +205,7 @@ class RelatorioPopup(QWidget):
         pesquise.setPlaceholderText("Pesquise...")
         coluna_esquerda.addWidget(pesquise)
 
-        for item in ["Fulano Da Silva", "Fulano Ferreira", "Fulano Araujo", "Fulano Oliveira"]:
+        for item in ["Fulano Da Silva", "Fulano Vinicius", "Fulano Felipe", "Fulano jao"]:
             coluna_esquerda.addWidget(QCheckBox(item))
         coluna_esquerda.addStretch()
 
