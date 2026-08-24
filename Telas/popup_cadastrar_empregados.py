@@ -10,7 +10,6 @@ from PySide6.QtWidgets import (
 )
 from PySide6.QtCore import Qt
 
-
 class PopUp_Cadastrarempregados(QWidget):
 
     def __init__(self):
@@ -210,6 +209,7 @@ class PopUp_Cadastrarempregados(QWidget):
                 font-weight: bold;
                 border-radius: 0px;
                 border: 1px solid gray;
+                background-color: white;
             }
         """)
 
