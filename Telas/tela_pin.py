@@ -6,7 +6,8 @@ from style import QSS
 
 
 
-LOGO = "Imagens/logo_embrapa.jpg"
+LOGO = "Imagens/logo_embrapa.png"
+FECHAR = "Imagens/Vector.png"
 
 
 
@@ -17,21 +18,29 @@ class tela_pin(QFrame):
         self.setFixedSize(1920,1080)
         self.setWindowTitle("PIN")
         self.setStyleSheet(QSS)
-        
-        
+
 
         layout_principal = QVBoxLayout()
         layout_pin = QVBoxLayout()
         self.setLayout  (layout_principal)
         window_pin = QWidget()
         window_pin.setFixedSize(1011,884)
-        window_pin.setStyleSheet("background-color: #FFFFFF")
+        window_pin.setStyleSheet(QSS)
+        window_pin.setObjectName("Painel")
         layout_principal.addWidget(window_pin)
         layout_principal.setAlignment(Qt.AlignCenter)
         window_pin.setLayout(layout_pin)
         layout_pin.setAlignment(Qt.AlignCenter)
         
-        layout_pin.setSpacing(50)
+        layout_pin.setSpacing(70)
+        
+        
+
+        fechar = QLabel()
+        map = QPixmap(FECHAR)
+        fechar.setPixmap(map)
+        fechar.setObjectName("Botao_fechar")
+        layout_pin.addWidget(fechar, alignment=Qt.AlignmentFlag.AlignLeft)
         
         
 
@@ -52,14 +61,16 @@ class tela_pin(QFrame):
 
         input_pin = QLineEdit()
         layout_pin.addWidget(input_pin,alignment=Qt.AlignmentFlag.AlignCenter)
-        input_pin.setFixedSize(612,40)
+        input_pin.setStyleSheet(QSS)
+        input_pin.setObjectName("Input_pin")
         input_pin.setPlaceholderText("Digite o seu PIN.")
         
 
         botao_verificar = QPushButton("VERIFICAR")
         botao_verificar.setFixedSize(530,84)
-        layout_pin.addWidget(botao_verificar,alignment=Qt.AlignmentFlag.AlignCenter)      
+        layout_pin.addWidget(botao_verificar,alignment=Qt.AlignmentFlag.AlignCenter)
         botao_verificar.setStyleSheet(QSS)
+        botao_verificar.setObjectName("butao")
         
 
 
