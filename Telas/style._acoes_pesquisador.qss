@@ -1,0 +1,26 @@
+Qwidget {
+    background-color: #f4f6f9;
+}
+
+QPushButton#botao_novo{
+    background-color: #4CAF50;
+    color: white;
+    font-weight: bold
+    border-radius: 6px;
+}
+
+style = """
+QTableWidget, QTableView {
+    background-color: #ffffff;
+    alternate-background-color: #ffffff;
+}
+
+QTableWidget::item, QTableView::item {
+    background-color: #ffffff;
+    background: #ffffff;
+    border: none;
+}
+"""
+
+
+sua_tabela.setStyleSheet(style)
