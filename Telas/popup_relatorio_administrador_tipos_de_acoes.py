@@ -124,6 +124,26 @@ botao_todas_as_acoes.setStyleSheet("""
 """)
 
 selecionar_acao1 = QCheckBox("Coordenação de evento REGIONAL", opcoes_relatorio)
+selecionar_acao1.setGeometry(61, 120, 600, 50)
+selecionar_acao1.setStyleSheet("""
+    QCheckBox {
+    color: black;
+    font-size: 16px;
+    font-family: verdana;
+    font-weight: bold
+}
+""")
+selecionar_acao2 = QCheckBox("Coordenação de evento REGIONAL", opcoes_relatorio)
+selecionar_acao2.setGeometry(61, 120, 400, 50)
+selecionar_acao2.setStyleSheet("""
+    QCheckBox {
+    color: black;
+    font-size: 16px;
+    font-family: verdana;
+    font-weight: bold
+}
+""")
+selecionar_acao1 = QCheckBox("Coordenação de evento REGIONAL", opcoes_relatorio)
 selecionar_acao1.setGeometry(61, 120, 400, 50)
 selecionar_acao1.setStyleSheet("""
     QCheckBox {
@@ -131,11 +151,6 @@ selecionar_acao1.setStyleSheet("""
     font-size: 16px;
     font-family: verdana;
     font-weight: bold
-             
-
-
-
-
 }
 """)
 
