@@ -6,7 +6,8 @@ from PySide6.QtWidgets import (
     QPushButton,
     QFrame,
     QVBoxLayout,
-    QCheckBox
+    QCheckBox,
+    QLineEdit
 )
 from PySide6.QtCore import Qt
  
@@ -87,7 +88,7 @@ opcoes_relatorio.setStyleSheet("""
 """)
 
 acoes = QLabel("Ações", opcoes_relatorio)
-acoes.setGeometry(61, 28, 67, 23)
+acoes.setGeometry(61, 28, 67, 30)
 acoes.setStyleSheet("""
     QLabel {
     color: black;
@@ -123,19 +124,71 @@ botao_todas_as_acoes.setStyleSheet("""
 }
 """)
 
+caixa_de_busca = QLineEdit(opcoes_relatorio)
+caixa_de_busca.setPlaceholderText("Pesquisar...")
+caixa_de_busca.setGeometry(113, 120, 300, 25)
+caixa_de_busca.setStyleSheet("""
+    QLineEdit {
+    background-color: white;
+    border-radius: 10px;
+    padding: 3px;
+    border: 0.5px solid #686868;
+    
+    }
+""")
+
 selecionar_acao1 = QCheckBox("Coordenação de evento REGIONAL", opcoes_relatorio)
-selecionar_acao1.setGeometry(61, 120, 400, 50)
+selecionar_acao1.setGeometry(61, 170, 400, 20)
 selecionar_acao1.setStyleSheet("""
     QCheckBox {
     color: black;
     font-size: 16px;
     font-family: verdana;
-    font-weight: bold
-             
+    font-weight: lighter
+}
+""")
 
+selecionar_acao2 = QCheckBox("Artigos de Divulgação na mídia", opcoes_relatorio)
+selecionar_acao2.setGeometry(61, 200, 400, 20)
+selecionar_acao2.setStyleSheet("""
+    QCheckBox {
+    color: black;
+    font-size: 16px;
+    font-family: verdana;
+    font-weight: lighter
+}
+""")
 
+selecionar_acao3 = QCheckBox("Produção de Vídeos Técnicos", opcoes_relatorio)
+selecionar_acao3.setGeometry(61, 230, 400, 20)
+selecionar_acao3.setStyleSheet("""
+    QCheckBox {
+    color: black;
+    font-size: 16px;
+    font-family: verdana;
+    font-weight: lighter
+}
+""")
 
+selecionar_acao4 = QCheckBox("Elaboração do Plano em Marketing", opcoes_relatorio)
+selecionar_acao4.setGeometry(61, 260, 400, 20)
+selecionar_acao4.setStyleSheet("""
+    QCheckBox {
+    color: black;
+    font-size: 16px;
+    font-family: verdana;
+    font-weight: lighter
+}
+""")
 
+dados = QLabel("Dados", opcoes_relatorio)
+dados.setGeometry(624, 28, 75, 30)
+dados.setStyleSheet("""
+    QLabel {
+    color: black;
+    font-size: 20px;
+    font-family: verdana;
+    font-weight: bold 
 }
 """)
 
