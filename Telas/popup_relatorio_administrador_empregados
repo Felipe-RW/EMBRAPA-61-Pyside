@@ -24,6 +24,8 @@ janela.setStyleSheet("""
     }
 """)
 
+
+
 titulo = QLabel("Relatório", janela)
 titulo.setGeometry(350, 37, 500, 40)
 titulo.setAlignment(Qt.AlignCenter)
@@ -41,11 +43,11 @@ botao_relatorio_tipos_de_acoes = QPushButton("Relatório de Tipos de Ações", j
 botao_relatorio_tipos_de_acoes.setGeometry(54, 150, 303, 40)
 botao_relatorio_tipos_de_acoes.setStyleSheet("""
     QPushButton {
-        color: white;
+        color: black;
         font-size: 16px;
         font-family: verdana;
         font-weight: bold;
-        background-color: #356394;    
+        background-color: #DFDFDF;    
         border-radius: 20px;                 
     }
 """)
@@ -54,12 +56,12 @@ botao_relatorio_empregados = QPushButton("Relatório de Empregados", janela)
 botao_relatorio_empregados.setGeometry(375, 150, 303, 40)
 botao_relatorio_empregados.setStyleSheet("""
     QPushButton {
-        color: black;
+        color: white;
         font-size: 16px;
         font-family: verdana;
         font-weight: bold;
-        background-color: #DFDFDF;    
-        border-radius: 20px;                 
+        background-color: #356394;    
+        border-radius: 20px;                
     }
 """)
 
@@ -85,9 +87,9 @@ opcoes_relatorio.setStyleSheet("""
 }
 """)
 
-acoes = QLabel("Ações", opcoes_relatorio)
-acoes.setGeometry(61, 28, 67, 30)
-acoes.setStyleSheet("""
+empregados = QLabel("Empregados", opcoes_relatorio)
+empregados.setGeometry(61, 28, 200, 30)
+empregados.setStyleSheet("""
     QLabel {
     color: black;
     font-size: 20px;
@@ -96,9 +98,9 @@ acoes.setStyleSheet("""
 }
 """)
 
-botao_selecionar_acoes = QPushButton("Selecionar Ações", opcoes_relatorio)
-botao_selecionar_acoes.setGeometry(61, 74, 192, 30)
-botao_selecionar_acoes.setStyleSheet("""
+botao_selecionar_empregados = QPushButton("Selecionar Empregados", opcoes_relatorio)
+botao_selecionar_empregados.setGeometry(61, 74, 192, 30)
+botao_selecionar_empregados.setStyleSheet("""
     QPushButton {
     color: white;
     font-size: 13;
@@ -109,9 +111,9 @@ botao_selecionar_acoes.setStyleSheet("""
 }
 """)
 
-botao_todas_as_acoes = QPushButton("Todas as Ações", opcoes_relatorio)
-botao_todas_as_acoes.setGeometry(275, 74, 192, 30)
-botao_todas_as_acoes.setStyleSheet("""
+botao_todas_os_empregados = QPushButton("Todos os Empregados", opcoes_relatorio)
+botao_todas_os_empregados.setGeometry(275, 74, 192, 30)
+botao_todas_os_empregados.setStyleSheet("""
     QPushButton {
     color: black;
     font-size: 13;
@@ -135,9 +137,9 @@ caixa_de_busca.setStyleSheet("""
     }
 """)
 
-selecionar_acao1 = QCheckBox("Coordenação de evento REGIONAL", opcoes_relatorio)
-selecionar_acao1.setGeometry(61, 170, 400, 20)
-selecionar_acao1.setStyleSheet("""
+selecionar_empregado1 = QCheckBox("Fulano da Silva", opcoes_relatorio)
+selecionar_empregado1.setGeometry(61, 170, 400, 20)
+selecionar_empregado1.setStyleSheet("""
     QCheckBox {
     color: black;
     font-size: 16px;
@@ -146,9 +148,9 @@ selecionar_acao1.setStyleSheet("""
 }
 """)
 
-selecionar_acao2 = QCheckBox("Artigos de Divulgação na mídia", opcoes_relatorio)
-selecionar_acao2.setGeometry(61, 200, 400, 20)
-selecionar_acao2.setStyleSheet("""
+selecionar_empregado2 = QCheckBox("Fulano Lima", opcoes_relatorio)
+selecionar_empregado2.setGeometry(61, 200, 400, 20)
+selecionar_empregado2.setStyleSheet("""
     QCheckBox {
     color: black;
     font-size: 16px;
@@ -157,9 +159,9 @@ selecionar_acao2.setStyleSheet("""
 }
 """)
 
-selecionar_acao3 = QCheckBox("Produção de Vídeos Técnicos", opcoes_relatorio)
-selecionar_acao3.setGeometry(61, 230, 400, 20)
-selecionar_acao3.setStyleSheet("""
+selecionar_empregado3 = QCheckBox("Fulano Rodrigues", opcoes_relatorio)
+selecionar_empregado3.setGeometry(61, 230, 400, 20)
+selecionar_empregado3.setStyleSheet("""
     QCheckBox {
     color: black;
     font-size: 16px;
@@ -168,9 +170,9 @@ selecionar_acao3.setStyleSheet("""
 }
 """)
 
-selecionar_acao4 = QCheckBox("Elaboração do Plano em Marketing", opcoes_relatorio)
-selecionar_acao4.setGeometry(61, 260, 400, 20)
-selecionar_acao4.setStyleSheet("""
+selecionar_empregado4 = QCheckBox("Fulano Carvalho", opcoes_relatorio)
+selecionar_empregado4.setGeometry(61, 260, 400, 20)
+selecionar_empregado4.setStyleSheet("""
     QCheckBox {
     color: black;
     font-size: 16px;
@@ -190,7 +192,7 @@ dados.setStyleSheet("""
 }
 """)
 
-selecionar_dados = QCheckBox("Setor", opcoes_relatorio)
+selecionar_dados = QCheckBox("Email", opcoes_relatorio)
 selecionar_dados.setGeometry(624, 74, 400, 20)
 selecionar_dados.setStyleSheet("""
     QCheckBox {
@@ -201,9 +203,20 @@ selecionar_dados.setStyleSheet("""
 }
 """)
 
-selecionar_dados2 = QCheckBox("Status", opcoes_relatorio)
+selecionar_dados2 = QCheckBox("Área de Atuação", opcoes_relatorio)
 selecionar_dados2.setGeometry(624, 104, 400, 20)
 selecionar_dados2.setStyleSheet("""
+    QCheckBox {
+    color: black;
+    font-size: 16px;
+    font-family: verdana;
+    font-weight: lighter
+}
+""")
+
+selecionar_dados3 = QCheckBox("Status", opcoes_relatorio)
+selecionar_dados3.setGeometry(624, 134, 400, 20)
+selecionar_dados3.setStyleSheet("""
     QCheckBox {
     color: black;
     font-size: 16px;
