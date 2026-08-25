@@ -126,7 +126,7 @@ botao_todas_as_acoes.setStyleSheet("""
 
 caixa_de_busca = QLineEdit(opcoes_relatorio)
 caixa_de_busca.setPlaceholderText("Pesquisar...")
-caixa_de_busca.setGeometry(113, 120, 300, 25)
+caixa_de_busca.setGeometry(113, 125, 300, 25)
 caixa_de_busca.setStyleSheet("""
     QLineEdit {
     background-color: white;
@@ -189,6 +189,28 @@ dados.setStyleSheet("""
     font-size: 20px;
     font-family: verdana;
     font-weight: bold 
+}
+""")
+
+selecionar_dados = QCheckBox("Setor", opcoes_relatorio)
+selecionar_dados.setGeometry(624, 74, 400, 20)
+selecionar_dados.setStyleSheet("""
+    QCheckBox {
+    color: black;
+    font-size: 16px;
+    font-family: verdana;
+    font-weight: lighter
+}
+""")
+
+selecionar_dados2 = QCheckBox("Status", opcoes_relatorio)
+selecionar_dados2.setGeometry(624, 104, 400, 20)
+selecionar_dados2.setStyleSheet("""
+    QCheckBox {
+    color: black;
+    font-size: 16px;
+    font-family: verdana;
+    font-weight: lighter
 }
 """)
 
