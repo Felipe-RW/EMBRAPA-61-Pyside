@@ -31,7 +31,7 @@ class btn_layout(QPushButton):
         """)
 
         layout = QHBoxLayout(self)
-        layout.setContentsMargins(10, 0, 10, 0)
+        layout.setContentsMargins(20, 0, 10, 0)
 
         self.icone_label = QLabel()
         self.icone_label.setPixmap(QIcon(path).pixmap(QSize(23, 25)))
