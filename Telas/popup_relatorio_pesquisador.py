@@ -14,7 +14,7 @@ from PySide6.QtCore import Qt
 app = QApplication(sys.argv)
  
 janela = QWidget()
-janela.setWindowTitle("Popup Relatório Administrador Tipos de Ações")
+janela.setWindowTitle("Popup Relatório Pesquisador")
 janela.setFixedSize(1202, 639)
 janela.setStyleSheet("""
     QWidget {
