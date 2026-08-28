@@ -103,7 +103,7 @@ class PopupAvisoFechamentoAno(QWidget):
 
 
         self.texto = QLabel(
-            "O ano de          ainda não pode ser fechado!",
+            "O ano de          ainda não pode ser fechado!", #Colocar a variável que armazena o valor do ano no espaço vazio
             self
         )
         self.texto.setGeometry(320, 290, 600, 30)
