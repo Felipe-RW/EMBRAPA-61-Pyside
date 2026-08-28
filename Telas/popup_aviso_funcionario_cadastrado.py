@@ -13,8 +13,8 @@ class PopupAcaoAtualizada(QWidget):
     def __init__(self):
         super().__init__()
  
-        self.setWindowTitle("Ação atualizada")
-        self.setFixedSize(1200, 640)
+        self.setWindowTitle("Funcionário Cadastrado")
+        self.setFixedSize(1202, 639)
  
         self.setStyleSheet("""
             QWidget {
@@ -39,10 +39,9 @@ class PopupAcaoAtualizada(QWidget):
             }
         """)
  
-        self.titulo = QLabel("Sua ação foi atualizada!", self)
-        self.titulo.setGeometry(350, 330, 500, 40)
+        self.titulo = QLabel("Funcionário cadastrado com sucesso!", self)
+        self.titulo.setGeometry(250, 330, 800, 40)
         self.titulo.setAlignment(Qt.AlignCenter)
- 
         self.titulo.setStyleSheet("""
             QLabel {
                 color: black;
@@ -54,7 +53,7 @@ class PopupAcaoAtualizada(QWidget):
         """)
  
         self.texto = QLabel(
-            "Sua ação foi reenviada para os avaliadores.",
+            "O empregado foi adicionado ao sistema.",
             self
         )
         self.texto.setGeometry(300, 375, 600, 30)
