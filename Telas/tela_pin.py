@@ -18,6 +18,7 @@ class tela_pin(QFrame):
         self.setFixedSize(1920,1080)
         self.setWindowTitle("PIN")
         self.setStyleSheet(QSS)
+        self.setObjectName("a")
 
 
         layout_principal = QVBoxLayout()

@@ -2,8 +2,9 @@ BACKGROUND = "Imagens/background.png"
 VERDE =  "#058914"
 BRANCO = "#FFFFFF"
 PRETO = "#000000"
+OFF_WHITE = "#A0C7FA"
 QSS = f"""
-QFrame{{background-image:url({BACKGROUND});
+QFrame#a{{background-image:url({BACKGROUND});
 }}
 
 QLabel#sub_t{{
@@ -39,6 +40,11 @@ QWidget#Painel{{
 QLineEdit#Input_pin{{
     min-width:612px ;
     min-height:40px ;
+}}
+
+QWidget#background_gaveta{{
+    background-color:{OFF_WHITE};
+    min-height:70%;
 }}
 
 
