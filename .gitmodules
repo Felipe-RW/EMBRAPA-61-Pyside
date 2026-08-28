@@ -1,0 +1,3 @@
+[submodule "EMBRAPA-61-Pyside"]
+	path = EMBRAPA-61-Pyside
+	url = https://github.com/Felipe-RW/EMBRAPA-61-Pyside.git
