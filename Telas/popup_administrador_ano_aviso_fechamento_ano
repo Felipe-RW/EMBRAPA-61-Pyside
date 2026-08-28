@@ -1,0 +1,152 @@
+import sys
+from PySide6.QtWidgets import (
+    QApplication,
+    QWidget,
+    QLabel,
+    QPushButton,
+    QGraphicsOpacityEffect,
+)
+from PySide6.QtCore import Qt
+ 
+ 
+class PopupAvisoFechamentoAno(QWidget):
+ 
+    def __init__(self):
+        super().__init__()
+ 
+        self.setWindowTitle("Ação atualizada")
+        self.setFixedSize(1200, 640)
+ 
+        self.setStyleSheet("""
+            QWidget {
+                background-color: white;
+                border-radius: 20px;
+            }
+        """)
+ 
+        self.circulo = QLabel(self)
+        self.circulo.setGeometry(521, 55, 158, 158)
+        self.circulo.setAlignment(Qt.AlignCenter)
+
+        self.traço= QLabel(self)
+        self.traço.setGeometry(567,126,66,16)
+
+ 
+        self.circulo.setStyleSheet("""
+            QLabel {
+                background-color: #D20700;
+                border: none;
+                border-radius: 79px;
+            }
+        """)
+
+        self.traço.setStyleSheet("""
+            QLabel {
+                background-color: #ffffff;              
+                border-radius: 0px
+            }
+
+
+
+
+
+        """)
+#  119
+        self.titulo = QLabel("Esse ano não pode ser fechado!", self)
+        self.titulo.setGeometry(220, 250, 800, 40)
+        self.titulo.setAlignment(Qt.AlignCenter)
+ 
+        self.titulo.setStyleSheet("""
+            QLabel {
+                color: black;
+                font-size: 34px;
+                font-family: Verdana;
+                font-weight: bold;
+                background-color: transparent;
+            }
+        """)
+
+        self.fundo_vermelho= QLabel(self)
+        self.fundo_vermelho.setGeometry(265,360,700,100)
+        self.fundo_vermelho.setAlignment(Qt.AlignCenter)
+        self.fundo_vermelho.setStyleSheet("""
+            background-color: rgba(210, 7, 0, 0.5);
+            border: 2px solid #D20700;
+            border-radius: 15px;
+
+        """)
+        self.efeito_opacidade = QGraphicsOpacityEffect()
+        self.efeito_opacidade.setOpacity(0.5) 
+        self.fundo_vermelho.setGraphicsEffect(self.efeito_opacidade)
+        
+
+        self.texto = QLabel(
+            "Antes de fechar o ano, você deve conferir se não há ações em aberto impossibilitando \nrealizar o fechamento. \nEnquanto houver ações esperando avaliações, não será possível fechar o ano. ",
+            self
+        )
+        self.texto.setGeometry(265,335,700,150)
+        self.fundo_vermelho.setAlignment(Qt.AlignLeft | Qt.AlignVCenter)
+ 
+        self.texto.setStyleSheet("""
+            QLabel {
+                color: black;
+                font-size: 15px;
+                font-family: Verdana;
+                font-weight: normal;
+                padding-left: 20px;  
+                background-color: transparent;
+            }
+        """)
+ 
+
+
+
+
+        self.texto = QLabel(
+            "O ano de          ainda não pode ser fechado!",
+            self
+        )
+        self.texto.setGeometry(320, 290, 600, 30)
+        self.texto.setAlignment(Qt.AlignCenter)
+ 
+        self.texto.setStyleSheet("""
+            QLabel {
+                color: black;
+                font-size: 14px;
+                font-family: Verdana;
+                font-weight: normal;
+                background-color: transparent;
+            }
+        """)
+ 
+        self.botao = QPushButton("Confirmar", self)
+        self.botao.setGeometry(390, 550, 385, 48)
+
+ 
+        self.botao.setStyleSheet("""
+            QPushButton {
+                background-color: #4EB568;
+                color: white;
+                border: none;
+                border-radius: 20px;
+                font-size: 26px;
+            }
+ 
+            QPushButton:hover {
+                background-color: #47A75F;
+            }
+ 
+            QPushButton:pressed {
+                background-color: #47A75F;
+            }
+        """)
+
+
+ 
+ 
+app = QApplication(sys.argv)
+ 
+janela = PopupAvisoFechamentoAno()
+janela.show()
+ 
+sys.exit(app.exec())
