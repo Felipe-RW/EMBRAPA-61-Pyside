@@ -28,11 +28,11 @@ class PopupDeAvisoDeAnoCriado(QWidget):
         circulo.setAlignment(Qt.AlignmentFlag.AlignCenter)
         circulo.setStyleSheet(estilo.ESTILO_Circulo)
 
-        titulo = QLabel("As informações do ano foram atualizadas!")
+        titulo = QLabel("O ano foi fechado!")
         titulo.setAlignment(Qt.AlignmentFlag.AlignCenter)
         titulo.setStyleSheet(estilo.ESTILO_Titulo)
 
-        msg1 = QLabel("Alterações realizadas com sucesso!")
+        msg1 = QLabel("Nenhuma ação poderá ser postada nesse ano!")
         msg1.setAlignment(Qt.AlignmentFlag.AlignCenter)
         msg1.setStyleSheet(estilo.ESTILO_Mensagem1)
 
