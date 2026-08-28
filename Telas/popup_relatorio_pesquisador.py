@@ -37,7 +37,7 @@ titulo.setStyleSheet("""
     }
 """)
  
-botao_relatorio_tipos_de_acoes = QPushButton("Relatório de Tipos de Ações", janela)
+botao_relatorio_tipos_de_acoes = QPushButton("Relatório de Ações", janela)
 botao_relatorio_tipos_de_acoes.setGeometry(54, 150, 303, 40)
 botao_relatorio_tipos_de_acoes.setStyleSheet("""
     QPushButton {
@@ -46,32 +46,6 @@ botao_relatorio_tipos_de_acoes.setStyleSheet("""
         font-family: verdana;
         font-weight: bold;
         background-color: #356394;    
-        border-radius: 20px;                 
-    }
-""")
-
-botao_relatorio_empregados = QPushButton("Relatório de Empregados", janela)
-botao_relatorio_empregados.setGeometry(375, 150, 303, 40)
-botao_relatorio_empregados.setStyleSheet("""
-    QPushButton {
-        color: black;
-        font-size: 16px;
-        font-family: verdana;
-        font-weight: bold;
-        background-color: #DFDFDF;    
-        border-radius: 20px;                 
-    }
-""")
-
-botao_relatorio_anos = QPushButton("Relatório de Anos", janela)
-botao_relatorio_anos.setGeometry(696, 150, 303, 40)
-botao_relatorio_anos.setStyleSheet("""
-    QPushButton {
-        color: black;
-        font-size: 16px;
-        font-family: verdana;
-        font-weight: bold;
-        background-color: #DFDFDF;    
         border-radius: 20px;                 
     }
 """)
@@ -85,7 +59,7 @@ opcoes_relatorio.setStyleSheet("""
 }
 """)
 
-acoes = QLabel("Ações", opcoes_relatorio)
+acoes = QLabel("Anos", opcoes_relatorio)
 acoes.setGeometry(61, 28, 67, 30)
 acoes.setStyleSheet("""
     QLabel {
@@ -96,7 +70,7 @@ acoes.setStyleSheet("""
 }
 """)
 
-botao_selecionar_acoes = QPushButton("Selecionar Ações", opcoes_relatorio)
+botao_selecionar_acoes = QPushButton("Selecionar Anos", opcoes_relatorio)
 botao_selecionar_acoes.setGeometry(61, 74, 192, 30)
 botao_selecionar_acoes.setStyleSheet("""
     QPushButton {
@@ -109,7 +83,7 @@ botao_selecionar_acoes.setStyleSheet("""
 }
 """)
 
-botao_todas_as_acoes = QPushButton("Todas as Ações", opcoes_relatorio)
+botao_todas_as_acoes = QPushButton("Todos os Anos", opcoes_relatorio)
 botao_todas_as_acoes.setGeometry(275, 74, 192, 30)
 botao_todas_as_acoes.setStyleSheet("""
     QPushButton {
@@ -131,13 +105,12 @@ caixa_de_busca.setStyleSheet("""
     border-radius: 10px;
     padding: 3px;
     border: 0.5px solid #686868;
-    
     }
 """)
 
-selecionar_acao1 = QCheckBox("Coordenação de evento REGIONAL", opcoes_relatorio)
-selecionar_acao1.setGeometry(61, 170, 400, 20)
-selecionar_acao1.setStyleSheet("""
+selecionar_ano1 = QCheckBox("2026", opcoes_relatorio)
+selecionar_ano1.setGeometry(61, 170, 400, 20)
+selecionar_ano1.setStyleSheet("""
     QCheckBox {
     color: black;
     font-size: 16px;
@@ -146,9 +119,9 @@ selecionar_acao1.setStyleSheet("""
 }
 """)
 
-selecionar_acao2 = QCheckBox("Artigos de Divulgação na mídia", opcoes_relatorio)
-selecionar_acao2.setGeometry(61, 200, 400, 20)
-selecionar_acao2.setStyleSheet("""
+selecionar_ano2 = QCheckBox("2025", opcoes_relatorio)
+selecionar_ano2.setGeometry(61, 200, 400, 20)
+selecionar_ano2.setStyleSheet("""
     QCheckBox {
     color: black;
     font-size: 16px;
@@ -157,9 +130,9 @@ selecionar_acao2.setStyleSheet("""
 }
 """)
 
-selecionar_acao3 = QCheckBox("Produção de Vídeos Técnicos", opcoes_relatorio)
-selecionar_acao3.setGeometry(61, 230, 400, 20)
-selecionar_acao3.setStyleSheet("""
+selecionar_ano3 = QCheckBox("2024", opcoes_relatorio)
+selecionar_ano3.setGeometry(61, 230, 400, 20)
+selecionar_ano3.setStyleSheet("""
     QCheckBox {
     color: black;
     font-size: 16px;
@@ -168,9 +141,9 @@ selecionar_acao3.setStyleSheet("""
 }
 """)
 
-selecionar_acao4 = QCheckBox("Elaboração do Plano em Marketing", opcoes_relatorio)
-selecionar_acao4.setGeometry(61, 260, 400, 20)
-selecionar_acao4.setStyleSheet("""
+selecionar_ano4 = QCheckBox("2023", opcoes_relatorio)
+selecionar_ano4.setGeometry(61, 260, 400, 20)
+selecionar_ano4.setStyleSheet("""
     QCheckBox {
     color: black;
     font-size: 16px;
