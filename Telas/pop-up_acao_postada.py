@@ -1,10 +1,10 @@
 import sys
+
 from PySide6.QtCore import Qt, QPointF
 from PySide6.QtGui import QColor, QPainter, QPen
 from PySide6.QtWidgets import (
     QApplication,
     QDialog,
-    QVBoxLayout,
     QLabel,
     QPushButton,
     QWidget,
@@ -15,21 +15,29 @@ class CheckIcon(QWidget):
 
     def __init__(self, parent=None):
         super().__init__(parent)
-        self.setFixedSize(120, 120)
+
+        self.setFixedSize(238, 238)
 
     def paintEvent(self, event):
 
         painter = QPainter(self)
         painter.setRenderHint(QPainter.Antialiasing)
 
-    
+
         painter.setPen(Qt.NoPen)
         painter.setBrush(QColor("#C6E0FF"))
-        painter.drawEllipse(0, 0, 120, 120)
 
+        painter.drawEllipse(
+            0,
+            0,
+            238,
+            238
+        )
 
+    
         pen = QPen(QColor("#234B80"))
-        pen.setWidth(1)
+
+        pen.setWidth(2)
         pen.setCapStyle(Qt.RoundCap)
         pen.setJoinStyle(Qt.RoundJoin)
 
@@ -37,13 +45,13 @@ class CheckIcon(QWidget):
         painter.setBrush(Qt.NoBrush)
 
         painter.drawLine(
-            QPointF(23, 56),
-            QPointF(44, 77)
+            QPointF(46, 119),
+            QPointF(91, 164)
         )
 
         painter.drawLine(
-            QPointF(44, 77),
-            QPointF(89, 31)
+            QPointF(91, 164),
+            QPointF(187, 67)
         )
 
 
@@ -57,16 +65,21 @@ class SuccessPopup(QDialog):
             Qt.FramelessWindowHint
         )
 
-        self.setAttribute(Qt.WA_TranslucentBackground)
+        self.setAttribute(
+            Qt.WA_TranslucentBackground
+        )
 
-        self.setFixedSize(576, 306)
+
+        self.setFixedSize(1202, 639)
 
         self.setup_ui()
 
     def setup_ui(self):
 
+
         container = QWidget(self)
         container.setObjectName("container")
+
         container.setGeometry(
             0,
             0,
@@ -78,27 +91,30 @@ class SuccessPopup(QDialog):
 
             QWidget#container {
                 background-color: white;
-                border-radius: 10px;
+                border-radius: 20px;
             }
 
             QLabel#title {
                 color: #111111;
-                font-size: 20px;
+                font-size: 38px;
                 font-weight: 700;
+                background: transparent;
             }
 
             QLabel#subtitle {
                 color: #222222;
-                font-size: 13px;
+                font-size: 27px;
+                font-weight: 400;
+                background: transparent;
             }
 
             QPushButton {
                 background-color: #17298B;
                 color: white;
                 border: none;
-                border-radius: 10px;
-                font-size: 12px;
-                font-weight: 700;
+                border-radius: 20px;
+                font-size: 24px;
+                font-weight: 400;
                 padding: 0px;
             }
 
@@ -112,48 +128,61 @@ class SuccessPopup(QDialog):
 
         """)
 
-        layout = QVBoxLayout(container)
-        layout.setContentsMargins(0, 25, 0, 26)
-        layout.setSpacing(0)
 
+        icon = CheckIcon(container)
 
-        icon = CheckIcon()
-        layout.addWidget(
-            icon,
-            alignment=Qt.AlignHCenter
+        icon.setGeometry(
+            482,
+            52,
+            238,
+            238
         )
 
-        layout.addSpacing(19)
 
+        title = QLabel(
+            "Sua ação foi postada!",
+            container
+        )
 
-        title = QLabel("Sua ação foi postada!")
         title.setObjectName("title")
         title.setAlignment(Qt.AlignCenter)
 
-        layout.addWidget(title)
+        title.setGeometry(
+            0,
+            333,
+            1202,
+            48
+        )
 
-
+    
         subtitle = QLabel(
-            "Sua ação foi enviada para os avaliadores."
+            "Sua ação foi enviada para os avaliadores.",
+            container
         )
 
         subtitle.setObjectName("subtitle")
         subtitle.setAlignment(Qt.AlignCenter)
 
-        layout.addWidget(subtitle)
+        subtitle.setGeometry(
+            0,
+            384,
+            1202,
+            38
+        )
 
-        layout.addSpacing(59)
+        button = QPushButton(
+            "Fechar",
+            container
+        )
 
+        button.setFixedSize(
+            285,
+            49
+        )
 
-        button = QPushButton("Fechar")
-        button.setFixedSize(137, 23)
-
-
-        button.clicked.connect(lambda: None)
-
-        layout.addWidget(
-            button,
-            alignment=Qt.AlignHCenter
+        button.move(
+            459,
+            535
         )
 
 
@@ -162,11 +191,14 @@ class MainWindow(QWidget):
     def __init__(self):
         super().__init__()
 
-        self.setWindowTitle("Minha Aplicação")
+        self.setWindowTitle(
+            "Minha Aplicação"
+        )
 
-
-        self.setFixedSize(1300, 700)
-
+        self.setFixedSize(
+            1300,
+            700
+        )
 
         self.show_success()
 
@@ -180,16 +212,25 @@ class MainWindow(QWidget):
 
         x = (
             screen_geometry.x()
-            + (screen_geometry.width() - popup.width()) // 2
+            +
+            (
+                screen_geometry.width()
+                -
+                popup.width()
+            ) // 2
         )
 
         y = (
             screen_geometry.y()
-            + (screen_geometry.height() - popup.height()) // 2
+            +
+            (
+                screen_geometry.height()
+                -
+                popup.height()
+            ) // 2
         )
 
         popup.move(x, y)
-
 
         popup.exec()
 
@@ -199,6 +240,9 @@ if __name__ == "__main__":
     app = QApplication(sys.argv)
 
     window = MainWindow()
+
     window.show()
 
-    sys.exit(app.exec())
+    sys.exit(
+        app.exec()
+    )
