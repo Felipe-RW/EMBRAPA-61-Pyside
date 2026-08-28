@@ -23,14 +23,20 @@ titulo.setAlignment(Qt.AlignCenter)
 layout_principal.addWidget(titulo)
 
 btn_cadastrar = QPushButton("Cadastrar Empregados")
-btn_cadastrar.setGeometry(200, 300, 20, 30)
-btn_cadastrar.setStyleSheet( "background-color: #27ae60; color: white; font-weight: bold; border-radius: 20px; height: 44px; width: 20px;")
+btn_cadastrar.setStyleSheet( "background-color: #27ae60; color: white; font-weight: bold; border-radius: 20px;")
+btn_cadastrar.setGeometry(100, 100, 300, 200)
 
-layout_principal.addStretch
-
+layout_principal.addSpacing(15)
 layout_principal.addWidget(btn_cadastrar)
 
+layout_superior = QHBoxLayout()
+layout_superior.addWidget(btn_cadastrar)
+layout_superior.addStretch()
+
+layout_principal.addLayout(layout_superior)
 layout_principal.addStretch()
+
+layout_superior.addStretch()
 
 
 janela.show()
