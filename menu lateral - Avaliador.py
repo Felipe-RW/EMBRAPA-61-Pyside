@@ -26,7 +26,7 @@ class menu_administrador(QMainWindow):
         menu_lateral_layout.setContentsMargins(30, 0, 0, 0)
 
         self.btn_home = btn_layout (os.path.join(BASE, "Imagens/Painel-Principal-Icone.png"), "Painel Principal")
-        self.btn_acoes = btn_layout (os.path.join(BASE, "Imagens/Ações-Icone.png"), "Minhas Ações")
+        self.btn_acoes = btn_layout (os.path.join(BASE, "Imagens/Validações-Icone.png"), "Validações")
 
         logo_label = QLabel ()
         logo = QPixmap (LOGO)
