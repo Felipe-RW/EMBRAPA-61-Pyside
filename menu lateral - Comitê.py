@@ -26,7 +26,7 @@ class menu_administrador(QMainWindow):
         menu_lateral_layout.setContentsMargins(30, 0, 0, 0)
 
         self.btn_home = btn_layout (os.path.join(BASE, "Imagens/Painel-Principal-Icone.png"), "Painel Principal")
-        self.btn_acoes = btn_layout (os.path.join(BASE, "Imagens/Validações-Icone.png"), "Validações")
+        self.btn_empregados = btn_layout (os.path.join(BASE, "Imagens/Empregados-Icone.png"), "Pesquisadores")
 
         logo_label = QLabel ()
         logo = QPixmap (LOGO)
@@ -37,7 +37,7 @@ class menu_administrador(QMainWindow):
         menu_lateral_layout.addWidget(logo_label)
         menu_lateral_layout.addWidget(self.btn_home)
         menu_lateral_layout.setSpacing(5)
-        menu_lateral_layout.addWidget(self.btn_acoes)
+        menu_lateral_layout.addWidget(self.btn_empregados)
             
         self.grupo_botoes = QButtonGroup(self)
         self.grupo_botoes.setExclusive(True)
