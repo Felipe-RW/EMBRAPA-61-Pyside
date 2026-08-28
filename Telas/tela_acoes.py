@@ -61,7 +61,7 @@ class Janelinha(QMainWindow):
         self.setWindowTitle("Janela foda")
         self.resize(1400, 760)
         self.setMinimumSize(1100, 650)
-        self.setStyleSheet("background-color: #EEF1F5;")
+        self.setStyleSheet("background-color: #EEF1F5; font-family: 'Verdana';")
 
         painel_central = self._montar_conteudo()
         self.setCentralWidget(painel_central)
@@ -76,7 +76,7 @@ class Janelinha(QMainWindow):
 
         titulo = QLabel("Gestão de Ações")
         titulo.setAlignment(Qt.AlignCenter)
-        titulo.setStyleSheet("color: #1F2937; font-size: 26px; font-weight: 700;")
+        titulo.setStyleSheet("color: #1F2937; font-size: 26px; font-weight: 700; font-family: 'Verdana';")
         layout.addWidget(titulo)
 
         linha_topo = QHBoxLayout()
@@ -93,6 +93,7 @@ class Janelinha(QMainWindow):
                 padding: 0 20px;
                 font-size: 13px;
                 font-weight: 600;
+                font-family: 'Verdana';
             }
             QPushButton:hover { background-color: #349041; }
         """)
@@ -116,6 +117,7 @@ class Janelinha(QMainWindow):
                 padding: 0 20px;
                 font-size: 13px;
                 font-weight: 700;
+                font-family: 'Verdana';
                                       
                 text-align: left;
                 padding-left: 10px;
@@ -142,6 +144,7 @@ class Janelinha(QMainWindow):
                 font-size: 13px;
                 color: #4B5563;
                 padding-left: 4px;
+                font-family: 'Verdana';
             }
         """)
         campo_pesquisa.setReadOnly(True)
@@ -185,6 +188,7 @@ class Janelinha(QMainWindow):
                 border-radius: 6px;
                 font-size: 13px;
                 color: #374151;
+                font-family: 'Verdana';
             }
             QHeaderView::section {
                 background-color: #3B6EA5;
@@ -193,6 +197,7 @@ class Janelinha(QMainWindow):
                 font-size: 13px;
                 padding: 10px;
                 border: none;
+                font-family: 'Verdana';
             }
         """)
 
@@ -222,6 +227,7 @@ class Janelinha(QMainWindow):
                     color: #6B7280;
                     font-size: 13px;
                     background: transparent;
+                    font-family: 'Verdana';
                 }
             """)
 
@@ -259,7 +265,7 @@ class Janelinha(QMainWindow):
 
 def principal():
     app = QApplication(sys.argv)
-    app.setFont(QFont("Segue UI", 10))
+    app.setFont(QFont("Verdana", 10))
     janela = Janelinha()
     janela.show()
     sys.exit(app.exec())
