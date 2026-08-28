@@ -1,4 +1,4 @@
-import sys, os
+import sys, os      # Está linha deve ser removida no futuro e está aqui apenas para a reprodução do sistema
 from PySide6.QtWidgets import QApplication, QMainWindow, QWidget, QHBoxLayout, QVBoxLayout, QFrame, QLabel, QButtonGroup
 from PySide6.QtGui import QPixmap
 from PySide6.QtCore import Qt
@@ -55,6 +55,7 @@ class menu_administrador(QMainWindow):
 
         main_layout.addWidget(self.menu_lateral)
 
+# O conteudo abaixo deve ser removida no futuro e está aqui apenas para a reprodução do sistema
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     janela = menu_administrador()
