@@ -152,8 +152,8 @@ selecionar_ano4.setStyleSheet("""
 }
 """)
 
-dados = QLabel("Dados", opcoes_relatorio)
-dados.setGeometry(624, 28, 75, 30)
+dados = QLabel("Dados do Relatório", opcoes_relatorio)
+dados.setGeometry(624, 28, 220, 30)
 dados.setStyleSheet("""
     QLabel {
     color: black;
@@ -163,7 +163,7 @@ dados.setStyleSheet("""
 }
 """)
 
-selecionar_dados = QCheckBox("Setor", opcoes_relatorio)
+selecionar_dados = QCheckBox("Categoria de Ação", opcoes_relatorio)
 selecionar_dados.setGeometry(624, 74, 400, 20)
 selecionar_dados.setStyleSheet("""
     QCheckBox {
@@ -174,9 +174,31 @@ selecionar_dados.setStyleSheet("""
 }
 """)
 
-selecionar_dados2 = QCheckBox("Status", opcoes_relatorio)
+selecionar_dados2 = QCheckBox("Data de Realização", opcoes_relatorio)
 selecionar_dados2.setGeometry(624, 104, 400, 20)
 selecionar_dados2.setStyleSheet("""
+    QCheckBox {
+    color: black;
+    font-size: 16px;
+    font-family: verdana;
+    font-weight: lighter
+}
+""")
+
+selecionar_dados3 = QCheckBox("Status", opcoes_relatorio)
+selecionar_dados3.setGeometry(624, 134, 400, 20)
+selecionar_dados3.setStyleSheet("""
+    QCheckBox {
+    color: black;
+    font-size: 16px;
+    font-family: verdana;
+    font-weight: lighter
+}
+""")
+
+selecionar_dados4 = QCheckBox("Setor", opcoes_relatorio)
+selecionar_dados4.setGeometry(624, 164, 400, 20)
+selecionar_dados4.setStyleSheet("""
     QCheckBox {
     color: black;
     font-size: 16px;
