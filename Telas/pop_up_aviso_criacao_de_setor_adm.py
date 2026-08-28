@@ -12,7 +12,7 @@ class SuccessPopup(QDialog):
         super().__init__(parent)
         self.setWindowFlags(Qt.FramelessWindowHint | Qt.Dialog)
         self.setAttribute(Qt.WA_TranslucentBackground, True)
-        self.resize(520, 360)
+        self.resize(1202, 639)
 
         layout_principal = QVBoxLayout(self)
         layout_principal.setContentsMargins(20, 20, 20, 20)
@@ -64,7 +64,7 @@ class SuccessPopup(QDialog):
         titulo_label.setStyleSheet("""
             QLabel {
                 color: #1e293b;
-                font-size: 16px;
+                font-size: 36px;
                 font-weight: bold;
                 font-family: 'Segoe UI', sans-serif;
             }
@@ -75,7 +75,7 @@ class SuccessPopup(QDialog):
         subtitulo_label.setStyleSheet("""
             QLabel {
                 color: #64748b;
-                font-size: 13px;
+                font-size: 26px;
                 font-family: 'Segoe UI', sans-serif;
             }
         """)
@@ -87,13 +87,13 @@ class SuccessPopup(QDialog):
 
         botao_fechar = QPushButton("Fechar")
         botao_fechar.setCursor(Qt.PointingHandCursor)
-        botao_fechar.setFixedSize(140, 36)
+        botao_fechar.setFixedSize(285, 48)
         botao_fechar.setStyleSheet("""
             QPushButton {
-                background-color: #2b52f6;
+                background-color: #102174;
                 color: white;
                 border-radius: 18px;
-                font-size: 14px;
+                font-size: 16px;
                 font-weight: bold;
                 font-family: 'Segoe UI', sans-serif;
                 border: none;
