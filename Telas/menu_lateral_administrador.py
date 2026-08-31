@@ -2,10 +2,14 @@ import sys, os      # Está linha deve ser removida no futuro e está aqui apena
 from PySide6.QtWidgets import QApplication, QMainWindow, QWidget, QHBoxLayout, QVBoxLayout, QFrame, QLabel, QButtonGroup
 from PySide6.QtGui import QPixmap
 from PySide6.QtCore import Qt
-from btn_layout import btn_layout
 
-BASE = getattr(sys, "_MEIPASS", os.path.dirname(os.path.abspath(__file__)))
-LOGO = os.path.join(BASE, "Imagens/Embrapa-Logo.png")
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+LAYOUT_DIR = sys.path.insert(0, BASE_DIR)
+
+from Utilitarios.btn_layout import btn_layout
+
+BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+LOGO = os.path.join(BASE, "Imagens", "Embrapa-Logo.png")
 
 class menu_administrador(QMainWindow):
     def __init__(self):
