@@ -53,6 +53,6 @@ class menu_avaliador(QMainWindow):
 # O conteudo abaixo deve ser removida no futuro e está aqui apenas para a reprodução do sistema
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    janela = menu_administrador()
+    janela = menu_avaliador()
     janela.show()
     sys.exit(app.exec())
