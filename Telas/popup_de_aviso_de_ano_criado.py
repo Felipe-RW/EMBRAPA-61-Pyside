@@ -1,6 +1,5 @@
 from PySide6.QtCore import Qt
 from PySide6.QtWidgets import QLabel, QPushButton, QVBoxLayout, QWidget
-import estilo
 
 class PopupDeAvisoDeAnoCriado(QWidget):
     def __init__(self):
@@ -11,13 +10,18 @@ class PopupDeAvisoDeAnoCriado(QWidget):
         self.setAttribute(Qt.WidgetAttribute.WA_TranslucentBackground)
 
         self.setWindowTitle("Sucesso")
-        self.setFixedSize(1000, 650)
-        self.setStyleSheet(estilo.ESTILO_Geral)
+        self.setMinimumSize(1200, 640)
+        self.setStyleSheet("""
+            QWidget {
+                background-color: white;
+                border-radius: 30px;
+            }
+        """)
 
         
         self.container = QWidget(self)
         self.container.setObjectName("container")
-        self.container.resize(1000, 550)
+        self.container.resize(1920, 1080)
 
         
         layout = QVBoxLayout(self.container)
@@ -27,22 +31,53 @@ class PopupDeAvisoDeAnoCriado(QWidget):
 
         
         circulo = QLabel("✓")
-        circulo.setFixedSize(210, 210)
+        circulo.setMinimumSize(210, 210)
         circulo.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        circulo.setStyleSheet(estilo.ESTILO_Circulo)
+        circulo.setStyleSheet("""
+            QLabel {
+                background-color: #d9ebff;
+                border-radius: 105px;
+                font-size: 90px;
+                color: #1f2d87;
+            }
+        """)
 
         titulo = QLabel("O ano foi criado!")
         titulo.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        titulo.setStyleSheet(estilo.ESTILO_Titulo)
+        titulo.setStyleSheet("""
+            QLabel {
+                background: white;
+                font-size: 30px;
+                font-weight: 700;
+                color: #222;
+            }
+        """)
 
         msg1 = QLabel("Ano adicionado ao sistema com sucesso!")
         msg1.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        msg1.setStyleSheet(estilo.ESTILO_Mensagem1)
+        msg1.setStyleSheet("""
+            QLabel {
+                background: white;
+                font-size: 21px;
+                color: #444;
+            }
+        """)
 
         
         botao = QPushButton("Fechar")
-        botao.setFixedSize(370, 56)
-        botao.setStyleSheet(estilo.ESTILO_Botao)
+        botao.setMinimumSize(370, 56)
+        botao.setStyleSheet("""
+            QPushButton {
+                background-color: #1f2d87;
+                color: white;
+                border: none;
+                border-radius: 28px;
+                font-size: 18px;
+            }
+            QPushButton:hover {
+                background-color: #2a3cb0;
+            }
+        """)
         botao.clicked.connect(self.close)
 
         
