@@ -1,1 +1,0 @@
-Apenas para funções auxiliares reutilizáveis.
