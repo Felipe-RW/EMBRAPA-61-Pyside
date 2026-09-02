@@ -1,7 +1,11 @@
-import sys
+import sys, os
 from PySide6.QtCore import Qt
 from PySide6.QtWidgets import QLabel, QPushButton, QVBoxLayout, QWidget, QApplication
-import estilo
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+ESTILO_DIR = sys.path.insert(0, BASE_DIR)
+
+import Utilitarios.estilo as estilo
 
 class PopupDeAvisoDeAnoCriado(QWidget):
     def __init__(self):
