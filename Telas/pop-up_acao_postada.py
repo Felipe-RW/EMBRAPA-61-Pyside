@@ -123,7 +123,7 @@ class SuccessPopup(QDialog):
             }
 
             QPushButton:pressed {
-                background-color: #111F6D;
+                background-color: #058914;
             }
 
         """)
