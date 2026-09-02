@@ -1,7 +1,7 @@
-import sys
+import sys, os
 
 from PySide6.QtCore import Qt
-from PySide6.QtGui import QFont, QColor
+from PySide6.QtGui import QFont, QColor, QIcon
 from PySide6.QtWidgets import (
     QApplication,
     QWidget,
@@ -17,6 +17,8 @@ from PySide6.QtWidgets import (
     QFrame,
 )
 
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+LAYOUT_DIR = sys.path.insert(0, BASE_DIR)
 
 class tela_minhas_acoes(QWidget):
 
@@ -32,7 +34,7 @@ class tela_minhas_acoes(QWidget):
 
         self.setStyleSheet("""
             QWidget {
-                font-family: Arial;
+                font-family: Verdana;
             }
 
             #conteudo {
@@ -59,7 +61,7 @@ class tela_minhas_acoes(QWidget):
 
         titulo = QLabel("Minhas Pesquisas")
 
-        fonte_titulo = QFont("Arial", 24)
+        fonte_titulo = QFont("Verdana", 24)
         fonte_titulo.setBold(True)
 
         titulo.setFont(fonte_titulo)
@@ -70,8 +72,11 @@ class tela_minhas_acoes(QWidget):
         barra_nav.addWidget(titulo)
         barra_nav.addStretch()
 
-        botao_excel = QPushButton("▣  Baixar em Excel")
+        botao_excel = QPushButton("Baixar em Excel")
         botao_excel.setFixedSize(175, 45)
+
+        botao_excel_icone = QIcon ("Imagens/Excel-Icone.png")
+        botao_excel.setIcon (botao_excel_icone)
 
         botao_excel.setStyleSheet("""
             QPushButton {
@@ -159,7 +164,7 @@ class tela_minhas_acoes(QWidget):
 
         filtrar = QLabel("Filtrar")
 
-        fonte_filtrar = QFont("Arial", 13)
+        fonte_filtrar = QFont("Verdana", 13)
         fonte_filtrar.setBold(True)
 
         filtrar.setFont(fonte_filtrar)
@@ -243,7 +248,7 @@ class tela_minhas_acoes(QWidget):
 
                 if coluna == 3:
 
-                    fonte_status = QFont("Arial", 12)
+                    fonte_status = QFont("Verdana", 12)
                     fonte_status.setBold(True)
 
                     item.setFont(fonte_status)
@@ -270,11 +275,11 @@ class tela_minhas_acoes(QWidget):
                 )
 
             botao_editar = QPushButton("Editar")
-            botao_editar.setFixedSize(110, 32)
+            botao_editar.setFixedSize(100, 32)
 
             botao_editar.setStyleSheet("""
                 QPushButton {
-                    background-color: #0875E1;
+                    background-color: #2C66BF;
                     color: white;
                     border: none;
                     border-radius: 6px;
@@ -318,11 +323,11 @@ class tela_minhas_acoes(QWidget):
         self.tabela.setStyleSheet("""
             QTableWidget {
                 background-color: white;
-                border: 1px solid #0875E1;
+                border: 1px solid black;
                 border-radius: 14px;
-                gridline-color: #D4E1EF;
+                gridline-color: transparent;
                 font-size: 12px;
-                color: #222222;
+                color: black;
                 outline: none;
             }
 
@@ -338,17 +343,21 @@ class tela_minhas_acoes(QWidget):
             }
 
             QHeaderView::section {
-                background-color: #0875E1;
+                background-color: #356394;
                 color: white;
                 border: none;
-                border-right: 1px solid #4D9BEA;
+                border-right: 1px solid #356394;
                 font-size: 14px;
                 font-weight: bold;
                 padding: 8px;
             }
 
             QHeaderView::section:last {
-                border-right: none;
+                border-top-right-radius: 13px;
+            }
+
+            QHeaderView::section:first {
+                border-top-left-radius: 13px;
             }
 
             QScrollBar:vertical {
