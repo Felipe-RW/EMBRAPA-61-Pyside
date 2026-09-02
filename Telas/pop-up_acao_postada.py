@@ -119,11 +119,11 @@ class SuccessPopup(QDialog):
             }
 
             QPushButton:hover {
-                background-color: #2037A5;
+                background-color: #058914;
             }
 
             QPushButton:pressed {
-                background-color: #058914;
+                background-color: #04620F;
             }
 
         """)
