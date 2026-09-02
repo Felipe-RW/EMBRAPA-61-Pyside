@@ -1,7 +1,7 @@
 import sys
 from PySide6.QtWidgets import (
   QApplication, QWidget, QVBoxLayout, QHBoxLayout, QLabel, QLineEdit, 
-  QPushButton,QTableWidget, QHeaderView, QTableWidgetItem
+  QPushButton,QTableWidget, QHeaderView, QTableWidgetItem,QCheckBox
 )
 from PySide6.QtCore import Qt
 from PySide6.QtGui import QColor
@@ -82,10 +82,11 @@ dados_funcionarios = [
   ("Fulano Nogueira", "nogueira@gmail.com", "Administrador", "Ativo"," "),
 ]
 
-tabela = QTableWidget(len(dados_funcionarios),4)
-tabela.setHorizontalHeaderLabels(["Nome","Email","Àrea de Atuação","Status"," "])
+tabela = QTableWidget(len(dados_funcionarios),5)
+tabela.setHorizontalHeaderLabels(["Nome","Email","Àrea de Atuação","Status","Ação"])
 tabela.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
 tabela.verticalHeader().setVisible(False)
+tabela.setEditTriggers(QTableWidget.NoEditTriggers)
 tabela.setStyleSheet("""
     QTableWidget {
         background-color: #ffffff;
@@ -101,6 +102,13 @@ tabela.setStyleSheet("""
         border: none;
         border-radius: 15px 0px;
     }
+
+    QHeaderView::section:first {
+            border-top-left-radius: 10px;
+        }
+        QHeaderView::section:last {
+            border-top-right-radius: 10px;
+        }
 """)
 
 for linha_id, (nome, email, area, status,botao) in enumerate(dados_funcionarios):
@@ -108,12 +116,10 @@ for linha_id, (nome, email, area, status,botao) in enumerate(dados_funcionarios)
   item_email = QTableWidgetItem(email)
   item_area = QTableWidgetItem(area)
   item_status = QTableWidgetItem(status)
-  item_botao = QTableWidgetItem(botao)
 
   item_email.setTextAlignment(Qt.AlignCenter)
   item_area.setTextAlignment(Qt.AlignCenter)
   item_status.setTextAlignment(Qt.AlignCenter)
-  item_botao.setTextAlignment(Qt.AlignCenter)
 
   if status == "Ativo":
     item_status.setForeground(QColor("green"))
@@ -124,7 +130,32 @@ for linha_id, (nome, email, area, status,botao) in enumerate(dados_funcionarios)
   tabela.setItem(linha_id, 1, item_email)
   tabela.setItem(linha_id, 2, item_area)
   tabela.setItem(linha_id, 3, item_status)
-  tabela.setItem(linha_id, 4, item_botao)
+
+  conteiner_botao = QWidget()
+  layout_botao = QHBoxLayout(conteiner_botao)
+  layout_botao.setContentsMargins(0,0,0,0)
+  layout_botao.setAlignment(Qt.AlignCenter)
+
+  btn_switch = QCheckBox()
+  btn_switch.setChecked(status == "Ativo")
+  btn_switch.setCursor(Qt.PointingHandCursor)
+  btn_switch.setStyleSheet("""
+          QCheckBox::indicator {
+              width: 38px;
+              height: 20px;
+              border-radius: 10px;
+          }
+          QCheckBox::indicator:unchecked {
+              background-color: #cccccc;
+              border: 1px solid #b0b0b0;
+          }
+          QCheckBox::indicator:checked {
+              background-color: #366896;
+          }
+      """)
+
+  layout_botao.addWidget(btn_switch)
+  tabela.setCellWidget(linha_id, 4, conteiner_botao)
 
 layout_principal.addWidget(tabela)
 
