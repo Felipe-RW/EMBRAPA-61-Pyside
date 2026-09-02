@@ -37,6 +37,10 @@ class popup_editar_ano(QFrame):
         icon = QLabel()
         pixmap = QPixmap(DROPDOWN)
         icon.setPixmap(pixmap)
+        icon.setStyleSheet(QSS)
+        icon.setObjectName("dropdown")
+        # icon.setScaledContents(True)
+        
 
 
         background_gaveta_branco.setLayout(self.layout_gaveta_interna)
@@ -45,11 +49,16 @@ class popup_editar_ano(QFrame):
 
         self.layout_gaveta_interna.addWidget(icon,alignment=Qt.AlignmentFlag.AlignRight)
 
-        background_gaveta_branco.setStyleSheet("background-color: white")
-
+        background_gaveta_branco.setStyleSheet(QSS)
+        background_gaveta_branco.setObjectName("fundo_branco")
         self.layout_gaveta.addWidget(background_gaveta_branco)
 
         background_gaveta.setLayout(self.layout_gaveta)
+
+        acoes = QFrame()
+        self.layout
+
+        
 
 
 

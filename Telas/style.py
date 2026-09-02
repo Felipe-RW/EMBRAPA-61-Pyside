@@ -18,7 +18,8 @@ QLabel#Botao_fechar{{
     background: none;
 }}
 
-QLabel#Logo{{max-width :476px;
+QLabel#Logo{{
+    max-width :476px;
     max-height: 206px;
 }}
 
@@ -45,7 +46,24 @@ QLineEdit#Input_pin{{
 QWidget#background_gaveta{{
     background-color:{OFF_WHITE};
     min-height:70%;
+    border-radius: 20%;
 }}
+
+QFrame#fundo_branco{{
+    background-color:{BRANCO};
+    border-radius: 20%;
+    max-width: 650px;
+    max-height: 450px;
+
+}}
+
+QLabel#dropdown{{
+    max-width :476px;
+    max-height: 206px;
+        
+  
+}}
+
 
 
 """
