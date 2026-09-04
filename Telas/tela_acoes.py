@@ -177,8 +177,13 @@ class Janelinha(QMainWindow):
         tabela.setStyleSheet("""
             QTableWidget {
                 background-color: white;
+<<<<<<< HEAD
                 border: 1px solid #D1D5DB;
                 border-radius: 16px;
+=======
+                border: 1px solid #356394;
+                border-radius: 20px;
+>>>>>>> 14523cf01e7c89b0edd0628b51fd00eaf8dcd4c9
                 font-size: 13px;
                 color: #374151;
                 font-family: 'Verdana';
@@ -186,7 +191,11 @@ class Janelinha(QMainWindow):
 
             QTableWidgetItem {
                 background-color: #E9F2FF;
+<<<<<<< HEAD
                 color: #000000;
+=======
+                color: #00000;
+>>>>>>> 14523cf01e7c89b0edd0628b51fd00eaf8dcd4c9
             }
 
             QHeaderView::section {
@@ -196,6 +205,7 @@ class Janelinha(QMainWindow):
                 font-size: 13px;
                 padding: 10px;
                 border: none;
+
                 font-family: 'Verdana';
             }
         """)
@@ -223,6 +233,19 @@ class Janelinha(QMainWindow):
 
             combo_setor = QComboBox()
             combo_setor.addItems(["Setor", "Comunicação", "Pesquisa", "Administrativo"])
+<<<<<<< HEAD
+=======
+            combo_setor.setStyleSheet("""
+                QComboBox {
+                    border: none;
+                    color: #6B7280;
+                    font-size: 13px;
+                    background: #FFFFFF;
+                    font-family: 'Verdana';
+                }
+            """)
+
+>>>>>>> 14523cf01e7c89b0edd0628b51fd00eaf8dcd4c9
             combo_setor.setFocusPolicy(Qt.NoFocus)
             combo_setor.setStyleSheet("""QComboBox{
             border: 0;
@@ -246,7 +269,13 @@ class Janelinha(QMainWindow):
             if linha % 2 == 1:
                 envolta1.setStyleSheet("background-color: white;")
             else:
+<<<<<<< HEAD
                 envolta1.setStyleSheet("background-color: #E9F2FF;")
+=======
+                envolta1.setStyleSheet("""
+                    background-color: #E9F2FF;
+                """)
+>>>>>>> 14523cf01e7c89b0edd0628b51fd00eaf8dcd4c9
             tabela.setCellWidget(linha, 1, envolta1)
 
             interruptor = Interruptorzinho(ligado=(linha % 3 != 0))
@@ -260,7 +289,13 @@ class Janelinha(QMainWindow):
             if linha % 2 == 1:
                 envolta2.setStyleSheet("background-color: white;")
             else:
+<<<<<<< HEAD
                 envolta2.setStyleSheet("background-color: #E9F2FF;")
+=======
+                envolta2.setStyleSheet("""
+                    background-color: #E9F2FF;
+                """)
+>>>>>>> 14523cf01e7c89b0edd0628b51fd00eaf8dcd4c9
             tabela.setCellWidget(linha, 2, envolta2)
 
         tabela.setAlternatingRowColors(False)
