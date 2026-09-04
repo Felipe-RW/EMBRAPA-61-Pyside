@@ -14,7 +14,7 @@ from Utilitarios.btn_layout import btn_layout
 
 LOGO = os.path.join(BASE, "Imagens", "Embrapa-Logo.png")
 EXCEL = os.path.join(BASE, "Imagens", "icone_excel.png")
-PESQUISA = os.path.join(BASE, "Imagens", "icone_pesquisa.png")
+PESQUISA = os.path.join(BASE, "Imagens", "icone_pesquisa.svg")
 APROVADO = os.path.join(BASE, "Imagens", "icone_aprovado.svg")
 BUSCA = os.path.join(BASE, "Imagens", "icone_busca.svg")
 REPROVADO = os.path.join(BASE, "Imagens", "icone_reprovado.svg")
@@ -176,7 +176,7 @@ class ModeloTelaValidador(QMainWindow):
         )
 
         excel.setGeometry(
-            65, 108, 225, 50
+            113, 108, 225, 50
         )
 
         excel.setIcon(QIcon(EXCEL))
@@ -204,7 +204,7 @@ class ModeloTelaValidador(QMainWindow):
         )
 
         pesquisa.setGeometry(
-            1080, 108, 360, 50
+            1127, 108, 360, 50
         )
 
         pesquisa.setPlaceholderText(
@@ -233,7 +233,7 @@ class ModeloTelaValidador(QMainWindow):
         )
 
         busca.setGeometry(
-            1395, 118, 30, 30
+            1442, 118, 30, 30
         )
 
         busca.setPixmap(
@@ -244,7 +244,7 @@ class ModeloTelaValidador(QMainWindow):
 
     def criar_cards(self):
         self.criar_card(
-            175,
+            180,
             "Pesquisas em Análise",
             5,
             "#FFF2C7",
@@ -262,7 +262,7 @@ class ModeloTelaValidador(QMainWindow):
         )
 
         self.criar_card(
-            465,
+            460,
             "Pesquisas Negadas",
             5,
             "#FFD1D1",
@@ -284,7 +284,7 @@ class ModeloTelaValidador(QMainWindow):
         )
 
         card.setGeometry(
-            65, y, 1375, 118
+            113, y, 1374, 116
         )
 
         card.setStyleSheet("""
