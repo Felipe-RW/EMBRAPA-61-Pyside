@@ -10,8 +10,8 @@ from PySide6.QtWidgets import (
 
 #area dos botões interruptores com a interacao
 
-class Interruptorzinho(QAbstractButton):
-    def __init__(self, parent=None, ligado=False):
+class Interruptor(QAbstractButton):
+    def __init__(self, parent=None, ligado=True):
         super().__init__(parent)
         self.setCheckable(True)
         self.setChecked(ligado)
@@ -19,7 +19,10 @@ class Interruptorzinho(QAbstractButton):
         self.setFixedSize(46, 24)
         self.setFocusPolicy(Qt.NoFocus)
 
-        self._posicao_bolinha = 3 if not ligado else 25
+        self.setChecked(True)
+
+
+        self._posicao_bolinha = 25
         self._animacao = QPropertyAnimation(self, b"posicao_bolinha", self)
         self._animacao.setDuration(150)
         self._animacao.setEasingCurve(QEasingCurve.InOutCubic)
@@ -55,10 +58,10 @@ class Interruptorzinho(QAbstractButton):
         pintor.drawEllipse(int(self._posicao_bolinha), 3, 18, 18)
 
 
-class Janelinha(QMainWindow):
+class Janela(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("Janela foda")
+        self.setWindowTitle("Janela")
         self.resize(1400, 760)
         self.setMinimumSize(1100, 650)
         self.setStyleSheet("background-color: #EEF1F5; font-family: 'Verdana';")
@@ -81,7 +84,7 @@ class Janelinha(QMainWindow):
 
         linha_topo = QHBoxLayout()
 
-#Criaçao dos butao
+#Criaçao dos botões
 
         botao_nova_acao = QPushButton("Nova Ação")
         botao_nova_acao.setCursor(Qt.ArrowCursor)
@@ -242,7 +245,7 @@ class Janelinha(QMainWindow):
                 envolta1.setStyleSheet("background-color: #F4F7FA;")
             tabela.setCellWidget(linha, 1, envolta1)
 
-            interruptor = Interruptorzinho(ligado=(linha % 3 != 0))
+            interruptor = Interruptor(ligado=(linha % 3 != 0))
             envolta2 = QWidget()
             l2 = QHBoxLayout(envolta2)
             l2.setContentsMargins(0, 0, 0, 0)
@@ -255,7 +258,8 @@ class Janelinha(QMainWindow):
 
         tabela.setAlternatingRowColors(False)
 
-        altura_cabecalho = tabela.horizontalHeader().height()
+        altura_cabecalho = tabela.horizontalHeader().height() if tabela.horizontalHeader().height() > 0 else 38
+        altura_total = altura_cabecalho + (len(acoes) * 44) + 4
         altura_linhas = tabela.verticalHeader().defaultSectionSize() * len(acoes)
         tabela.setFixedHeight(altura_cabecalho + altura_linhas + 2)
         tabela.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
@@ -266,7 +270,7 @@ class Janelinha(QMainWindow):
 def principal():
     app = QApplication(sys.argv)
     app.setFont(QFont("Verdana", 10))
-    janela = Janelinha()
+    janela = Janela()
     janela.show()
     sys.exit(app.exec())
 
