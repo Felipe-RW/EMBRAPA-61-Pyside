@@ -17,11 +17,11 @@ LOGO = os.path.join(BASE, "Imagens", "Embrapa-Logo.png")
 
 from tela_pesquisador_minhas_acoes import tela_minhas_acoes
 
-class ModeloTelaAdministrador(QMainWindow):
+class ModeloTelaPesquisador(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setWindowTitle("Criar ação")
-        self.setFixedSize(1920, 1080)
+        self.setMinimumSize(1280, 720)
         
         self.setStyleSheet("""
             QWidget {
@@ -43,10 +43,7 @@ class ModeloTelaAdministrador(QMainWindow):
         menu_lateral_layout.setContentsMargins(30, 0, 0, 0)
 
         self.btn_home = btn_layout (os.path.join(BASE, "Imagens/Painel-Principal-Icone.png"), "Painel Principal")
-        self.btn_calendario = btn_layout (os.path.join(BASE, "Imagens/Calendario-Icone.png"), "Calendário")
-        self.btn_acoes = btn_layout (os.path.join(BASE, "Imagens/Ações-Icone.png"), "Ações")
-        self.btn_empregados = btn_layout (os.path.join(BASE, "Imagens/Empregados-Icone.png"), "Empregados")
-        self.btn_validadores = btn_layout (os.path.join(BASE, "Imagens/Validadores-Icone.png"), "Validadores")
+        self.btn_acoes = btn_layout (os.path.join(BASE, "Imagens/Ações-Icone.png"), "Minhas Ações")
 
         logo_label = QLabel ()
         logo = QPixmap (LOGO)
@@ -57,21 +54,12 @@ class ModeloTelaAdministrador(QMainWindow):
         menu_lateral_layout.addWidget(logo_label)
         menu_lateral_layout.addWidget(self.btn_home)
         menu_lateral_layout.setSpacing(5)
-        menu_lateral_layout.addWidget(self.btn_calendario)
-        menu_lateral_layout.setSpacing(5)
         menu_lateral_layout.addWidget(self.btn_acoes)
-        menu_lateral_layout.setSpacing(5)
-        menu_lateral_layout.addWidget(self.btn_empregados)
-        menu_lateral_layout.setSpacing(5)
-        menu_lateral_layout.addWidget(self.btn_validadores)
             
         self.grupo_botoes = QButtonGroup(self)
         self.grupo_botoes.setExclusive(True)
         self.grupo_botoes.addButton(self.btn_home)
-        self.grupo_botoes.addButton(self.btn_calendario)
         self.grupo_botoes.addButton(self.btn_acoes)
-        self.grupo_botoes.addButton(self.btn_empregados)
-        self.grupo_botoes.addButton(self.btn_validadores)
         
         menu_lateral_layout.addStretch()
 
@@ -99,15 +87,17 @@ class ModeloTelaAdministrador(QMainWindow):
                 font-size: 24px;
                 color: #ffffff;
             }
+
         """)
 
-        funcao_empregado = QLabel("Administrador", cabecalho)
+        funcao_empregado = QLabel("Pesquisador", cabecalho)
         funcao_empregado.setGeometry(470, 22, 200, 30)
         funcao_empregado.setStyleSheet("""
             QLabel{
                 color: #ffffff;
                 font-size: 24px
             }
+
         """)
 
         nome_tela = QLabel("Nome da Tela", cabecalho)
@@ -118,6 +108,7 @@ class ModeloTelaAdministrador(QMainWindow):
                 font-size: 20px;
                 font-weight: lighter
             }
+
         """)
 
         botao_logout = QPushButton("Logout", cabecalho)
@@ -132,9 +123,9 @@ class ModeloTelaAdministrador(QMainWindow):
             }
         """)
 
-        self.paginaprincipal = QStackedWidget(self)
-        self.paginaprincipal.setGeometry(280, 70, 1600, 1010)
-        self.paginaprincipal.setStyleSheet("""
+        paginaprincipal = QFrame(self)
+        paginaprincipal.setGeometry(280, 70, 1600, 1010)
+        paginaprincipal.setStyleSheet("""
             QFrame{
                 background-color: #ffffff;
                 border-top-left-radius: 20px;
@@ -142,51 +133,23 @@ class ModeloTelaAdministrador(QMainWindow):
             }
         """)
 
-        pagina_home = QFrame()
-        pagina_calendario = QFrame()
-        pagina_acoes = QFrame()
-        pagina_empregados = QFrame()
-        pagina_validadores = QFrame()
+        layout = QVBoxLayout(paginaprincipal)
+        layout.setContentsMargins(50, 50, 50, 100)
 
-        self.paginaprincipal.addWidget(pagina_home)
-        self.paginaprincipal.addWidget(pagina_calendario)
-        self.paginaprincipal.addWidget(pagina_acoes)
-        self.paginaprincipal.addWidget(pagina_empregados)
-        self.paginaprincipal.addWidget(pagina_validadores)
+        self.botaostacked = QStackedWidget()
 
-        self.btn_home.clicked.connect(
-            lambda: self.paginaprincipal.setCurrentIndex(0)
+        self.minhas_acoes = tela_minhas_acoes()
+
+        self.botaostacked.addWidget (self.minhas_acoes)
+
+        layout.addWidget (self.botaostacked)
+
+        self.btn_acoes.clicked.connect (
+            lambda: self.botaostacked.setCurrentWidget (self.minhas_acoes)
         )
-
-        self.btn_calendario.clicked.connect(
-            lambda: self.paginaprincipal.setCurrentIndex(1)
-        )
-
-        self.btn_acoes.clicked.connect(
-            lambda: self.paginaprincipal.setCurrentIndex(2)
-        )
-
-        self.btn_empregados.clicked.connect(
-            lambda: self.paginaprincipal.setCurrentIndex(3)
-        )
-
-        self.btn_validadores.clicked.connect(
-            lambda: self.paginaprincipal.setCurrentIndex(4)
-        )
-
-        self.paginaprincipal.setCurrentIndex(0)
-
-        # titulo = QLabel("Título", paginaprincipal)
-        # titulo.setAlignment(Qt.AlignCenter)
-        # titulo.setGeometry(820, 80, 150, 50)
-        # titulo.setStyleSheet("""
-        #     QLabel{
-        #         font-size: 36px;
-        #     }
-        # """)
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    window = ModeloTelaAdministrador()
-    window.show()
+    window = ModeloTelaPesquisador()
+    window.showMaximized()
     sys.exit(app.exec())
