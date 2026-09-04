@@ -333,6 +333,16 @@ class ModeloTelaValidador(QMainWindow):
             }
         """)
 
+        maiorVolume = QLabel(paginaprincipal)
+        maiorVolume.setFixedSize(80, 80)
+        maiorVolume.move(890, 515)
+        maiorVolume.setStyleSheet("""
+            QLabel {
+                background-color: #6EC178;
+                border-radius: 10px;
+              }
+         """)
+
         quadro_menor_resumo2 = QLabel(paginaprincipal)
         quadro_menor_resumo2.setFixedSize(657, 108)
         quadro_menor_resumo2.move(880, 630)
@@ -345,6 +355,16 @@ class ModeloTelaValidador(QMainWindow):
             }
         """)
 
+        maiorVolume = QLabel(paginaprincipal)
+        maiorVolume.setFixedSize(80, 80)
+        maiorVolume.move(890, 645)
+        maiorVolume.setStyleSheet("""
+             QLabel {
+                background-color: #FFB570;
+                border-radius: 10px;
+             }
+        """)
+
         quadro_menor_resumo3 = QLabel(paginaprincipal)
         quadro_menor_resumo3.setFixedSize(657, 108)
         quadro_menor_resumo3.move(880, 760)
@@ -355,6 +375,16 @@ class ModeloTelaValidador(QMainWindow):
                 border: 1px solid #C3C3C3;
                 border-radius: 10px;
             }
+        """)
+
+        maiorVolume = QLabel(paginaprincipal)
+        maiorVolume.setFixedSize(80, 80)
+        maiorVolume.move(890, 775)
+        maiorVolume.setStyleSheet("""
+            QLabel {
+                background-color: #89BFEF;
+                border-radius: 10px;
+             }
         """)
 
         
