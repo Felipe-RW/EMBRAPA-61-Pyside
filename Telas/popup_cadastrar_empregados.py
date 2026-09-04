@@ -231,7 +231,7 @@ class ModeloTelaAdministrador(QMainWindow):
         """)
 
         self.checkbox_administrador = QCheckBox("Administrador", card_popup)
-        self.checkbox_administrador.setGeometry(290, 395, 200, 100)
+        self.checkbox_administrador.setGeometry(1190, 395, 200, 100)
         self.checkbox_administrador.setStyleSheet(f"""
             QCheckBox {{
                 color: black;
@@ -256,7 +256,7 @@ class ModeloTelaAdministrador(QMainWindow):
         self.dropdown_validador = QComboBox(card_popup)
         self.dropdown_validador.addItems(["SPAT", "SPIT", "NCO"])
         self.dropdown_validador.setCurrentIndex(-1)
-        self.dropdown_validador.setPlaceholderText("Avaliadores")
+        self.dropdown_validador.setPlaceholderText("Valiadores")
         self.dropdown_validador.setGeometry(570, 417, 220, 45)
         self.dropdown_validador.setStyleSheet("""
             QComboBox {
@@ -301,7 +301,7 @@ class ModeloTelaAdministrador(QMainWindow):
         """)
 
         self.checkbox_pesquisador = QCheckBox("Pesquisador", card_popup)
-        self.checkbox_pesquisador.setGeometry(1190, 395, 200, 100)
+        self.checkbox_pesquisador.setGeometry(290, 395, 200, 100)
         self.checkbox_pesquisador.setStyleSheet(f"""
             QCheckBox {{
                 color: black;
