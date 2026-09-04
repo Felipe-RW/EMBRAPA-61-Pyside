@@ -1,22 +1,38 @@
 import sys
-
+import os
+from PySide6.QtCore import Qt
+from PySide6.QtGui import QStandardItemModel, QStandardItem, QPixmap
 from PySide6.QtWidgets import (
-    QApplication,
-    QWidget,
-    QLabel,
-    QPushButton,
-    QVBoxLayout,
-    QHBoxLayout,
-    QGridLayout,
-    QFrame,
-    QComboBox,
-    QHBoxLayout,
-    QProgressBar
+    QApplication, QWidget, QLabel, QLineEdit, QTextEdit, 
+    QComboBox, QPushButton, QVBoxLayout, QHBoxLayout, 
+    QFrame, QFileDialog, QListView, QMainWindow, QButtonGroup,
+    QGridLayout, QProgressBar
 )
 
-from PySide6.QtCore import Qt
 from matplotlib.backends.backend_qtagg import FigureCanvasQTAgg
 from matplotlib.figure import Figure
+
+BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+LOGO = os.path.join(BASE, "Imagens", "Embrapa-Logo.png")
+
+
+def btn_layout(icone_path, texto):
+    btn = QPushButton(texto)
+    btn.setFixedHeight(50)
+    btn.setStyleSheet("""
+        QPushButton {
+            background-color: transparent;
+            color: white;
+            text-align: left;
+            padding-left: 20px;
+            font-size: 16px;
+            border: none;
+        }
+        QPushButton:hover {
+            background-color: #2b5078;
+        }
+    """)
+    return btn
 
 
 class StatCard(QFrame):
@@ -118,7 +134,6 @@ class DonutChart(FigureCanvasQTAgg):
         ax = fig.add_subplot(111)
 
         valores = [110, 55, 55]
-
         cores = [
             "#0AA629",
             "#1885F2",
@@ -126,21 +141,21 @@ class DonutChart(FigureCanvasQTAgg):
         ]
 
         ax.pie(
-    valores,
-    colors=cores,
-    startangle=120,
-    autopct='%1.0f%%',
-    pctdistance=0.80,  # controla a posição da %
-    wedgeprops=dict(
-        width=0.38,
-        edgecolor='white'
-    ),
-    textprops=dict(
-        color='white',
-        fontsize=12,
-        weight='bold'
-    )
-)
+            valores,
+            colors=cores,
+            startangle=120,
+            autopct='%1.0f%%',
+            pctdistance=0.80,  
+            wedgeprops=dict(
+                width=0.38,
+                edgecolor='white'
+            ),
+            textprops=dict(
+                color='white',
+                fontsize=12,
+                weight='bold'
+            )
+        )
 
         ax.text(
             0,
@@ -195,6 +210,7 @@ class SummaryCard(QFrame):
         """)
 
         texto_lbl = QLabel(texto)
+        texto_lbl.setStyleSheet("border: none; color: #333333;")
 
         layout_text.addWidget(titulo_lbl)
         layout_text.addWidget(texto_lbl)
@@ -203,76 +219,136 @@ class SummaryCard(QFrame):
         layout.addLayout(layout_text)
         
 
-class Dashboard(QWidget):
+class ModeloTelaAdministrador(QMainWindow):
 
     def __init__(self):
         super().__init__()
 
-        self.setWindowTitle("Dashboard Administrativo")
-        self.resize(1400, 850)
-
+        self.setWindowTitle("Criar ação")
+        self.setFixedSize(1920, 1080)
+        
         self.setStyleSheet("""
-        QWidget{
-            background:#F2F4F7;
-            font-family: Segoe UI;
-        }
+            QWidget {
+                font-family: 'Verdana';
+                font-weight: bold;
+                background-color: #356394;
+            }
         """)
 
-        main_layout = QVBoxLayout(self)
-
-        header = QFrame()
-
-        header.setStyleSheet("""
-        QFrame{
-            background:#305F91;
-            border-radius:12px;
-        }
+        menu_lateral = QWidget(self)
+        menu_lateral.setGeometry(0, 0, 280, 1080)
+        menu_lateral.setStyleSheet("""
+            QWidget{
+                background-color: #356394
+            }
         """)
 
-        header_layout = QHBoxLayout(header)
+        menu_lateral_layout = QVBoxLayout(menu_lateral)
+        menu_lateral_layout.setContentsMargins(30, 0, 0, 0)
 
-        info_usuario = QLabel(
-            "Fulano da Silva Rodrigues | Administrador"
-        )
+        self.btn_home = btn_layout(os.path.join(BASE, "Imagens/Painel-Principal-Icone.png"), "Painel Principal")
+        self.btn_calendario = btn_layout(os.path.join(BASE, "Imagens/Calendario-Icone.png"), "Calendário")
+        self.btn_acoes = btn_layout(os.path.join(BASE, "Imagens/Ações-Icone.png"), "Ações")
+        self.btn_empregados = btn_layout(os.path.join(BASE, "Imagens/Empregados-Icone.png"), "Empregados")
+        self.btn_validadores = btn_layout(os.path.join(BASE, "Imagens/Validadores-Icone.png"), "Validadores")
 
-        info_usuario.setStyleSheet("""
-            color:white;
-            font-size:16px;
-            font-weight:bold;
-            background:transparent;
+        logo_label = QLabel()
+        logo = QPixmap(LOGO)
+        logo_certa = logo.scaled(220, 190, Qt.KeepAspectRatio, Qt.SmoothTransformation)
+        logo_label.setPixmap(logo_certa)
+        logo_label.setAlignment(Qt.AlignLeft)
+        
+        menu_lateral_layout.addWidget(logo_label)
+        menu_lateral_layout.addWidget(self.btn_home)
+        menu_lateral_layout.setSpacing(5)
+        menu_lateral_layout.addWidget(self.btn_calendario)
+        menu_lateral_layout.setSpacing(5)
+        menu_lateral_layout.addWidget(self.btn_acoes)
+        menu_lateral_layout.setSpacing(5)
+        menu_lateral_layout.addWidget(self.btn_empregados)
+        menu_lateral_layout.setSpacing(5)
+        menu_lateral_layout.addWidget(self.btn_validadores)
+            
+        self.grupo_botoes = QButtonGroup(self)
+        self.grupo_botoes.setExclusive(True)
+        self.grupo_botoes.addButton(self.btn_home)
+        self.grupo_botoes.addButton(self.btn_calendario)
+        self.grupo_botoes.addButton(self.btn_acoes)
+        self.grupo_botoes.addButton(self.btn_empregados)
+        self.grupo_botoes.addButton(self.btn_validadores)
+        
+        menu_lateral_layout.addStretch()
+
+        cabecalho = QWidget(self)
+        cabecalho.setGeometry(280, 0, 1640, 70)
+        cabecalho.setStyleSheet("""
+            QWidget{
+                background-color: #356394
+            }
         """)
 
-        titulo = QLabel("Painel Principal")
-
-        titulo.setStyleSheet("""
-            color:white;
-            font-size:15px;
-            background:transparent;
+        nome_empregado = QLabel("Fulano da Silva Rodrigues", cabecalho)
+        nome_empregado.setGeometry(35, 22, 400, 30)
+        nome_empregado.setStyleSheet("""
+            QLabel{
+                font-size: 24px;
+                color: #ffffff;
+            }
         """)
 
-        logout = QPushButton("Logout")
-
-        logout.setStyleSheet("""
-        QPushButton{
-            background:white;
-            color:#305F91;
-            font-weight:bold;
-            border-radius:15px;
-            padding:8px 20px;
-        }
-
-        QPushButton:hover{
-            background:#e7edf5;
-        }
+        separador = QLabel("|", cabecalho)
+        separador.setGeometry(420, 22, 5, 30)
+        separador.setStyleSheet("""
+            QLabel{
+                font-size: 24px;
+                color: #ffffff;
+            }
         """)
 
-        header_layout.addWidget(info_usuario)
-        header_layout.addStretch()
-        header_layout.addWidget(titulo)
-        header_layout.addStretch()
-        header_layout.addWidget(logout)
+        funcao_empregado = QLabel("Administrador", cabecalho)
+        funcao_empregado.setGeometry(470, 22, 200, 30)
+        funcao_empregado.setStyleSheet("""
+            QLabel{
+                color: #ffffff;
+                font-size: 24px
+            }
+        """)
 
-        main_layout.addWidget(header)
+        nome_tela = QLabel("Página principal", cabecalho)
+        nome_tela.setGeometry(1000, 22, 300, 30)
+        nome_tela.setStyleSheet("""
+            QLabel{
+                color: #ffffff;
+                font-size: 20px;
+                font-weight: lighter
+            }
+        """)
+
+        botao_logout = QPushButton("Logout", cabecalho)
+        botao_logout.setGeometry(1450, 15, 150, 40)
+        botao_logout.setStyleSheet("""
+            QPushButton{
+                background-color: #ffffff;
+                color: #08175C;
+                font-size: 18px;
+                border: 0px solid #ffffff;
+                border-radius: 10px;
+            }
+        """)
+
+        paginaprincipal = QFrame(self)
+        paginaprincipal.setGeometry(280, 70, 1600, 1010)
+        paginaprincipal.setStyleSheet("""
+            QFrame{
+                background-color: #F2F4F7;
+                border-top-left-radius: 20px;
+                border-top-right-radius: 20px
+            }
+        """)
+
+        main_layout = QVBoxLayout(paginaprincipal)
+        main_layout.setContentsMargins(40, 30, 40, 30)
+        main_layout.setSpacing(50)
 
         top = QHBoxLayout()
 
@@ -314,10 +390,10 @@ class Dashboard(QWidget):
         aprovadas = StatCard(
             "Aprovadas",
             110,
-    50,
-    "#009B14",
-    "✓"
-)
+            50,
+            "#009B14",
+            "✓"
+        )
 
         analise = StatCard(
             "Em análise",
@@ -335,13 +411,12 @@ class Dashboard(QWidget):
             "✕"
         )
 
-        cards.addWidget(total)
-        cards.addWidget(aprovadas,0,1)
-        cards.addWidget(analise,0,2)
-        cards.addWidget(negadas,0,3)
+        cards.addWidget(total, 0, 0)
+        cards.addWidget(aprovadas, 0, 1)
+        cards.addWidget(analise, 0, 2)
+        cards.addWidget(negadas, 0, 3)
 
         main_layout.addLayout(cards)
-
 
         content = QHBoxLayout()
 
@@ -358,7 +433,6 @@ class Dashboard(QWidget):
 
         chart = DonutChart()
         chart_layout.addWidget(chart)
-
 
         summary = QFrame()
 
@@ -414,8 +488,6 @@ class Dashboard(QWidget):
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-
-    window = Dashboard()
+    window = ModeloTelaAdministrador()
     window.show()
-
     sys.exit(app.exec())
