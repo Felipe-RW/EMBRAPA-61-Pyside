@@ -231,7 +231,7 @@ class ModeloTelaAdministrador(QMainWindow):
         """)
 
         self.checkbox_administrador = QCheckBox("Administrador", card_popup)
-        self.checkbox_administrador.setGeometry(290, 395, 200, 100)
+        self.checkbox_administrador.setGeometry(1190, 395, 200, 100)
         self.checkbox_administrador.setStyleSheet(f"""
             QCheckBox {{
                 color: black;
@@ -301,7 +301,7 @@ class ModeloTelaAdministrador(QMainWindow):
         """)
 
         self.checkbox_pesquisador = QCheckBox("Pesquisador", card_popup)
-        self.checkbox_pesquisador.setGeometry(1190, 395, 200, 100)
+        self.checkbox_pesquisador.setGeometry(290, 395, 200, 100)
         self.checkbox_pesquisador.setStyleSheet(f"""
             QCheckBox {{
                 color: black;
