@@ -321,9 +321,31 @@ class ModeloTelaValidador(QMainWindow):
             }
         """)
 
+        quadro_maior_resumo = QLabel(paginaprincipal)
+        quadro_maior_resumo.setFixedSize(657, 108)
+        quadro_maior_resumo.move(880, 500)
+
+        quadro_maior_resumo.setStyleSheet("""
+            QLabel {
+                background-color: white;
+                border: 1px solid #C3C3C3;
+                border-radius: 10px;
+            }
+        """)
+
+        compracao = QLabel(paginaprincipal)
+        compracao.setFixedSize(80, 80)
+        compracao.move(890, 515)
+        compracao.setStyleSheet("""
+            QLabel {
+                background-color: #6EC178;
+                border-radius: 10px;
+              }
+         """)
+
         quadro_menor_resumo = QLabel(paginaprincipal)
         quadro_menor_resumo.setFixedSize(657, 108)
-        quadro_menor_resumo.move(880, 500)
+        quadro_menor_resumo.move(880, 630)
 
         quadro_menor_resumo.setStyleSheet("""
             QLabel {
@@ -333,43 +355,21 @@ class ModeloTelaValidador(QMainWindow):
             }
         """)
 
-        maiorVolume = QLabel(paginaprincipal)
-        maiorVolume.setFixedSize(80, 80)
-        maiorVolume.move(890, 515)
-        maiorVolume.setStyleSheet("""
-            QLabel {
-                background-color: #6EC178;
-                border-radius: 10px;
-              }
-         """)
-
-        quadro_menor_resumo2 = QLabel(paginaprincipal)
-        quadro_menor_resumo2.setFixedSize(657, 108)
-        quadro_menor_resumo2.move(880, 630)
-
-        quadro_menor_resumo2.setStyleSheet("""
-            QLabel {
-                background-color: white;
-                border: 1px solid #C3C3C3;
-                border-radius: 10px;
-            }
-        """)
-
-        maiorVolume = QLabel(paginaprincipal)
-        maiorVolume.setFixedSize(80, 80)
-        maiorVolume.move(890, 645)
-        maiorVolume.setStyleSheet("""
+        menorVolume = QLabel(paginaprincipal)
+        menorVolume.setFixedSize(80, 80)
+        menorVolume.move(890, 645)
+        menorVolume.setStyleSheet("""
              QLabel {
                 background-color: #FFB570;
                 border-radius: 10px;
              }
         """)
 
-        quadro_menor_resumo3 = QLabel(paginaprincipal)
-        quadro_menor_resumo3.setFixedSize(657, 108)
-        quadro_menor_resumo3.move(880, 760)
+        quadro_comparacao = QLabel(paginaprincipal)
+        quadro_comparacao.setFixedSize(657, 108)
+        quadro_comparacao.move(880, 760)
 
-        quadro_menor_resumo3.setStyleSheet("""
+        quadro_comparacao.setStyleSheet("""
             QLabel {
                 background-color: white;
                 border: 1px solid #C3C3C3;
@@ -377,10 +377,10 @@ class ModeloTelaValidador(QMainWindow):
             }
         """)
 
-        maiorVolume = QLabel(paginaprincipal)
-        maiorVolume.setFixedSize(80, 80)
-        maiorVolume.move(890, 775)
-        maiorVolume.setStyleSheet("""
+        compracao = QLabel(paginaprincipal)
+        compracao.setFixedSize(80, 80)
+        compracao.move(890, 775)
+        compracao.setStyleSheet("""
             QLabel {
                 background-color: #89BFEF;
                 border-radius: 10px;
