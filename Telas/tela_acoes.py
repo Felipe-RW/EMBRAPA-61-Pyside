@@ -1,14 +1,14 @@
 import sys
 from PySide6.QtCore import Qt, QSize, Property, QPropertyAnimation, QEasingCurve, QRectF
-from PySide6.QtGui import QFont, QPainter, QColor, QIcon
+from PySide6.QtGui import QFont, QPainter, QColor, QIcon, QPixmap
 from PySide6.QtWidgets import (
     QApplication, QMainWindow, QWidget, QLabel, QPushButton, QVBoxLayout,
-    QHBoxLayout, QLineEdit, QTableWidget, QTableWidgetItem, QHeaderView,
+    QHBoxLayout, QLineEdit, QFrame, QTableWidget, QTableWidgetItem, QHeaderView,
     QComboBox, QAbstractButton, QSizePolicy
 )
 
 
-#area dos botões interruptores com a interacao
+#Area dos botões interruptores com a interacao
 
 class Interruptorzinho(QAbstractButton):
     def __init__(self, parent=None, ligado=False):
@@ -47,7 +47,7 @@ class Interruptorzinho(QAbstractButton):
         pintor.setPen(Qt.NoPen)
 
         retangulo = QRectF(0, 0, self.width(), self.height())
-        cor_fundo = QColor("#3B6EA5") if self.isChecked() else QColor("#C9CFD8")
+        cor_fundo = QColor("#C9CFD8") if self.isChecked() else QColor("#058914")
         pintor.setBrush(cor_fundo)
         pintor.drawRoundedRect(retangulo, retangulo.height() / 2, retangulo.height() / 2)
 
@@ -58,8 +58,8 @@ class Interruptorzinho(QAbstractButton):
 class Janelinha(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("Janela foda")
-        self.resize(1400, 760)
+        self.setWindowTitle("tela_administrador_acoes_gestaoAcoes")
+        self.resize(1600, 1010)
         self.setMinimumSize(1100, 650)
         self.setStyleSheet("background-color: #EEF1F5; font-family: 'Verdana';")
 
@@ -81,11 +81,14 @@ class Janelinha(QMainWindow):
 
         linha_topo = QHBoxLayout()
 
-#Criaçao dos butao
+#Criaçao dos botões
 
+        icone_nova_acao = QIcon("Imagens/icone_nova_acao")
         botao_nova_acao = QPushButton("Nova Ação")
+        botao_nova_acao.setIcon(icone_nova_acao)
+        botao_nova_acao.setIconSize(QSize(24, 24))
         botao_nova_acao.setCursor(Qt.ArrowCursor)
-        botao_nova_acao.setFixedHeight(38)
+        botao_nova_acao.setFixedSize(186, 52)
         botao_nova_acao.setStyleSheet("""
             QPushButton {
                 background-color: #058914;
@@ -94,21 +97,24 @@ class Janelinha(QMainWindow):
                 font-size: 13px;
                 font-weight: 600;
                 font-family: 'Verdana';
+                text-align: center;
             }
-            QPushButton:hover { background-color: #349041; }
+            
+            QPushButton:hover {
+                background-color: #04620F; 
+            }
         """)
         botao_nova_acao.setFocusPolicy(Qt.NoFocus)
         linha_topo.addWidget(botao_nova_acao)
 
-        botao_nova_acao = QPushButton("Baixar em Excel")
-        icone = QIcon("Imagens/office.png")
-        botao_nova_acao.setIcon(icone)
-        botao_nova_acao.setIconSize(QSize(18, 18))
-
-        botao_nova_acao.setCursor(Qt.ArrowCursor)
-        botao_nova_acao.setFixedHeight(38)
+        icone_baixer_excel = QIcon("Imagens/icone_baixar_excel")
+        botao_baixar_excel = QPushButton("Baixar em Excel")
+        botao_baixar_excel.setIcon(icone_baixer_excel)
+        botao_baixar_excel.setIconSize(QSize(26, 30))
+        botao_baixar_excel.setCursor(Qt.ArrowCursor)
+        botao_baixar_excel.setFixedSize(224, 52)
         
-        botao_nova_acao.setStyleSheet("""
+        botao_baixar_excel.setStyleSheet("""
             QPushButton {
                 background-color: #FFFFFF;
                 border: 2px solid #D3D3D3;
@@ -117,33 +123,37 @@ class Janelinha(QMainWindow):
                 padding: 0 20px;
                 font-size: 13px;
                 font-weight: 700;
-                font-family: 'Verdana';
-                                      
-                text-align: left;
+                font-family: 'Verdana';     
+                text-align: center;
                 padding-left: 10px;
             }
                                       
-            QPushButton:hover { background-color: #349041; }
-            color: #FFFFFF;
+            QPushButton:hover {
+                color: #FFFFFF;
+                background-color: #134593; 
+            }
+            
         """)
 
-        botao_nova_acao.setFocusPolicy(Qt.NoFocus)
-        linha_topo.addWidget(botao_nova_acao)
+        botao_baixar_excel.setFocusPolicy(Qt.NoFocus)
+        linha_topo.addWidget(botao_baixar_excel)
         linha_topo.addStretch()
 
 #espaço para busca/pesquisa
 
+        icone_campo_pesquisa = QPixmap("Imagens/icone_lupa.png").scaled(50, 50)
         campo_pesquisa = QLineEdit()
         campo_pesquisa.setPlaceholderText("Pesquise...")
-        campo_pesquisa.setFixedWidth(260)
-        campo_pesquisa.setFixedHeight(32)
+        campo_pesquisa.setFixedSize(358, 50)
+        campo_pesquisa.addAction(QIcon(icone_campo_pesquisa), QLineEdit.TrailingPosition)
         campo_pesquisa.setStyleSheet("""
             QLineEdit {
-                border: none;
-                border-bottom: 1px solid #B7C0CC;
-                font-size: 13px;
-                color: #4B5563;
-                padding-left: 4px;
+                background-color: white;
+                border: 1px solid #686868;
+                border-radius: 10px;
+                font-size: 20px;
+                color: #B3B3B3;
+                padding-left: 3px;
                 font-family: 'Verdana';
             }
         """)
@@ -175,7 +185,7 @@ class Janelinha(QMainWindow):
 #Cabeçalho de status
 
         tabela = QTableWidget(len(acoes), 3)
-        tabela.setHorizontalHeaderLabels(["Nome da Ação", "Setor de Avaliação", "Status da Ação"])
+        tabela.setHorizontalHeaderLabels(["Nome", "Setor de Avaliação", "Status"])
         tabela.verticalHeader().setVisible(False)
         tabela.setShowGrid(False)
         tabela.setSelectionMode(QTableWidget.NoSelection)
@@ -184,16 +194,19 @@ class Janelinha(QMainWindow):
         tabela.setStyleSheet("""
             QTableWidget {
                 background-color: white;
-                border: 1px solid #356394;
-                border-radius: 20px;
+                border-radius: 10px;
+                border: 1px solid #4E73AE;
                 font-size: 13px;
                 color: #374151;
                 font-family: 'Verdana';
             }
 
-            QTableWidgetItem {
-                background-color: #E9F2FF;
-                color: #00000;
+            QHeaderView::section:horizontal:first {
+                border-top-left-radius: 5px;
+            }
+
+            QHeaderView::section:horizontal:last {
+                border-top-right-radius: 5px;
             }
 
             QHeaderView::section {
@@ -202,8 +215,7 @@ class Janelinha(QMainWindow):
                 font-weight: 600;
                 font-size: 13px;
                 padding: 10px;
-                border: none;
-
+                border: 1px solid #3B6EA5;
                 font-family: 'Verdana';
             }
         """)
@@ -224,21 +236,12 @@ class Janelinha(QMainWindow):
             tabela.setItem(linha, 0, item_nome)
 
             if linha % 2 == 1:
-                item_nome.setBackground(QColor("white"))
-            else:
                 item_nome.setBackground(QColor("#E9F2FF"))
+            else:
+                item_nome.setBackground(QColor("white"))
 
             combo_setor = QComboBox()
-            combo_setor.addItems(["Setor", "Comunicação", "Pesquisa", "Administrativo"])
-            combo_setor.setStyleSheet("""
-                QComboBox {
-                    border: none;
-                    color: #6B7280;
-                    font-size: 13px;
-                    background: #FFFFFF;
-                    font-family: 'Verdana';
-                }
-            """)
+            combo_setor.addItems(["Setor", "CIPT", "SPAT", "NCO"])
 
             combo_setor.setFocusPolicy(Qt.NoFocus)
             envolta1 = QWidget()
@@ -248,11 +251,12 @@ class Janelinha(QMainWindow):
             l1.addWidget(combo_setor)
             l1.addStretch()
             if linha % 2 == 1:
-                envolta1.setStyleSheet("background-color: white;")
+                envolta1.setStyleSheet("background-color: #E9F2FF;")
+                combo_setor.setStyleSheet("color: black; background-color: #E9F2FF;")
             else:
-                envolta1.setStyleSheet("""
-                    background-color: #E9F2FF;
-                """)
+                envolta1.setStyleSheet("background-color: white;")
+                combo_setor.setStyleSheet("color: black; background-color: white;")
+
             tabela.setCellWidget(linha, 1, envolta1)
 
             interruptor = Interruptorzinho(ligado=(linha % 3 != 0))
@@ -263,11 +267,9 @@ class Janelinha(QMainWindow):
             l2.addWidget(interruptor)
             l2.addStretch()
             if linha % 2 == 1:
-                envolta2.setStyleSheet("background-color: white;")
+                envolta2.setStyleSheet("background-color: #E9F2FF;")
             else:
-                envolta2.setStyleSheet("""
-                    background-color: #E9F2FF;
-                """)
+                envolta2.setStyleSheet("background-color: white;")
             tabela.setCellWidget(linha, 2, envolta2)
 
         tabela.setAlternatingRowColors(False)
