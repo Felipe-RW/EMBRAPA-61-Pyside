@@ -48,7 +48,7 @@ QMainWindow,
 
 #nomeTela {
     font-size: 20px;
-    font-weight: normal;
+    font-weight: bold;
 }
 
 #botaoLogout {
@@ -297,18 +297,15 @@ class TelaCriarAcao(QMainWindow):
 
         self.botao_painel = btn_layout(str(BASE / "Imagens" / "Painel-Principal-Icone.png"), "Painel Principal")
         self.botao_acoes = btn_layout(str(BASE / "Imagens" / "acoes.png"),"Ações")
-        self.botao_calendario = btn_layout(str(BASE / "Imagens" / "Calendario-Icone.png"), "Calendário")
 
         layout_menu.addWidget(self.botao_painel)
         layout_menu.addWidget(self.botao_acoes)
-        layout_menu.addWidget(self.botao_calendario)
         layout_menu.addStretch()
 
         self.grupo_botoes = QButtonGroup(self)
         self.grupo_botoes.setExclusive(True)
         self.grupo_botoes.addButton(self.botao_painel)
         self.grupo_botoes.addButton(self.botao_acoes)
-        self.grupo_botoes.addButton(self.botao_calendario)
 
         cabecalho = QWidget(area_principal)
         cabecalho.setObjectName("cabecalho")
@@ -320,15 +317,15 @@ class TelaCriarAcao(QMainWindow):
 
         separador = QLabel("|", cabecalho)
         separador.setObjectName("separador")
-        separador.setGeometry(420, 22, 5, 30)
+        separador.setGeometry(360, 22, 5, 30)
 
         funcao_empregado = QLabel("Pesquisador", cabecalho)
         funcao_empregado.setObjectName("funcaoEmpregado")
-        funcao_empregado.setGeometry(470, 22, 200, 30)
+        funcao_empregado.setGeometry(400, 22, 200, 30)
 
         nome_tela = QLabel("Criar ação", cabecalho)
         nome_tela.setObjectName("nomeTela")
-        nome_tela.setGeometry(1000, 22, 300, 30)
+        nome_tela.setGeometry(800, 22, 300, 30)
         nome_tela.setAlignment(Qt.AlignRight | Qt.AlignVCenter)
 
         botao_logout = QPushButton("Logout", cabecalho)
