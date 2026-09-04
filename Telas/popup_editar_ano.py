@@ -24,7 +24,7 @@ class popup_editar_ano(QFrame):
 
         background_gaveta.setObjectName("background_gaveta")
 
-        self.layout_vertical.addWidget(background_gaveta,alignment=Qt.AlignmentFlag.AlignTop)
+        self.layout_vertical.addWidget(background_gaveta)
         
         self.layout_gaveta = QHBoxLayout()  
 
@@ -58,7 +58,6 @@ class popup_editar_ano(QFrame):
         acoes = QFrame()
         acoes.setStyleSheet(QSS)
         acoes.setObjectName("aiai")
-        acoes.setContentsMargins(0,0,0,0)
         self.layout_txt_acoes = QHBoxLayout()
         self.layout_acoes = QHBoxLayout()
         self.layout_vertical_organizador = QVBoxLayout()
@@ -78,6 +77,13 @@ class popup_editar_ano(QFrame):
         self.layout_vertical_organizador.addLayout(self.layout_acoes)
         acoes.setLayout(self.layout_vertical_organizador)
         self.layout_vertical.addWidget(acoes)
+
+        txt_acoes_adicionadas = QLabel("Ações adicionadas para o ano")
+
+        self.layout_vertical.addWidget(txt_acoes_adicionadas)
+
+
+        self.layout_vertical.addStretch(1)
 
         
 
