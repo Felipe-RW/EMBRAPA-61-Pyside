@@ -256,7 +256,7 @@ class ModeloTelaAdministrador(QMainWindow):
         self.dropdown_validador = QComboBox(card_popup)
         self.dropdown_validador.addItems(["SPAT", "SPIT", "NCO"])
         self.dropdown_validador.setCurrentIndex(-1)
-        self.dropdown_validador.setPlaceholderText("Avaliadores")
+        self.dropdown_validador.setPlaceholderText("Validadores")
         self.dropdown_validador.setGeometry(570, 417, 220, 45)
         self.dropdown_validador.setStyleSheet("""
             QComboBox {
