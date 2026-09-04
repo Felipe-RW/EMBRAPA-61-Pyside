@@ -5,12 +5,11 @@ from PySide6.QtCore import Qt, QSize
 from PySide6.QtGui import QIcon, QPixmap
 from PySide6.QtWidgets import (QApplication, QComboBox, QFrame, QHBoxLayout, QLabel, QLineEdit, QMainWindow, QPushButton, QTextEdit, QVBoxLayout, QWidget, QButtonGroup,)
 
-BASE = Path(__file__).resolve().parents[2]
+BASE = Path(__file__).resolve().parents[1]
 CAMINHO_LOGO = BASE / "Imagens" / "Embrapa-Logo.png"
 CAMINHO_ICONE_UPLOAD = BASE / "Imagens" / "Upload-Icone.png"
 
 sys.path.insert(0, str(BASE))
-
 
 ESTILO_QSS = r"""
 
@@ -210,6 +209,7 @@ QMainWindow,
 }
 
 """
+
 class btn_layout(QPushButton):
     def __init__(self, path, texto, parent=None):
         super().__init__(parent)
