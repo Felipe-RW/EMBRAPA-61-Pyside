@@ -7,10 +7,8 @@ from PySide6.QtWidgets import (
     QComboBox, QAbstractButton, QSizePolicy
 )
 
-
-#area dos botões interruptores com a interacao
-
-class Interruptor(QAbstractButton):
+# área dos botões interruptores com a interacao
+class Interruptorzinho(QAbstractButton):
     def __init__(self, parent=None, ligado=True):
         super().__init__(parent)
         self.setCheckable(True)
@@ -20,7 +18,6 @@ class Interruptor(QAbstractButton):
         self.setFocusPolicy(Qt.NoFocus)
 
         self.setChecked(True)
-
 
         self._posicao_bolinha = 25
         self._animacao = QPropertyAnimation(self, b"posicao_bolinha", self)
@@ -58,7 +55,7 @@ class Interruptor(QAbstractButton):
         pintor.drawEllipse(int(self._posicao_bolinha), 3, 18, 18)
 
 
-class Janela(QMainWindow):
+class Janelinha(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setWindowTitle("Janela")
@@ -69,8 +66,7 @@ class Janela(QMainWindow):
         painel_central = self._montar_conteudo()
         self.setCentralWidget(painel_central)
 
-#Ttxto entre os quadrados
-
+    # Texto entre os quadrados
     def _montar_conteudo(self):
         conteudo = QWidget()
         layout = QVBoxLayout(conteudo)
@@ -84,8 +80,7 @@ class Janela(QMainWindow):
 
         linha_topo = QHBoxLayout()
 
-#Criaçao dos botões
-
+        # Criação dos butao
         botao_nova_acao = QPushButton("Nova Ação")
         botao_nova_acao.setCursor(Qt.ArrowCursor)
         botao_nova_acao.setFixedHeight(38)
@@ -103,15 +98,14 @@ class Janela(QMainWindow):
         botao_nova_acao.setFocusPolicy(Qt.NoFocus)
         linha_topo.addWidget(botao_nova_acao)
 
-        botao_nova_acao = QPushButton("Baixar em Excel")
+        botao_baixar_excel = QPushButton("Baixar em Excel")
         icone = QIcon("Imagens/office.png")
-        botao_nova_acao.setIcon(icone)
-        botao_nova_acao.setIconSize(QSize(18, 18))
-
-        botao_nova_acao.setCursor(Qt.ArrowCursor)
-        botao_nova_acao.setFixedHeight(38)
+        botao_baixar_excel.setIcon(icone)
+        botao_baixar_excel.setIconSize(QSize(18, 18))
+        botao_baixar_excel.setCursor(Qt.ArrowCursor)
+        botao_baixar_excel.setFixedHeight(38)
         
-        botao_nova_acao.setStyleSheet("""
+        botao_baixar_excel.setStyleSheet("""
             QPushButton {
                 background-color: #FFFFFF;
                 border: 2px solid #D3D3D3;
@@ -121,21 +115,17 @@ class Janela(QMainWindow):
                 font-size: 13px;
                 font-weight: 700;
                 font-family: 'Verdana';
-                                      
                 text-align: left;
                 padding-left: 10px;
             }
-                                      
             QPushButton:hover { background-color: #349041; }
-            color: #FFFFFF;
         """)
 
-        botao_nova_acao.setFocusPolicy(Qt.NoFocus)
-        linha_topo.addWidget(botao_nova_acao)
+        botao_baixar_excel.setFocusPolicy(Qt.NoFocus)
+        linha_topo.addWidget(botao_baixar_excel)
         linha_topo.addStretch()
 
-#espaço para busca/pesquisa
-
+    # Espaço para busca/pesquisa
         campo_pesquisa = QLineEdit()
         campo_pesquisa.setPlaceholderText("Pesquise...")
         campo_pesquisa.setFixedWidth(260)
@@ -156,7 +146,6 @@ class Janela(QMainWindow):
         linha_topo.addWidget(campo_pesquisa)
 
         layout.addLayout(linha_topo)
-
         layout.addWidget(self._montar_tabela())
         layout.addStretch()
 
@@ -175,8 +164,7 @@ class Janela(QMainWindow):
             "Curso e-Campo juntamente com SIPT",
         ]
 
-#Cabeçalho de status
-
+    # Cabeçalho de status
         tabela = QTableWidget(len(acoes), 3)
         tabela.setHorizontalHeaderLabels(["Nome da Ação", "Setor de Avaliação", "Status da Ação"])
         tabela.verticalHeader().setVisible(False)
@@ -184,15 +172,23 @@ class Janela(QMainWindow):
         tabela.setSelectionMode(QTableWidget.NoSelection)
         tabela.setFocusPolicy(Qt.NoFocus)
         tabela.setEditTriggers(QTableWidget.NoEditTriggers)
+        
+    # Estilo da tabela aplicando a bordinha cinza
         tabela.setStyleSheet("""
             QTableWidget {
                 background-color: white;
-                border: 1px solid #E2E6EC;
-                border-radius: 6px;
+                border: 1px solid #D1D5DB;
+                border-radius: 16px;
                 font-size: 13px;
                 color: #374151;
                 font-family: 'Verdana';
             }
+
+            QTableWidgetItem {
+                background-color: #E9F2FF;
+                color: #000000;
+            }
+
             QHeaderView::section {
                 background-color: #3B6EA5;
                 color: white;
@@ -203,11 +199,12 @@ class Janela(QMainWindow):
                 font-family: 'Verdana';
             }
         """)
+        tabela.setAttribute(Qt.WA_StyledBackground, True)
 
         cabecalho_tabela = tabela.horizontalHeader()
         cabecalho_tabela.setSectionResizeMode(0, QHeaderView.Stretch)
-        cabecalho_tabela.setSectionResizeMode(1, QHeaderView.ResizeToContents)
-        cabecalho_tabela.setSectionResizeMode(2, QHeaderView.ResizeToContents)
+        cabecalho_tabela.setSectionResizeMode(1, QHeaderView.Stretch)
+        cabecalho_tabela.setSectionResizeMode(2, QHeaderView.Stretch)
         cabecalho_tabela.setDefaultAlignment(Qt.AlignCenter)
         cabecalho_tabela.setMinimumSectionSize(150)
         tabela.setColumnWidth(1, 170)
@@ -220,46 +217,55 @@ class Janela(QMainWindow):
             tabela.setItem(linha, 0, item_nome)
 
             if linha % 2 == 1:
-                item_nome.setBackground(QColor("#F4F7FA"))
+                item_nome.setBackground(QColor("white"))
+            else:
+                item_nome.setBackground(QColor("#E9F2FF"))
 
             combo_setor = QComboBox()
             combo_setor.addItems(["Setor", "Comunicação", "Pesquisa", "Administrativo"])
-            combo_setor.setStyleSheet("""
-                QComboBox {
-                    border: none;
-                    color: #6B7280;
-                    font-size: 13px;
-                    background: transparent;
-                    font-family: 'Verdana';
-                }
-            """)
-
             combo_setor.setFocusPolicy(Qt.NoFocus)
+            combo_setor.setStyleSheet("""QComboBox{
+            border: 0;
+            }
+            QComboBox:drop-down{
+            border: none;
+            }
+            QComboBox:down-arrow{
+            image: url(Imagens/seta_pra_baixo.png);
+            }
+            """)
+            
+            
             envolta1 = QWidget()
             l1 = QHBoxLayout(envolta1)
             l1.setContentsMargins(0, 0, 0, 0)
             l1.addStretch()
             l1.addWidget(combo_setor)
             l1.addStretch()
+            
             if linha % 2 == 1:
-                envolta1.setStyleSheet("background-color: #F4F7FA;")
+                envolta1.setStyleSheet("background-color: white;")
+            else:
+                envolta1.setStyleSheet("background-color: #E9F2FF;")
             tabela.setCellWidget(linha, 1, envolta1)
 
-            interruptor = Interruptor(ligado=(linha % 3 != 0))
+            interruptor = Interruptorzinho(ligado=(linha % 3 != 0))
             envolta2 = QWidget()
             l2 = QHBoxLayout(envolta2)
             l2.setContentsMargins(0, 0, 0, 0)
             l2.addStretch()
             l2.addWidget(interruptor)
             l2.addStretch()
+            
             if linha % 2 == 1:
-                envolta2.setStyleSheet("background-color: #F4F7FA;")
+                envolta2.setStyleSheet("background-color: white;")
+            else:
+                envolta2.setStyleSheet("background-color: #E9F2FF;")
             tabela.setCellWidget(linha, 2, envolta2)
 
         tabela.setAlternatingRowColors(False)
 
-        altura_cabecalho = tabela.horizontalHeader().height() if tabela.horizontalHeader().height() > 0 else 38
-        altura_total = altura_cabecalho + (len(acoes) * 44) + 4
+        altura_cabecalho = tabela.horizontalHeader().height()
         altura_linhas = tabela.verticalHeader().defaultSectionSize() * len(acoes)
         tabela.setFixedHeight(altura_cabecalho + altura_linhas + 2)
         tabela.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
@@ -270,7 +276,7 @@ class Janela(QMainWindow):
 def principal():
     app = QApplication(sys.argv)
     app.setFont(QFont("Verdana", 10))
-    janela = Janela()
+    janela = Janelinha()
     janela.show()
     sys.exit(app.exec())
 
