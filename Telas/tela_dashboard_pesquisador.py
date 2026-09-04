@@ -145,6 +145,181 @@ class ModeloTelaPesquisador(QMainWindow):
 
         """)
 
+        card1 = QLabel(paginaprincipal)
+        card1.setFixedSize(300, 238)
+        card1.move(50, 100)
+
+        card1.setText(
+            "Total de ações\n\n"
+            "realizadas:\n\n"
+            "50"
+        )
+
+        card1.setAlignment(Qt.AlignCenter)
+
+        card1.setStyleSheet("""
+            QLabel {
+                background-color: #013171;
+                color: white;
+                border-radius: 20px;
+                font-size: 24px;
+                font-family: Verdana;
+            }
+        """)
+
+        card2 = QLabel(paginaprincipal)
+        card2.setFixedSize(300, 238)
+        card2.move(450, 100)
+
+        card2.setText(
+            "Aprovadas\n\n"
+            "10"
+        )
+
+        card2.setAlignment(Qt.AlignCenter)
+
+        card2.setStyleSheet("""
+            QLabel {
+                background-color: #058914;
+                color: white;
+                border-radius: 20px;
+                font-size: 24px;
+                font-family: Verdana;
+            }
+        """)
+
+        card3 = QLabel(paginaprincipal)
+        card3.setFixedSize(300, 238)
+        card3.move(850, 100)
+
+        card3.setText(
+            "Em análise\n\n"
+            "30"
+        )
+
+        card3.setAlignment(Qt.AlignCenter)
+
+        card3.setStyleSheet("""
+            QLabel {
+                background-color: #0088FF;
+                color: white;
+                border-radius: 20px;
+                font-size: 24px;
+                font-family: Verdana;
+            }
+        """)
+
+        card4 = QLabel(paginaprincipal)
+        card4.setFixedSize(300, 238)
+        card4.move(1250, 100)
+
+        card4.setText(
+            "Negadas\n\n"
+            "10"
+        )
+
+        card4.setAlignment(Qt.AlignCenter)
+
+        card4.setStyleSheet("""
+            QLabel {
+                background-color: #FD7B01;
+                color: white;
+                border-radius: 20px;
+                font-size: 24px;
+                font-family: Verdana;
+            }
+        """)
+
+        quadro_grafico = QLabel(paginaprincipal)
+        quadro_grafico.setFixedSize(700, 500)
+        quadro_grafico.move(50, 400)
+
+        quadro_grafico.setStyleSheet("""
+            QLabel {
+                background-color: white;
+                border: 1px solid #C3C3C3;
+                border-radius: 10px;
+            }
+        """)
+
+        quadro_resumo = QLabel(paginaprincipal)
+        quadro_resumo.setFixedSize(700, 500)
+        quadro_resumo.move(858, 400)
+
+        quadro_resumo.setStyleSheet("""
+            QLabel {
+                background-color: white;
+                border: 1px solid #C3C3C3;
+                border-radius: 10px;
+            }
+        """)
+
+        quadro_maior_resumo = QLabel(paginaprincipal)
+        quadro_maior_resumo.setFixedSize(657, 108)
+        quadro_maior_resumo.move(880, 500)
+
+        quadro_maior_resumo.setStyleSheet("""
+            QLabel {
+                background-color: white;
+                border: 1px solid #C3C3C3;
+                border-radius: 10px;
+            }
+        """)
+
+        compracao = QLabel(paginaprincipal)
+        compracao.setFixedSize(80, 80)
+        compracao.move(890, 515)
+        compracao.setStyleSheet("""
+            QLabel {
+                background-color: #6EC178;
+                border-radius: 10px;
+              }
+         """)
+
+        quadro_menor_resumo = QLabel(paginaprincipal)
+        quadro_menor_resumo.setFixedSize(657, 108)
+        quadro_menor_resumo.move(880, 630)
+
+        quadro_menor_resumo.setStyleSheet("""
+            QLabel {
+                background-color: white;
+                border: 1px solid #C3C3C3;
+                border-radius: 10px;
+            }
+        """)
+
+        menorVolume = QLabel(paginaprincipal)
+        menorVolume.setFixedSize(80, 80)
+        menorVolume.move(890, 645)
+        menorVolume.setStyleSheet("""
+             QLabel {
+                background-color: #FFB570;
+                border-radius: 10px;
+             }
+        """)
+
+        quadro_comparacao = QLabel(paginaprincipal)
+        quadro_comparacao.setFixedSize(657, 108)
+        quadro_comparacao.move(880, 760)
+
+        quadro_comparacao.setStyleSheet("""
+            QLabel {
+                background-color: white;
+                border: 1px solid #C3C3C3;
+                border-radius: 10px;
+            }
+        """)
+
+        compracao = QLabel(paginaprincipal)
+        compracao.setFixedSize(80, 80)
+        compracao.move(890, 775)
+        compracao.setStyleSheet("""
+            QLabel {
+                background-color: #89BFEF;
+                border-radius: 10px;
+             }
+        """)
+
 
 
 if __name__ == "__main__":
