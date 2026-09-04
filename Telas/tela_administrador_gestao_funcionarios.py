@@ -1,6 +1,6 @@
 import sys, os
-from PySide6.QtCore import Qt
-from PySide6.QtGui import QStandardItemModel, QStandardItem, QPixmap, QColor
+from PySide6.QtCore import QPropertyAnimation, QRectF, Qt, Property
+from PySide6.QtGui import QStandardItemModel, QStandardItem, QPixmap, QColor, QPainter
 from PySide6.QtWidgets import (
     QApplication, QWidget, QLabel, QLineEdit, QTextEdit, 
     QComboBox, QPushButton, QVBoxLayout, QHBoxLayout, 
@@ -187,12 +187,12 @@ class ModeloTelaAdministrador(QMainWindow):
 
         campo_busca = QLineEdit()
         campo_busca.setPlaceholderText("Pesquise...")
+        campo_busca.setMaximumWidth(360)
         campo_busca.setStyleSheet("""
             QLineEdit {
                 border: 1px solid #cccccc;
                 border-radius: 4px;
                 padding: 6px;
-                width: 200px;
                 color: #333333;
                 background-color: #ffffff;
             }
@@ -218,8 +218,10 @@ class ModeloTelaAdministrador(QMainWindow):
 
         tabela = QTableWidget(len(dados_funcionarios),5)
         tabela.setHorizontalHeaderLabels(["Nome","Email","Área de Atuação","Status","Ação"])
+        tabela.horizontalHeader().setFixedHeight(70)
         tabela.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         tabela.verticalHeader().setVisible(False)
+        tabela.verticalHeader().setDefaultSectionSize(50)
         tabela.setEditTriggers(QTableWidget.NoEditTriggers)
         tabela.setStyleSheet("""
             QTableWidget {
@@ -252,6 +254,7 @@ class ModeloTelaAdministrador(QMainWindow):
             item_area = QTableWidgetItem(area)
             item_status = QTableWidgetItem(status)
 
+            item_nome.setTextAlignment(Qt.AlignCenter)
             item_email.setTextAlignment(Qt.AlignCenter)
             item_area.setTextAlignment(Qt.AlignCenter)
             item_status.setTextAlignment(Qt.AlignCenter)
@@ -271,28 +274,64 @@ class ModeloTelaAdministrador(QMainWindow):
             layout_botao.setContentsMargins(0,0,0,0)
             layout_botao.setAlignment(Qt.AlignCenter)
 
-            btn_switch = QCheckBox()
-            btn_switch.setChecked(status == "Ativo")
-            btn_switch.setCursor(Qt.PointingHandCursor)
-            btn_switch.setStyleSheet("""
-                    QCheckBox::indicator {
-                        width: 38px;
-                        height: 20px;
-                        border-radius: 10px;
-                    }
-                    QCheckBox::indicator:unchecked {
-                        background-color: #cccccc;
-                        border: 1px solid #b0b0b0;
-                    }
-                    QCheckBox::indicator:checked {
-                        background-color: #366896;
-                    }
-                """)
+            btn_switch = AnimacaoBotao()
+            btn_switch.setChecked( status == "Ativo")
 
             layout_botao.addWidget(btn_switch)
             tabela.setCellWidget(linha_id, 4, conteiner_botao)
 
         layout_principal.addWidget(tabela)
+
+
+class AnimacaoBotao(QCheckBox):
+
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.setCursor(Qt.PointingHandCursor)
+
+        self._bg_color_off = QColor("#cccccc")
+        self._bg_color_on = QColor("#366896")
+        self._circle_color = QColor("#ffffff")
+
+        self.setFixedSize(38, 20)
+
+        self._circle_position = 2.0
+
+        self.animation = QPropertyAnimation(self, b"circle_position")
+        self.animation.setDuration(150)
+
+        self.stateChanged.connect(self.start_animation)
+
+    @Property(float)
+    def circle_position(self):
+        return self._circle_position
+
+    @circle_position.setter
+    def circle_position(self, pos):
+        self._circle_position = pos
+        self.update()
+    def start_animation(self, state):
+        self.animation.stop()
+
+        end_value = 20.0 if state == 2 else 2.0
+
+        self.animation.setStartValue(self._circle_position)
+        self.animation.setEndValue(end_value)
+        self.animation.start()
+
+    def paintEvent(self, event):
+        painter = QPainter(self)
+        painter.setRenderHint(QPainter.Antialiasing)
+
+        bg_color = self._bg_color_on if self.isChecked() else self._bg_color_off
+        painter.setBrush(bg_color)
+        painter.setPen(Qt.NoPen)
+
+        painter.drawRoundedRect(QRectF(0, 0, self.width(), self.height()), 10, 10)
+
+        painter.setBrush(self._circle_color)
+        painter.drawEllipse(QRectF(self._circle_position, 2, 16, 16))
+                
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
