@@ -1,4 +1,4 @@
-from PySide6.QtWidgets import QWidget,QLabel,QLineEdit,QApplication,QVBoxLayout,QHBoxLayout,QPushButton,QFrame
+from PySide6.QtWidgets import QWidget,QLabel,QLineEdit,QApplication,QVBoxLayout,QHBoxLayout,QPushButton,QFrame,QComboBox
 from PySide6.QtGui import QPixmap
 from PySide6.QtCore import Qt
 import sys
@@ -30,7 +30,7 @@ class popup_editar_ano(QFrame):
 
         self.layout_gaveta_interna = QHBoxLayout()
 
-        background_gaveta_branco = QFrame()
+        background_gaveta_branco = QComboBox()
 
         ano = QLabel("2027")
 
@@ -56,7 +56,30 @@ class popup_editar_ano(QFrame):
         background_gaveta.setLayout(self.layout_gaveta)
 
         acoes = QFrame()
-        self.layout
+        acoes.setStyleSheet(QSS)
+        acoes.setObjectName("aiai")
+        acoes.setContentsMargins(0,0,0,0)
+        self.layout_txt_acoes = QHBoxLayout()
+        self.layout_acoes = QHBoxLayout()
+        self.layout_vertical_organizador = QVBoxLayout()
+        gaveta_acoes = QComboBox()
+        limite = QLineEdit()
+        peso = QLineEdit()
+        self.layout_acoes.addWidget(gaveta_acoes)
+        self.layout_acoes.addWidget(limite)
+        self.layout_acoes.addWidget(peso)
+        txt_acoes = QLabel("Ações*")
+        txt_limite = QLabel("Limite*")
+        txt_peso = QLabel("Peso*")
+        self.layout_txt_acoes.addWidget(txt_acoes)
+        self.layout_txt_acoes.addWidget(txt_limite)
+        self.layout_txt_acoes.addWidget(txt_peso)
+        self.layout_vertical_organizador.addLayout(self.layout_txt_acoes)
+        self.layout_vertical_organizador.addLayout(self.layout_acoes)
+        acoes.setLayout(self.layout_vertical_organizador)
+        self.layout_vertical.addWidget(acoes)
+
+        
 
         
 

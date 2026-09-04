@@ -63,7 +63,10 @@ QLabel#dropdown{{
         
   
 }}
-
-
+QFrame#aiai{{
+    max-width :900px;
+    max-height: 80px;
+    background-color:{OFF_WHITE};
+}}
 
 """
