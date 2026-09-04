@@ -49,10 +49,10 @@ QWidget#background_gaveta{{
     border-radius: 20%;
 }}
 
-QFrame#fundo_branco{{
+ QComboBox#fundo_branco{{
     background-color:{BRANCO};
     border-radius: 20%;
-    max-width: 650px;
+    max-width: 350px;
     max-height: 450px;
 
 }}

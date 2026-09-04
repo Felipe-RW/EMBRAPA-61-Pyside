@@ -32,22 +32,22 @@ class popup_editar_ano(QFrame):
 
         background_gaveta_branco = QComboBox()
 
-        ano = QLabel("2027")
+        # ano = QLabel("2027")
 
-        icon = QLabel()
-        pixmap = QPixmap(DROPDOWN)
-        icon.setPixmap(pixmap)
-        icon.setStyleSheet(QSS)
-        icon.setObjectName("dropdown")
+        # icon = QLabel()
+        # pixmap = QPixmap(DROPDOWN)
+        # icon.setPixmap(pixmap)
+        # icon.setStyleSheet(QSS)
+        # icon.setObjectName("dropdown")
         # icon.setScaledContents(True)
         
 
+        # self.layout_gaveta_interna.addWidget(ano,alignment=Qt.AlignmentFlag.AlignLeft)
+        # self.layout_gaveta_interna.addWidget(icon,alignment=Qt.AlignmentFlag.AlignRight)
 
         background_gaveta_branco.setLayout(self.layout_gaveta_interna)
 
-        self.layout_gaveta_interna.addWidget(ano,alignment=Qt.AlignmentFlag.AlignCenter)
 
-        self.layout_gaveta_interna.addWidget(icon,alignment=Qt.AlignmentFlag.AlignRight)
 
         background_gaveta_branco.setStyleSheet(QSS)
         background_gaveta_branco.setObjectName("fundo_branco")
@@ -55,9 +55,20 @@ class popup_editar_ano(QFrame):
 
         background_gaveta.setLayout(self.layout_gaveta)
 
-        acoes = QFrame()
-        acoes.setStyleSheet(QSS)
-        acoes.setObjectName("aiai")
+        acoe = acoes()
+
+        self.layout_vertical.addWidget(acoe)
+        
+        self.layout_vertical.addStretch(1)
+        
+
+
+class acoes(QFrame):
+    def __init__(self):
+        super().__init__()
+        self.layout_vertical = QVBoxLayout()
+        self.setStyleSheet(QSS)
+        self.setObjectName("aiai")
         self.layout_txt_acoes = QHBoxLayout()
         self.layout_acoes = QHBoxLayout()
         self.layout_vertical_organizador = QVBoxLayout()
@@ -75,8 +86,8 @@ class popup_editar_ano(QFrame):
         self.layout_txt_acoes.addWidget(txt_peso)
         self.layout_vertical_organizador.addLayout(self.layout_txt_acoes)
         self.layout_vertical_organizador.addLayout(self.layout_acoes)
-        acoes.setLayout(self.layout_vertical_organizador)
-        self.layout_vertical.addWidget(acoes)
+        self.setLayout(self.layout_vertical_organizador)
+       
 
         txt_acoes_adicionadas = QLabel("Ações adicionadas para o ano")
 
