@@ -12,7 +12,7 @@ class SuccessPopup(QDialog):
         super().__init__(parent)
         self.setWindowFlags(Qt.FramelessWindowHint | Qt.Dialog)
         self.setAttribute(Qt.WA_TranslucentBackground, True)
-        self.resize(520, 360)
+        self.resize(1202, 639)
 
         layout_principal = QVBoxLayout(self)
         layout_principal.setContentsMargins(20, 20, 20, 20)
@@ -35,18 +35,18 @@ class SuccessPopup(QDialog):
 
         layout_container = QVBoxLayout(container_popup)
         layout_container.setAlignment(Qt.AlignCenter)
-        layout_container.setSpacing(10)
+        layout_container.setSpacing(50)
         layout_container.setContentsMargins(40, 35, 40, 35)
 
         icone_label = QLabel("✓")
         icone_label.setAlignment(Qt.AlignCenter)
-        icone_label.setFixedSize(68, 68)
+        icone_label.setFixedSize(218, 218)
         icone_label.setStyleSheet("""
             QLabel {
                 background-color: #e0edff;
                 color: #2b52f6;
-                border-radius: 34px;
-                font-size: 30px;
+                border-radius: 109px;
+                font-size: 90px;
                 font-weight: bold;
             }
         """)
@@ -57,14 +57,14 @@ class SuccessPopup(QDialog):
         layout_icone.addStretch()
         layout_container.addLayout(layout_icone)
 
-        layout_container.addSpacing(6)
+        layout_container.addSpacing(0)
 
-        titulo_label = QLabel("As informações do setor foram atualizadas!")
+        titulo_label = QLabel("As informações do setor foram editadas!")
         titulo_label.setAlignment(Qt.AlignCenter)
         titulo_label.setStyleSheet("""
             QLabel {
                 color: #1e293b;
-                font-size: 16px;
+                font-size: 36px;
                 font-weight: bold;
                 font-family: 'Segoe UI', sans-serif;
             }
@@ -75,7 +75,7 @@ class SuccessPopup(QDialog):
         subtitulo_label.setStyleSheet("""
             QLabel {
                 color: #64748b;
-                font-size: 13px;
+                font-size: 30px;
                 font-family: 'Segoe UI', sans-serif;
             }
         """)
@@ -83,26 +83,26 @@ class SuccessPopup(QDialog):
         layout_container.addWidget(titulo_label)
         layout_container.addWidget(subtitulo_label)
 
-        layout_container.addSpacing(16)
+        layout_container.addSpacing(5)
 
         botao_fechar = QPushButton("Fechar")
         botao_fechar.setCursor(Qt.PointingHandCursor)
-        botao_fechar.setFixedSize(140, 36)
+        botao_fechar.setFixedSize(285, 48)
         botao_fechar.setStyleSheet("""
             QPushButton {
-                background-color: #2b52f6;
+                background-color: #102174;
                 color: white;
                 border-radius: 18px;
-                font-size: 14px;
+                font-size: 23px;
                 font-weight: bold;
-                font-family: 'Segoe UI', sans-serif;
+                font-family: 'Segoe UI', Inter;
                 border: none;
             }
             QPushButton:hover {
-                background-color: #2242cc;
+                background-color: #058914;
             }
             QPushButton:pressed {
-                background-color: #1a34a3;
+                background-color: #057111;
             }
         """)
         botao_fechar.clicked.connect(self.accept)
@@ -111,6 +111,7 @@ class SuccessPopup(QDialog):
         layout_botao.addStretch()
         layout_botao.addWidget(botao_fechar)
         layout_botao.addStretch()
+        layout_container.addSpacing(100)
         layout_container.addLayout(layout_botao)
 
         layout_principal.addWidget(container_popup)
