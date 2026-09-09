@@ -246,8 +246,6 @@ class Janelinha(QMainWindow):
 
             combo_setor = QComboBox()
             combo_setor.addItems(["Setor", "CIPT", "SPAT", "NCO"])
-
->>>>>>> 14523cf01e7c89b0edd0628b51fd00eaf8dcd4c9
             combo_setor.setFocusPolicy(Qt.NoFocus)
             combo_setor.setStyleSheet("""QComboBox{
             border: 0;
