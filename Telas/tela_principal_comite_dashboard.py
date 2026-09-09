@@ -148,7 +148,6 @@ class ModeloTelaComite(QMainWindow):
         titulo.setStyleSheet("font-size: 24px; font-weight: bold; color: #2c3e50;")
         titulo.setAlignment(Qt.AlignCenter)
         layout_principal.addWidget(titulo)
-        layout_principal.addStretch()
 
         btn_ano = QComboBox()
         btn_ano.setStyleSheet("""  
@@ -170,12 +169,47 @@ class ModeloTelaComite(QMainWindow):
         btn_ano.setMaximumWidth(180)
         
 
+
         total_acoes = QFrame()
         total_acoes.setStyleSheet("""
             QFrame {
                 background-color: #013171;
+                border-radius: 15px;
             }
         """)
+        total_acoes.setMaximumWidth(430)
+        total_acoes.setMaximumHeight(230)
+
+
+        acoes_aprovadas = QFrame()
+        acoes_aprovadas.setStyleSheet("""
+            QFrame {
+                background-color: #058914;
+                border-radius: 15px;
+            }
+        """)
+        acoes_aprovadas.setMaximumWidth(430)
+        acoes_aprovadas.setMaximumHeight(230)
+
+        acoes_analise = QFrame()
+        acoes_analise.setStyleSheet("""
+            QFrame {
+                background-color: #0088FF;
+                border-radius: 15px;
+            }
+        """)
+        acoes_analise.setMaximumWidth(430)
+        acoes_analise.setMaximumHeight(230)
+
+        acoes_negadas = QFrame()
+        acoes_negadas.setStyleSheet("""
+            QFrame {
+                background-color: #FD7B01;
+                border-radius: 15px;
+            }
+        """)
+        acoes_negadas.setMaximumWidth(430)
+        acoes_negadas.setMaximumHeight(230)
 
         titulo_total = QLabel("Total de Ações realizadas")
         titulo_total.setStyleSheet(""" 
@@ -185,6 +219,7 @@ class ModeloTelaComite(QMainWindow):
         titulo_total.setAlignment(Qt.AlignCenter)
         layout_acoes.addWidget(titulo)
         layout_principal.addWidget(btn_ano)
+        layout_acoes.addWidget(total_acoes)
         layout_principal.addLayout(layout_acoes)
 
         
