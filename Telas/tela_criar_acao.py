@@ -1,853 +1,464 @@
 import sys, os
-
 from PySide6.QtCore import Qt
-
 from PySide6.QtGui import QStandardItemModel, QStandardItem, QPixmap
-
 from PySide6.QtWidgets import (
-
     QApplication, QWidget, QLabel, QLineEdit, QTextEdit,
-
     QComboBox, QPushButton, QVBoxLayout, QHBoxLayout,
-
-    QFrame, QFileDialog, QListView, QMainWindow, QButtonGroup
-
+    QFrame, QFileDialog, QListView, QMainWindow, QButtonGroup, QStyle
 )
 
-
-
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
 sys.path.insert(0, BASE_DIR)
-
-
 
 from Utilitarios.btn_layout import btn_layout
 
-
-
 BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
 LOGO = os.path.join(BASE, "Imagens", "Embrapa-Logo.png")
 
 
-
-
-
+# ---------------------------------------------------------------------------
+# Área de arrastar/soltar comprovantes
+# ---------------------------------------------------------------------------
 class DragDropUploadArea(QFrame):
-
     def __init__(self):
-
         super().__init__()
-
         self.setAcceptDrops(True)
-
         self.setCursor(Qt.PointingHandCursor)
-
         self.init_ui()
 
-
-
     def init_ui(self):
-
         self.setStyleSheet("""
-
             QFrame {
-
                 background-color: #f2f3f5;
-
                 border: 2px dashed #999999;
-
                 border-radius: 8px;
-
-                padding: 15px;
-
-                font-family: 'Verdana';
-
-                font-weight: bold;
-
             }
-
             QFrame:hover {
-
                 background-color: #e8ecef;
-
                 border-color: #666666;
-
             }
-
         """)
-
-
 
         layout = QHBoxLayout(self)
-
         layout.setAlignment(Qt.AlignCenter)
+        layout.setSpacing(10)
 
-
-
-        icon_label = QLabel("↑")
-
+        icon_label = QLabel()
+        icon_label.setFixedSize(48, 48)
+        icon_label.setAlignment(Qt.AlignCenter)
         icon_label.setStyleSheet("""
-
             QLabel {
-
-                font-family: 'Verdana';
-
-                font-size: 18px;
-
-                font-weight: bold;
-
-                border: 2px solid #000;
-
-                border-radius: 6px;
-
-                padding: 2px 8px;
-
+                border: 2px solid #333333;
+                border-radius: 8px;
                 background-color: white;
-
             }
-
         """)
+        # Ícone nativo do Qt em vez de um caractere de fonte (que pode não
+        # renderizar em todo sistema e aparecer como uma caixa vazia).
+        seta_icone = self.style().standardIcon(QStyle.StandardPixmap.SP_ArrowUp)
+        icon_label.setPixmap(seta_icone.pixmap(26, 26))
 
-
-
-        text_label = QLabel("Arraste seus comprovantes aqui ou clique para selecionar (PDF, DOCX, PNG, JPG)")
-
-        text_label.setStyleSheet("""
-
+        text_bold = QLabel("Arraste seus arquivos aqui ou clique para fazer Upload")
+        text_bold.setStyleSheet("""
             QLabel {
-
                 font-family: 'Verdana';
-
+                font-size: 20px;
                 font-weight: bold;
-
-                font-size: 13px;
-
                 color: #333333;
-
                 border: none;
-
             }
-
         """)
 
-
+        text_normal = QLabel("(PDF, DOCX, Imagens...)")
+        text_normal.setStyleSheet("""
+            QLabel {
+                font-family: 'Verdana';
+                font-size: 20px;
+                font-weight: bold;
+                color: #777777;
+                border: none;
+            }
+        """)
 
         layout.addWidget(icon_label)
-
-        layout.addSpacing(10)
-
-        layout.addWidget(text_label)
-
-
+        layout.addWidget(text_bold)
+        layout.addWidget(text_normal)
 
     def mousePressEvent(self, event):
-
         if event.button() == Qt.LeftButton:
-
             files, _ = QFileDialog.getOpenFileNames(
-
                 self, "Selecionar Comprovantes", "", "Arquivos (*.pdf *.docx *.png *.jpg *.jpeg)"
-
             )
 
 
-
-
-
+# ---------------------------------------------------------------------------
+# Conteúdo da tela "Criar ação" (vai dentro do paginaprincipal)
+# ---------------------------------------------------------------------------
 class CriarAcaoWidget(QWidget):
-
     def __init__(self):
-
         super().__init__()
-
         self.setStyleSheet("""
-
             QWidget {
-
                 font-family: 'Verdana';
-
                 font-weight: bold;
-
                 background-color: transparent;
-
             }
-
         """)
-
         self.init_ui()
 
-
-
     def init_ui(self):
-
         main_layout = QVBoxLayout(self)
+        main_layout.setContentsMargins(40, 20, 40, 20)
+        main_layout.setSpacing(14)
 
-        main_layout.setAlignment(Qt.AlignTop | Qt.AlignHCenter)
-
-        main_layout.setSpacing(15)
-
-        main_layout.setContentsMargins(0, 10, 0, 0)
-
-
-
-        # 1. TÍTULO
-
+        # Título
         title_label = QLabel("Criar ação")
-
         title_label.setAlignment(Qt.AlignCenter)
-
         title_label.setStyleSheet("""
-
             QLabel {
-
-                font-family: 'Verdana';
-
-                font-size: 36px;
-
+                font-size: 32px;
                 font-weight: bold;
-
                 color: #000000;
-
                 border: none;
-
-                margin-top: 0px;
-
             }
-
         """)
-
         main_layout.addWidget(title_label)
+        main_layout.addSpacing(24)
 
-
-
-        # 2. CARD PRINCIPAL
-
+        # Card com o formulário
         card = QFrame()
-
-        card.setFixedSize(1485, 817)
-
         card.setStyleSheet("""
-
             QFrame {
-
                 background-color: #ffffff;
-
                 border: 1px solid #dcdcdc;
-
-                border-radius: 16px;
-
-                font-family: 'Verdana';
-
-                font-weight: bold;
-
+                border-radius: 12px;
             }
-
         """)
-
-       
-
         card_layout = QVBoxLayout(card)
-
-        card_layout.setContentsMargins(40, 30, 40, 30)
-
-        card_layout.setSpacing(15)
-
-
+        card_layout.setContentsMargins(28, 22, 28, 22)
+        card_layout.setSpacing(10)
 
         input_style = """
-
             QLineEdit, QTextEdit, QComboBox {
-
                 font-family: 'Verdana';
-
                 font-weight: bold;
-
                 border: 1px solid #777777;
-
-                border-radius: 8px;
-
-                padding: 8px 12px;
-
+                border-radius: 6px;
+                padding: 7px 10px;
                 background-color: #ffffff;
-
-                font-size: 14px;
-
+                font-size: 20px;
                 color: #333333;
-
             }
-
             QLineEdit:focus, QTextEdit:focus, QComboBox:focus {
-
                 border: 2px solid #000000;
-
             }
-
         """
 
+        label_style = """
+            QLabel {
+                font-family: 'Verdana';
+                font-size: 23px;
+                font-weight: bold;
+                color: #000000;
+                border: none;
+                min-height: 28px;
+            }
+        """
 
-
-        label_style = "font-family: 'Verdana'; font-weight: bold; font-size: 23px; border: none; color: #000000;"
-
-
-
-        # Título da ação e Data de realização
-
+        # Nome + Data de Execução
         top_row = QHBoxLayout()
-
-
+        top_row.setSpacing(24)
 
         nome_box = QVBoxLayout()
-
-        nome_box.setSpacing(6)
-
+        nome_box.setSpacing(4)
         nome_label = QLabel("Nome:")
-
         nome_label.setStyleSheet(label_style)
-
         self.nome_input = QLineEdit()
-
         self.nome_input.setPlaceholderText("Digite o nome do artigo aqui...")
-
         self.nome_input.setAlignment(Qt.AlignLeft | Qt.AlignVCenter)
-
+        # 1448 (largura padrão dos campos) - 245 (Data) - 24 (espaçamento) = 1179
+        self.nome_input.setFixedSize(1179, 44)
         self.nome_input.setStyleSheet(input_style)
-
         nome_box.addWidget(nome_label)
-
         nome_box.addWidget(self.nome_input)
 
-
-
         data_box = QVBoxLayout()
-
-        data_box.setSpacing(6)
-
+        data_box.setSpacing(4)
         data_label = QLabel("Data de Execução:")
-
         data_label.setStyleSheet(label_style)
-
-       
-
+        data_label.setMinimumWidth(180)
         self.data_input = QLineEdit()
-
         self.data_input.setInputMask("99/99/9999;_")
-
         self.data_input.setAlignment(Qt.AlignCenter)
-
-        self.data_input.setFixedWidth(200)
-
+        self.data_input.setFixedSize(245, 44)
         self.data_input.setStyleSheet(input_style)
-
-       
-
         data_box.addWidget(data_label)
-
         data_box.addWidget(self.data_input)
 
-
-
         top_row.addLayout(nome_box, stretch=4)
-
-        top_row.addSpacing(30)
-
-        top_row.addLayout(data_box, stretch=1)
-
+        top_row.addLayout(data_box, stretch=0)
         card_layout.addLayout(top_row)
 
-
-
         # Descrição
-
         desc_label = QLabel("Descrição:")
-
         desc_label.setStyleSheet(label_style)
-
         self.desc_input = QTextEdit()
-
-        self.desc_input.setPlaceholderText("Digite a descrição da ação aqui...")
-
+        self.desc_input.setPlaceholderText("Digite a descrição do artigo aqui...")
         self.desc_input.setStyleSheet(input_style)
-
-        self.desc_input.setFixedHeight(120)
-
+        self.desc_input.setFixedSize(1448, 171)
         card_layout.addWidget(desc_label)
-
         card_layout.addWidget(self.desc_input)
 
-
-
-        # Categoria da Ação
-
+        # Ação
         acao_label = QLabel("Ação:")
-
         acao_label.setStyleSheet(label_style)
 
-       
-
         self.acao_combo = QComboBox()
-
-       
-
         list_view = QListView(self.acao_combo)
-
         list_view.setStyleSheet("""
-
             QListView {
-
-                font-family: 'Verdana';
-
-                font-weight: bold;
-
-                font-size: 23px;
-
+                font-size: 14px;
                 color: #333333;
-
                 background-color: #ffffff;
-
                 border: 1px solid #777777;
-
                 outline: none;
-
             }
-
-            QListView::item {
-
-                min-height: 38px;
-
-            }
-
-            QListView::item:hover {
-
-                background-color: #e8ecef;
-
-                color: #000000;
-
-            }
-
-            QListView::item:selected {
-
-                background-color: #d0d5dd;
-
-                color: #000000;
-
-            }
-
+            QListView::item { min-height: 32px; }
+            QListView::item:hover { background-color: #e8ecef; color: #000000; }
+            QListView::item:selected { background-color: #d0d5dd; color: #000000; }
         """)
-
         self.acao_combo.setView(list_view)
 
-
-
         model = QStandardItemModel()
-
-        opcoes = ["Selecionar categoria", "Palestra", "Entrevista", "Visita Técnica", "Participação em Evento"]
-
+        opcoes = ["Selecionar ação", "Palestra", "Entrevista", "Visita Técnica", "Participação em Evento"]
         for opcao in opcoes:
-
             item = QStandardItem(opcao)
-
             item.setTextAlignment(Qt.AlignCenter)
-
             model.appendRow(item)
-
-           
-
         self.acao_combo.setModel(model)
-
-
-
+        self.acao_combo.setFixedSize(1448, 44)
         self.acao_combo.setStyleSheet(input_style + """
-
-            QComboBox {
-
-                text-align: center;
-
-            }
-
+            QComboBox { text-align: center; padding-right: 28px; }
             QComboBox::drop-down {
-
+                subcontrol-origin: padding;
+                subcontrol-position: center right;
+                width: 24px;
                 border: none;
-
-                padding-right: 20px;
-
             }
-
+            QComboBox::down-arrow {
+                image: none;
+                width: 0px;
+                height: 0px;
+                border-left: 5px solid transparent;
+                border-right: 5px solid transparent;
+                border-top: 6px solid #555555;
+                margin-right: 10px;
+            }
         """)
 
-       
-
         card_layout.addWidget(acao_label)
-
         card_layout.addWidget(self.acao_combo)
 
-
-
         # Comprovante URL
-
         url_label = QLabel("Comprovante URL:")
-
         url_label.setStyleSheet(label_style)
-
         self.url_input = QLineEdit()
-
         self.url_input.setPlaceholderText("Digite a URL do seu link...")
-
         self.url_input.setAlignment(Qt.AlignLeft | Qt.AlignVCenter)
-
+        self.url_input.setFixedSize(1448, 44)
         self.url_input.setStyleSheet(input_style)
-
         card_layout.addWidget(url_label)
-
         card_layout.addWidget(self.url_input)
 
-
-
-        # Área de Upload de Comprovantes
-
+        # Comprovantes (upload)
         upload_label = QLabel("Comprovantes:")
-
         upload_label.setStyleSheet(label_style)
-
         self.upload_area = DragDropUploadArea()
-
-        self.upload_area.setFixedHeight(120)
-
+        self.upload_area.setFixedSize(1448, 141)
         card_layout.addWidget(upload_label)
-
         card_layout.addWidget(self.upload_area)
 
-
-
-        card_layout.addStretch()
-
-
-
-        # Botões inferiores
+        # Aviso + botões, logo abaixo de onde termina o Comprovantes
+        aviso_label = QLabel("Sua postagem será revisada em breve")
+        aviso_label.setAlignment(Qt.AlignRight)
+        aviso_label.setStyleSheet("""
+            QLabel {
+                font-size: 11px;
+                font-weight: normal;
+                color: #356394;
+                border: none;
+            }
+        """)
+        card_layout.addSpacing(10)
+        card_layout.addWidget(aviso_label)
 
         bottom_layout = QHBoxLayout()
 
-
-
         self.btn_cancelar = QPushButton("Cancelar")
-
         self.btn_cancelar.setCursor(Qt.PointingHandCursor)
-
-        self.btn_cancelar.setFixedSize(180, 44)
-
+        self.btn_cancelar.setFixedSize(285, 48)
         self.btn_cancelar.setStyleSheet("""
-
             QPushButton {
-
-                font-family: 'Verdana';
-
-                font-weight: bold;
-
                 color: #d90429;
-
                 border: 2px solid #d90429;
-
-                border-radius: 22px;
-
-                font-size: 15px;
-
-                background-color: transparent;
-
-            }
-
-            QPushButton:hover {
-
-                background-color: #ffe6e6;
-
-            }
-
-        """)
-
-
-
-        right_box = QVBoxLayout()
-
-        right_box.setAlignment(Qt.AlignRight)
-
-
-
-        aviso_label = QLabel("Sua ação será enviada para validação")
-
-        aviso_label.setStyleSheet("""
-
-            QLabel {
-
-                font-family: 'Verdana';
-
-                font-weight: bold;
-
-                color: #6c757d;
-
-                font-size: 11px;
-
-                border: none;
-
-            }
-
-        """)
-
-        aviso_label.setAlignment(Qt.AlignRight)
-
-
-
-        self.btn_salvar = QPushButton("Salvar")
-
-        self.btn_salvar.setCursor(Qt.PointingHandCursor)
-
-        self.btn_salvar.setFixedSize(180, 44)
-
-        self.btn_salvar.setStyleSheet("""
-
-            QPushButton {
-
-                font-family: 'Verdana';
-
-                font-weight: bold;
-
-                color: #ffffff;
-
-                background-color: #121f66;
-
-                border: none;
-
-                border-radius: 22px;
-
+                border-radius: 24px;
                 font-size: 16px;
-
+                font-weight: bold;
+                background-color: transparent;
             }
-
-            QPushButton:hover {
-
-                background-color: #0d164a;
-
-            }
-
+            QPushButton:hover { background-color: #ffe6e6; }
         """)
 
-
-
-        right_box.addWidget(aviso_label)
-
-        right_box.addWidget(self.btn_salvar, alignment=Qt.AlignRight)
-
-
+        self.btn_postar = QPushButton("Postar")
+        self.btn_postar.setCursor(Qt.PointingHandCursor)
+        self.btn_postar.setFixedSize(285, 48)
+        self.btn_postar.setStyleSheet("""
+            QPushButton {
+                color: #ffffff;
+                background-color: #121f66;
+                border: none;
+                border-radius: 24px;
+                font-size: 16px;
+                font-weight: bold;
+            }
+            QPushButton:hover { background-color: #0d164a; }
+        """)
 
         bottom_layout.addWidget(self.btn_cancelar)
-
         bottom_layout.addStretch()
-
-        bottom_layout.addLayout(right_box)
-
-
-
+        bottom_layout.addWidget(self.btn_postar)
         card_layout.addLayout(bottom_layout)
 
-        main_layout.addWidget(card, alignment=Qt.AlignCenter)
-
-
-
+        main_layout.addWidget(card)
+        main_layout.addStretch()
 
 
 class ModeloTelaPesquisador(QMainWindow):
-
     def __init__(self):
-
         super().__init__()
-
         self.setWindowTitle("Criar ação")
-
         self.setFixedSize(1920, 1080)
 
-       
-
         self.setStyleSheet("""
-
             QWidget {
-
                 font-family: 'Verdana';
-
                 font-weight: bold;
-
                 background-color: #356394;
-
             }
-
         """)
 
-
-
-        # Menu Lateral
-
         menu_lateral = QWidget(self)
-
         menu_lateral.setGeometry(0, 0, 280, 1080)
-
-        menu_lateral.setStyleSheet("QWidget { background-color: #356394; }")
-
-
+        menu_lateral.setStyleSheet("""
+            QWidget{
+                background-color: #356394
+            }
+        """)
 
         menu_lateral_layout = QVBoxLayout(menu_lateral)
-
         menu_lateral_layout.setContentsMargins(30, 0, 0, 0)
 
-
-
         self.btn_home = btn_layout(os.path.join(BASE, "Imagens/Painel-Principal-Icone.png"), "Painel Principal")
-
         self.btn_acoes = btn_layout(os.path.join(BASE, "Imagens/Ações-Icone.png"), "Minhas Ações")
 
-
-
         logo_label = QLabel()
-
         logo = QPixmap(LOGO)
-
         logo_certa = logo.scaled(220, 190, Qt.KeepAspectRatio, Qt.SmoothTransformation)
-
         logo_label.setPixmap(logo_certa)
-
         logo_label.setAlignment(Qt.AlignLeft)
 
-       
-
         menu_lateral_layout.addWidget(logo_label)
-
         menu_lateral_layout.addWidget(self.btn_home)
-
         menu_lateral_layout.setSpacing(5)
-
         menu_lateral_layout.addWidget(self.btn_acoes)
 
-           
-
         self.grupo_botoes = QButtonGroup(self)
-
         self.grupo_botoes.setExclusive(True)
-
         self.grupo_botoes.addButton(self.btn_home)
-
         self.grupo_botoes.addButton(self.btn_acoes)
-
-       
 
         menu_lateral_layout.addStretch()
 
-
-
-        # Cabeçalho
-
         cabecalho = QWidget(self)
-
         cabecalho.setGeometry(280, 0, 1640, 70)
-
-        cabecalho.setStyleSheet("QWidget { background-color: #356394; }")
-
-
+        cabecalho.setStyleSheet("""
+            QWidget{
+                background-color: #356394
+            }
+        """)
 
         nome_empregado = QLabel("Fulano da Silva Rodrigues", cabecalho)
-
         nome_empregado.setGeometry(35, 22, 400, 30)
-
-        nome_empregado.setStyleSheet("QLabel { font-size: 24px; color: #ffffff; }")
-
-
+        nome_empregado.setStyleSheet("""
+            QLabel{
+                font-size: 24px;
+                color: #ffffff;
+            }
+        """)
 
         separador = QLabel("|", cabecalho)
-
         separador.setGeometry(420, 22, 5, 30)
+        separador.setStyleSheet("""
+            QLabel{
+                font-size: 24px;
+                color: #ffffff;
+            }
 
-        separador.setStyleSheet("QLabel { font-size: 24px; color: #ffffff; }")
-
-
+        """)
 
         funcao_empregado = QLabel("Pesquisador", cabecalho)
-
         funcao_empregado.setGeometry(470, 22, 200, 30)
+        funcao_empregado.setStyleSheet("""
+            QLabel{
+                color: #ffffff;
+                font-size: 24px
+            }
 
-        funcao_empregado.setStyleSheet("QLabel { color: #ffffff; font-size: 24px; }")
-
-
+        """)
 
         nome_tela = QLabel("Minhas Ações", cabecalho)
-
         nome_tela.setGeometry(1000, 22, 300, 30)
+        nome_tela.setStyleSheet("""
+            QLabel{
+                color: #ffffff;
+                font-size: 20px;
+                font-weight: lighter
+            }
 
-        nome_tela.setStyleSheet("QLabel { color: #ffffff; font-size: 20px; font-weight: lighter; }")
-
-
+        """)
 
         botao_logout = QPushButton("Logout", cabecalho)
-
         botao_logout.setGeometry(1450, 15, 150, 40)
-
         botao_logout.setStyleSheet("""
-
-            QPushButton {
-
+            QPushButton{
                 background-color: #ffffff;
-
                 color: #08175C;
-
                 font-size: 18px;
-
                 border: 0px solid #ffffff;
-
                 border-radius: 10px;
-
             }
-
         """)
-
-
-
-        # Área de Conteúdo Principal (Frame Branco)
 
         paginaprincipal = QFrame(self)
-
-        paginaprincipal.setGeometry(280, 70, 1640, 1010)
-
+        paginaprincipal.setGeometry(280, 70, 1600, 1010)
         paginaprincipal.setStyleSheet("""
-
-            QFrame {
-
+            QFrame{
                 background-color: #ffffff;
-
                 border-top-left-radius: 20px;
-
-                border-top-right-radius: 20px;
-
+                border-top-right-radius: 20px
             }
 
         """)
 
-
-
-        # Adiciona os campos/inputs dentro do container principal
-
-        container_layout = QVBoxLayout(paginaprincipal)
-
-        container_layout.setContentsMargins(0, 0, 0, 0)
-
+        # Conteúdo da tela "Criar ação" preenchendo o paginaprincipal
+        conteudo_layout = QVBoxLayout(paginaprincipal)
+        conteudo_layout.setContentsMargins(0, 0, 0, 0)
         self.tela_criar_acao = CriarAcaoWidget()
-
-        container_layout.addWidget(self.tela_criar_acao)
-
-
-
+        conteudo_layout.addWidget(self.tela_criar_acao)
 
 
 if __name__ == "__main__":
-
     app = QApplication(sys.argv)
-
     window = ModeloTelaPesquisador()
-
     window.show()
-
     sys.exit(app.exec())
