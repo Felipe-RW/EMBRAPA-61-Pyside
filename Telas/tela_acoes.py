@@ -11,7 +11,7 @@ from PySide6.QtWidgets import (
 #Area dos botões interruptores com a interacao
 
 class Interruptorzinho(QAbstractButton):
-    def __init__(self, parent=None, ligado=False):
+    def __init__(self, parent=None, ligado=True):
         super().__init__(parent)
         self.setCheckable(True)
         self.setChecked(ligado)
@@ -19,7 +19,9 @@ class Interruptorzinho(QAbstractButton):
         self.setFixedSize(46, 24)
         self.setFocusPolicy(Qt.NoFocus)
 
-        self._posicao_bolinha = 3 if not ligado else 25
+        self.setChecked(True)
+
+        self._posicao_bolinha = 25
         self._animacao = QPropertyAnimation(self, b"posicao_bolinha", self)
         self._animacao.setDuration(150)
         self._animacao.setEasingCurve(QEasingCurve.InOutCubic)
@@ -66,8 +68,7 @@ class Janelinha(QMainWindow):
         painel_central = self._montar_conteudo()
         self.setCentralWidget(painel_central)
 
-#Ttxto entre os quadrados
-
+    # Texto entre os quadrados
     def _montar_conteudo(self):
         conteudo = QWidget()
         layout = QVBoxLayout(conteudo)
@@ -137,6 +138,8 @@ class Janelinha(QMainWindow):
 
         botao_baixar_excel.setFocusPolicy(Qt.NoFocus)
         linha_topo.addWidget(botao_baixar_excel)
+        botao_baixar_excel.setFocusPolicy(Qt.NoFocus)
+        linha_topo.addWidget(botao_baixar_excel)
         linha_topo.addStretch()
 
 #espaço para busca/pesquisa
@@ -163,7 +166,6 @@ class Janelinha(QMainWindow):
         linha_topo.addWidget(campo_pesquisa)
 
         layout.addLayout(linha_topo)
-
         layout.addWidget(self._montar_tabela())
         layout.addStretch()
 
@@ -182,8 +184,7 @@ class Janelinha(QMainWindow):
             "Curso e-Campo juntamente com SIPT",
         ]
 
-#Cabeçalho de status
-
+    # Cabeçalho de status
         tabela = QTableWidget(len(acoes), 3)
         tabela.setHorizontalHeaderLabels(["Nome", "Setor de Avaliação", "Status"])
         tabela.verticalHeader().setVisible(False)
@@ -191,6 +192,8 @@ class Janelinha(QMainWindow):
         tabela.setSelectionMode(QTableWidget.NoSelection)
         tabela.setFocusPolicy(Qt.NoFocus)
         tabela.setEditTriggers(QTableWidget.NoEditTriggers)
+        
+    # Estilo da tabela aplicando a bordinha cinza
         tabela.setStyleSheet("""
             QTableWidget {
                 background-color: white;
@@ -219,6 +222,7 @@ class Janelinha(QMainWindow):
                 font-family: 'Verdana';
             }
         """)
+        tabela.setAttribute(Qt.WA_StyledBackground, True)
 
         cabecalho_tabela = tabela.horizontalHeader()
         cabecalho_tabela.setSectionResizeMode(0, QHeaderView.Stretch)
@@ -243,13 +247,27 @@ class Janelinha(QMainWindow):
             combo_setor = QComboBox()
             combo_setor.addItems(["Setor", "CIPT", "SPAT", "NCO"])
 
+>>>>>>> 14523cf01e7c89b0edd0628b51fd00eaf8dcd4c9
             combo_setor.setFocusPolicy(Qt.NoFocus)
+            combo_setor.setStyleSheet("""QComboBox{
+            border: 0;
+            }
+            QComboBox:drop-down{
+            border: none;
+            }
+            QComboBox:down-arrow{
+            image: url(Imagens/seta_pra_baixo.png);
+            }
+            """)
+            
+            
             envolta1 = QWidget()
             l1 = QHBoxLayout(envolta1)
             l1.setContentsMargins(0, 0, 0, 0)
             l1.addStretch()
             l1.addWidget(combo_setor)
             l1.addStretch()
+            
             if linha % 2 == 1:
                 envolta1.setStyleSheet("background-color: #E9F2FF;")
                 combo_setor.setStyleSheet("color: black; background-color: #E9F2FF;")
@@ -266,6 +284,7 @@ class Janelinha(QMainWindow):
             l2.addStretch()
             l2.addWidget(interruptor)
             l2.addStretch()
+            
             if linha % 2 == 1:
                 envolta2.setStyleSheet("background-color: #E9F2FF;")
             else:
