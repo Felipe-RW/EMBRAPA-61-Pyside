@@ -189,6 +189,8 @@ class ModeloTelaAdministrador(QMainWindow):
         """)
         sublayou_interno_superior.addWidget(novo_setor)
 
+        sublayou_interno_superior.addStretch()
+        
         barra_pesquisa= QLineEdit()
         barra_pesquisa.setPlaceholderText("Pesquise...")
         barra_pesquisa.setFixedSize(358,50)
@@ -204,6 +206,7 @@ class ModeloTelaAdministrador(QMainWindow):
             }
         """)
         sublayou_interno_superior.addWidget(barra_pesquisa)
+
 
 
         
@@ -235,6 +238,7 @@ class ModeloTelaAdministrador(QMainWindow):
         tabela_setores.verticalHeader().setVisible(False)
         tabela_setores.setHorizontalHeaderLabels(["Setor", "Status"])
         tabela_setores.setColumnWidth(0, 750) 
+
         tabela_setores.setColumnWidth(1, 750) 
 
         tabela_setores.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
