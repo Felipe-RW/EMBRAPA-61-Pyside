@@ -3,6 +3,7 @@ VERDE =  "#058914"
 BRANCO = "#FFFFFF"
 PRETO = "#000000"
 OFF_WHITE = "#A0C7FA"
+SETA = "Imagens/Vector-dropdown.png"
 QSS = f"""
 QFrame#a{{background-image:url({BACKGROUND});
 }}
@@ -54,8 +55,20 @@ QWidget#background_gaveta{{
     border-radius: 20%;
     max-width: 350px;
     max-height: 450px;
+    border: 0;  
+        
 
 }}
+
+QComboBox#fundo_branco:drop-down{{
+    border: none;
+}}
+            
+QComboBox#fundo_branco:down-arrow{{
+
+image: url(Imagens/Vector_dropdown.png);
+}}
+
 
 QLabel#dropdown{{
     max-width :476px;
@@ -67,6 +80,34 @@ QFrame#aiai{{
     max-width :900px;
     max-height: 80px;
     background-color:{OFF_WHITE};
+}}
+
+QLineEdit#input{{
+    max-width: 150px;
+    max-height: 350px;
+}}
+
+ QComboBox#acoes{{
+    border-radius: 20%;
+    max-width: 150px;
+    max-height: 350px;
+    border: 0;  
+        
+
+}}
+
+QComboBox#acoes:drop-down{{
+    border: none;
+}}
+            
+QComboBox#acoes:down-arrow{{
+
+image: url(Imagens/Vector_dropdown.png);
+}}
+
+Qlabel#txt{{
+    margin-right: 150px;
+
 }}
 
 """

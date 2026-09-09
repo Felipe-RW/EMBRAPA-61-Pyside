@@ -1,4 +1,4 @@
-from PySide6.QtWidgets import QWidget,QLabel,QLineEdit,QApplication,QVBoxLayout,QHBoxLayout,QPushButton,QFrame,QComboBox
+from PySide6.QtWidgets import QWidget,QLabel,QLineEdit,QApplication,QVBoxLayout,QHBoxLayout,QPushButton,QFrame,QComboBox,QGridLayout,QTableWidget
 from PySide6.QtGui import QPixmap
 from PySide6.QtCore import Qt
 import sys
@@ -32,22 +32,9 @@ class popup_editar_ano(QFrame):
 
         background_gaveta_branco = QComboBox()
 
-        # ano = QLabel("2027")
-
-        # icon = QLabel()
-        # pixmap = QPixmap(DROPDOWN)
-        # icon.setPixmap(pixmap)
-        # icon.setStyleSheet(QSS)
-        # icon.setObjectName("dropdown")
-        # icon.setScaledContents(True)
-        
-
-        # self.layout_gaveta_interna.addWidget(ano,alignment=Qt.AlignmentFlag.AlignLeft)
-        # self.layout_gaveta_interna.addWidget(icon,alignment=Qt.AlignmentFlag.AlignRight)
 
         background_gaveta_branco.setLayout(self.layout_gaveta_interna)
-
-
+ 
 
         background_gaveta_branco.setStyleSheet(QSS)
         background_gaveta_branco.setObjectName("fundo_branco")
@@ -58,6 +45,10 @@ class popup_editar_ano(QFrame):
         acoe = acoes()
 
         self.layout_vertical.addWidget(acoe)
+
+        acoes_add = QLabel("Ações adicionadas o ano")
+
+        self.layout_vertical.addWidget(acoes_add)
         
         self.layout_vertical.addStretch(1)
         
@@ -73,28 +64,35 @@ class acoes(QFrame):
         self.layout_acoes = QHBoxLayout()
         self.layout_vertical_organizador = QVBoxLayout()
         gaveta_acoes = QComboBox()
+        gaveta_acoes.setObjectName("acoes")
         limite = QLineEdit()
+        limite.setObjectName("input")
         peso = QLineEdit()
+        peso.setObjectName("input")
         self.layout_acoes.addWidget(gaveta_acoes)
         self.layout_acoes.addWidget(limite)
         self.layout_acoes.addWidget(peso)
         txt_acoes = QLabel("Ações*")
         txt_limite = QLabel("Limite*")
         txt_peso = QLabel("Peso*")
+        txt_acoes.setStyleSheet(QSS)
+        txt_acoes.setObjectName("txt")
+        self.layout_txt_acoes.addStretch(1)
         self.layout_txt_acoes.addWidget(txt_acoes)
         self.layout_txt_acoes.addWidget(txt_limite)
         self.layout_txt_acoes.addWidget(txt_peso)
         self.layout_vertical_organizador.addLayout(self.layout_txt_acoes)
         self.layout_vertical_organizador.addLayout(self.layout_acoes)
         self.setLayout(self.layout_vertical_organizador)
-       
+        self.layout_txt_acoes.addStretch(1)
+        txt_acoes.setContentsMargins(0,0,180,0)
+        txt_limite.setContentsMargins(0,0,180,0)
+        txt_peso.setContentsMargins(0,0,0,0)
 
-        txt_acoes_adicionadas = QLabel("Ações adicionadas para o ano")
 
-        self.layout_vertical.addWidget(txt_acoes_adicionadas)
-
-
-        self.layout_vertical.addStretch(1)
+class tabela(QGridLayout):
+    def __init__(self):
+        super().__init__()
 
         
 
