@@ -309,6 +309,9 @@ class ModeloTelaValidador(QMainWindow):
             }
         """)
 
+        
+        
+
         quadro_resumo = QLabel(paginaprincipal)
         quadro_resumo.setFixedSize(700, 500)
         quadro_resumo.move(858, 400)
@@ -318,6 +321,18 @@ class ModeloTelaValidador(QMainWindow):
                 background-color: white;
                 border: 1px solid #C3C3C3;
                 border-radius: 10px;
+            }
+        """)
+
+        texto_resumo = QLabel(paginaprincipal)
+        texto_resumo.setText("Resumo rápido")
+        texto_resumo.move(1100, 430)
+        texto_resumo.setStyleSheet("""
+            QLabel {
+                color: black;
+                font-size: 24px;
+                font-family: Verdana;
+                font-style: bold;
             }
         """)
 
@@ -333,15 +348,32 @@ class ModeloTelaValidador(QMainWindow):
             }
         """)
 
-        compracao = QLabel(paginaprincipal)
-        compracao.setFixedSize(80, 80)
-        compracao.move(890, 515)
-        compracao.setStyleSheet("""
+        maior_volume_icone = QLabel(paginaprincipal)
+        maior_volume_icone.setFixedSize(80, 80)
+        maior_volume_icone.move(890, 515)
+        maior_volume_icone.setStyleSheet("""
             QLabel {
                 background-color: #6EC178;
                 border-radius: 10px;
               }
          """)
+
+        texto_maior_resumo = QLabel(paginaprincipal)
+        texto_maior_resumo.setText("Maior volume")
+        texto_maior_resumo.move(1000, 515)
+        texto_maior_resumo.setStyleSheet("""
+            QLabel {
+                color: black;
+                font-size: 18px;
+                font-family: Verdana;
+                font-style: bold;
+             }
+        """)
+
+        subtitulo_maior_volume = QLabel(paginaprincipal)
+        subtitulo_maior_volume.setText("Março/2026 \n 28 Ações")
+        subtitulo_maior_volume.move(1000, 545)
+
 
         quadro_menor_resumo = QLabel(paginaprincipal)
         quadro_menor_resumo.setFixedSize(657, 108)
@@ -355,20 +387,35 @@ class ModeloTelaValidador(QMainWindow):
             }
         """)
 
-        menorVolume = QLabel(paginaprincipal)
-        menorVolume.setFixedSize(80, 80)
-        menorVolume.move(890, 645)
-        menorVolume.setStyleSheet("""
+        menor_volume_icone = QLabel(paginaprincipal)
+        menor_volume_icone.setFixedSize(80, 80)
+        menor_volume_icone.move(890, 645)
+        menor_volume_icone.setStyleSheet("""
              QLabel {
                 background-color: #FFB570;
                 border-radius: 10px;
              }
         """)
 
+        texto_menor_resumo = QLabel(paginaprincipal)
+        texto_menor_resumo.setText("Menor volume")
+        texto_menor_resumo.move(1000, 645)
+        texto_menor_resumo.setStyleSheet("""
+            QLabel {
+                color: black;
+                font-size: 18px;
+                font-family: Verdana;
+                font-style: bold;
+             }
+        """)
+
+        subtitulo_menor_volume = QLabel(paginaprincipal)
+        subtitulo_menor_volume.setText("Julho/2026 \n 12 Ações")
+        subtitulo_menor_volume.move(1000, 675)
+
         quadro_comparacao = QLabel(paginaprincipal)
         quadro_comparacao.setFixedSize(657, 108)
         quadro_comparacao.move(880, 760)
-
         quadro_comparacao.setStyleSheet("""
             QLabel {
                 background-color: white;
@@ -377,16 +424,31 @@ class ModeloTelaValidador(QMainWindow):
             }
         """)
 
-        compracao = QLabel(paginaprincipal)
-        compracao.setFixedSize(80, 80)
-        compracao.move(890, 775)
-        compracao.setStyleSheet("""
+        comparacao_icone = QLabel(paginaprincipal)
+        comparacao_icone.setFixedSize(80, 80)
+        comparacao_icone.move(890, 775)
+        comparacao_icone.setStyleSheet("""
             QLabel {
                 background-color: #89BFEF;
                 border-radius: 10px;
              }
         """)
 
+        texto_comparacao = QLabel(paginaprincipal)
+        texto_comparacao.setText("Comparação")
+        texto_comparacao.move(1000, 775)
+        texto_comparacao.setStyleSheet("""
+            QLabel {
+                color: black;
+                font-size: 18px;
+                font-family: Verdana;
+                font-style: bold;
+             }
+        """)
+
+        subtitulo_comparacao = QLabel(paginaprincipal)
+        subtitulo_comparacao.setText("Aumento de 12%\nem relação ao mês anterior")
+        subtitulo_comparacao.move(1000, 805)
         
 
 
