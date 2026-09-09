@@ -13,7 +13,7 @@ from matplotlib.backends.backend_qtagg import FigureCanvasQTAgg
 from matplotlib.figure import Figure
 
 BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-LOGO = os.path.join(BASE, "Imagens", "Embrapa-Logo.png")
+LOGO = os.path.join(BASE, "Imagens", "embrapa-logo-gado-de-corte")
 
 
 def btn_layout(icone_path, texto):
@@ -383,7 +383,6 @@ class ModeloTelaAdministrador(QMainWindow):
             220,
             100,
             "#0A377B",
-            "📋",
             mostrar_barra=False
         )
 
@@ -421,7 +420,7 @@ class ModeloTelaAdministrador(QMainWindow):
         content = QHBoxLayout()
 
         chart_frame = QFrame()
-
+        chart_frame.setFixedSize(700, 500)  
         chart_frame.setStyleSheet("""
         QFrame{
             background:white;
@@ -435,7 +434,7 @@ class ModeloTelaAdministrador(QMainWindow):
         chart_layout.addWidget(chart)
 
         summary = QFrame()
-
+        summary.setFixedSize(700, 500)  
         summary.setStyleSheet("""
         QFrame{
             background:white;
@@ -480,8 +479,9 @@ class ModeloTelaAdministrador(QMainWindow):
 
         summary_layout.addStretch()
 
-        content.addWidget(chart_frame, 2)
-        content.addWidget(summary, 1)
+
+        content.addWidget(chart_frame)
+        content.addWidget(summary)
 
         main_layout.addLayout(content)
 
