@@ -144,13 +144,18 @@ class Janelinha(QMainWindow):
 
 #espaço para busca/pesquisa
 
-        icone_campo_pesquisa = QPixmap("Imagens/icone_lupa.png").scaled(50, 50)
         campo_pesquisa = QLineEdit()
         campo_pesquisa.setPlaceholderText("Pesquise...")
         campo_pesquisa.setFixedSize(358, 50)
-        campo_pesquisa.addAction(QIcon(icone_campo_pesquisa), QLineEdit.TrailingPosition)
         campo_pesquisa.setStyleSheet("""
             QLineEdit {
+                background-image: url('Imagens/icone_lupa.png');
+                background-repeat: no-repeat;
+                background-position: right center;
+                padding-right: 10px;
+                font-size: 16px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
                 background-color: white;
                 border: 1px solid #686868;
                 border-radius: 10px;
@@ -192,24 +197,18 @@ class Janelinha(QMainWindow):
         tabela.setSelectionMode(QTableWidget.NoSelection)
         tabela.setFocusPolicy(Qt.NoFocus)
         tabela.setEditTriggers(QTableWidget.NoEditTriggers)
+        tabela.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+
         
     # Estilo da tabela aplicando a bordinha cinza
         tabela.setStyleSheet("""
             QTableWidget {
                 background-color: white;
-                border-radius: 10px;
-                border: 1px solid #4E73AE;
+                border-radius: 5px;
+                border: 2px solid #4E73AE;
                 font-size: 13px;
                 color: #374151;
                 font-family: 'Verdana';
-            }
-
-            QHeaderView::section:horizontal:first {
-                border-top-left-radius: 5px;
-            }
-
-            QHeaderView::section:horizontal:last {
-                border-top-right-radius: 5px;
             }
 
             QHeaderView::section {
@@ -257,7 +256,6 @@ class Janelinha(QMainWindow):
             image: url(Imagens/seta_pra_baixo.png);
             }
             """)
-            
             
             envolta1 = QWidget()
             l1 = QHBoxLayout(envolta1)
