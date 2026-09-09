@@ -99,9 +99,9 @@ class Janelinha(QMainWindow):
                 font-family: 'Verdana';
                 text-align: center;
             }
-            
+           
             QPushButton:hover {
-                background-color: #04620F; 
+                background-color: #04620F;
             }
         """)
         botao_nova_acao.setFocusPolicy(Qt.NoFocus)
@@ -113,7 +113,7 @@ class Janelinha(QMainWindow):
         botao_baixar_excel.setIconSize(QSize(26, 30))
         botao_baixar_excel.setCursor(Qt.ArrowCursor)
         botao_baixar_excel.setFixedSize(224, 52)
-        
+       
         botao_baixar_excel.setStyleSheet("""
             QPushButton {
                 background-color: #FFFFFF;
@@ -123,16 +123,16 @@ class Janelinha(QMainWindow):
                 padding: 0 20px;
                 font-size: 13px;
                 font-weight: 700;
-                font-family: 'Verdana';     
+                font-family: 'Verdana';    
                 text-align: center;
                 padding-left: 10px;
             }
-                                      
+                                     
             QPushButton:hover {
                 color: #FFFFFF;
-                background-color: #134593; 
+                background-color: #134593;
             }
-            
+           
         """)
 
         botao_baixar_excel.setFocusPolicy(Qt.NoFocus)
