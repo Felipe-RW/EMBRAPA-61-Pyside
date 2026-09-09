@@ -309,7 +309,32 @@ class ModeloTelaValidador(QMainWindow):
             }
         """)
 
-        
+        circulo_status_aprovadas = QLabel(paginaprincipal)
+        circulo_status_aprovadas.setGeometry(590, 600, 16, 16)
+        circulo_status_aprovadas.setStyleSheet("""
+            QLabel {
+                border-radius: 8px;
+                background-color: #058914;
+            }
+        """)
+
+        circulo_status_analise = QLabel(paginaprincipal)
+        circulo_status_analise.setGeometry(590, 650, 16, 16)
+        circulo_status_analise.setStyleSheet("""
+            QLabel {
+                border-radius: 8px;
+                background-color: #0088FF;
+            }
+        """)
+
+        circulo_status_reprovadas = QLabel(paginaprincipal)
+        circulo_status_reprovadas.setGeometry(590, 700, 16, 16)
+        circulo_status_reprovadas.setStyleSheet("""
+            QLabel {
+                border-radius: 8px;
+                background-color: #058914;
+            }
+        """)
         
 
         quadro_resumo = QLabel(paginaprincipal)
