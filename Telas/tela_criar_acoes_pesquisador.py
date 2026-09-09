@@ -2,8 +2,9 @@ import sys
 import os
 from pathlib import Path
 from PySide6.QtCore import Qt, QSize
-from PySide6.QtGui import QIcon, QPixmap
+from PySide6.QtGui import QIcon, QPixmap, QColor
 from PySide6.QtWidgets import (QApplication, QComboBox, QFrame, QHBoxLayout, QLabel, QLineEdit, QMainWindow, QPushButton, QTextEdit, QVBoxLayout, QWidget, QButtonGroup,)
+from PySide6.QtCore import Qt, QSize, QPropertyAnimation, QVariantAnimation
 
 BASE = Path(__file__).resolve().parents[1]
 CAMINHO_LOGO = BASE / "Imagens" / "Embrapa-Logo.png"
@@ -134,11 +135,12 @@ QMainWindow,
     border-radius: 5px;
     font-size: 13px;
     padding: 8px;
+    max-height: 250px;
 }
 
 #campoDescricao::placeholder {
     color: #AAAAAA;
-    font-weight: 600;
+    font-weight: 6;
 }
 
 #seletorAcao {
@@ -179,27 +181,18 @@ QMainWindow,
     background: #ffffff;
     color: #E00000;
     border: 1px solid #E00000;
-    border-radius: 12px;
-    font-size: 12px;
+    border-radius: 22px;
+    font-size: 23px;
     font-weight: 700;
-}
-
-#botaoCancelar:hover {
-    background: #E00000;
-    color: #ffffff;
 }
 
 #botaoPostar {
     background: #102174;
     color: #ffffff;
     border: none;
-    border-radius: 12px;
-    font-size: 12px;
+    border-radius: 22px;
+    font-size: 23px;
     font-weight: 700;
-}
-
-#botaoPostar:hover {
-    background: #058914;
 }
 
 #textoAviso {
@@ -261,6 +254,56 @@ class btn_layout(QPushButton):
         
     def setIcon(self, icone_path, size=QSize(23, 25)):
         self.icone_label.setPixmap(QIcon(icone_path).pixmap(size))
+
+class BotaoAnimado(QPushButton):
+    def __init__(self, texto, cor_normal, cor_hover, parent=None):
+        super().__init__(texto, parent)
+
+        self.cor_normal = cor_normal
+        self.cor_hover = cor_hover
+
+        self.animacao = QVariantAnimation(self)
+        self.animacao.setDuration(300)
+        self.animacao.valueChanged.connect(self.mudar_cor)
+
+        self.setStyleSheet(
+            f"background-color: {self.cor_normal};"
+        )
+
+    def mudar_cor(self, cor):
+
+        if self.objectName() == "botaoCancelar":
+            if cor == self.cor_normal:
+                cor_texto = "#E00000"
+            else:
+                cor_texto = "#FFFFFF"
+
+            self.setStyleSheet(f"background-color: {cor.name()}; color: {cor_texto};")
+
+        else:
+            self.setStyleSheet(f"background-color: {cor.name()};")
+
+
+    def enterEvent(self, evento):
+        self.animacao.stop()
+
+        self.animacao.setStartValue(self.cor_normal)
+        self.animacao.setEndValue(self.cor_hover)
+
+        self.animacao.start()
+
+        super().enterEvent(evento)
+
+    def leaveEvent(self, evento):
+        self.animacao.stop()
+
+        self.animacao.setStartValue(self.cor_hover)
+        self.animacao.setEndValue(self.cor_normal)
+
+        self.animacao.start()
+
+        super().leaveEvent(evento)
+
 
 class TelaCriarAcao(QMainWindow):
     def __init__(self):
@@ -341,7 +384,7 @@ class TelaCriarAcao(QMainWindow):
         area_conteudo.setGeometry(280, 70, 1600, 1010)
 
         layout_conteudo = QVBoxLayout(area_conteudo)
-        layout_conteudo.setContentsMargins(70, 35, 70, 45)
+        layout_conteudo.setContentsMargins(70, 45, 70, 45)
         layout_conteudo.setSpacing(12)
 
         titulo = QLabel("Criar ação")
@@ -351,6 +394,7 @@ class TelaCriarAcao(QMainWindow):
 
         cartao = QFrame()
         cartao.setObjectName("cartaoFormulario")
+        cartao.setFixedSize(1505, 807)
         layout_conteudo.addWidget(cartao, 1)
 
         layout_cartao = QVBoxLayout(cartao)
@@ -369,7 +413,7 @@ class TelaCriarAcao(QMainWindow):
 
         self.campo_nome = QLineEdit()
         self.campo_nome.setObjectName("campoNome")
-        self.campo_nome.setPlaceholderText("Digite o nome do artigo aqui...")
+        self.campo_nome.setPlaceholderText("Digite o nome do artigo aqui...") 
         bloco_nome.addWidget(self.campo_nome)
 
         linha_nome_data.addLayout(bloco_nome, 1)
@@ -377,7 +421,7 @@ class TelaCriarAcao(QMainWindow):
         bloco_data = QVBoxLayout()
         bloco_data.setSpacing(5)
 
-        rotulo_data = QLabel("Data de Execução:")
+        rotulo_data = QLabel("Data:")
         rotulo_data.setObjectName("rotulo")
         bloco_data.addWidget(rotulo_data)
 
@@ -397,7 +441,7 @@ class TelaCriarAcao(QMainWindow):
         self.campo_descricao = QTextEdit()
         self.campo_descricao.setObjectName("campoDescricao")
         self.campo_descricao.setPlaceholderText("Digite a descrição do artigo aqui...")
-        self.campo_descricao.setMinimumHeight(115)
+        self.campo_descricao.setMinimumHeight(70)
         layout_cartao.addWidget(self.campo_descricao)
 
         rotulo_acao = QLabel("Ação:")
@@ -406,7 +450,9 @@ class TelaCriarAcao(QMainWindow):
 
         self.seletor_acao = QComboBox()
         self.seletor_acao.setObjectName("seletorAcao")
-        self.seletor_acao.addItem("Selecionar ação")
+        self.seletor_acao.addItem("Palestra")
+        self.seletor_acao.addItem("Pesquisa")
+        self.seletor_acao.addItem("Entrevista")
         layout_cartao.addWidget(self.seletor_acao)
 
         rotulo_url = QLabel("Comprovante URL:")
@@ -424,7 +470,7 @@ class TelaCriarAcao(QMainWindow):
 
         area_upload = QFrame()
         area_upload.setObjectName("areaUpload")
-        area_upload.setMinimumHeight(90)
+        area_upload.setMinimumHeight(81)
 
         layout_upload = QHBoxLayout(area_upload)
         layout_upload.setContentsMargins(20, 0, 20, 0)
@@ -449,9 +495,10 @@ class TelaCriarAcao(QMainWindow):
         linha_botoes = QHBoxLayout()
         linha_botoes.setContentsMargins(0, 8, 0, 0)
 
-        botao_cancelar = QPushButton("Cancelar")
+
+        botao_cancelar = BotaoAnimado("Cancelar", QColor("#FFFFFF"), QColor("#E00000"))
         botao_cancelar.setObjectName("botaoCancelar")
-        botao_cancelar.setFixedSize(137, 32)
+        botao_cancelar.setFixedSize(285, 48)
         linha_botoes.addWidget(botao_cancelar)
 
         linha_botoes.addStretch()
@@ -461,9 +508,9 @@ class TelaCriarAcao(QMainWindow):
         texto_aviso.setAlignment(Qt.AlignRight | Qt.AlignVCenter)
         linha_botoes.addWidget(texto_aviso)
 
-        botao_postar = QPushButton("Postar")
+        botao_postar = BotaoAnimado("Postar", QColor("#102174"), QColor("#058914"))
         botao_postar.setObjectName("botaoPostar")
-        botao_postar.setFixedSize(137, 32)
+        botao_postar.setFixedSize(285, 48)
         linha_botoes.addWidget(botao_postar)
 
         layout_cartao.addLayout(linha_botoes)
