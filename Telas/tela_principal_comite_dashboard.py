@@ -142,30 +142,33 @@ class ModeloTelaComite(QMainWindow):
         layout_principal.setContentsMargins(30, 30, 30, 30)
         layout_principal.setSpacing(30)
 
+        layout_acoes = QHBoxLayout()
+
         titulo = QLabel("Dashboard")
         titulo.setStyleSheet("font-size: 24px; font-weight: bold; color: #2c3e50;")
         titulo.setAlignment(Qt.AlignCenter)
         layout_principal.addWidget(titulo)
         layout_principal.addStretch()
 
-        btn_ano = QPushButton("2026")
+        btn_ano = QComboBox()
         btn_ano.setStyleSheet("""  
-            QPushButton {
+            QComboBox {
                 background-color: #ffffff; 
                 color: blue;
                 font-weight: bold;
                 border-radius: 6px;
                 padding: 8px 16px;
                 border: 1px solid #d0d0d0;
-            }
-
-            QPushButton:hover {
-                background-color: #d0d0d0;
             } 
         """)
+        btn_ano.addItems([
+            "2026",
+            "2025",
+            "2024",
+            "2023",
+        ])
         btn_ano.setMaximumWidth(180)
         
-        layout_acoes = QHBoxLayout()
 
         total_acoes = QFrame()
         total_acoes.setStyleSheet("""
