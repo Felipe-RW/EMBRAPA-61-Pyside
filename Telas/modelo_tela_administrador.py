@@ -148,13 +148,27 @@ class ModeloTelaAdministrador(QMainWindow):
 
         self.botaostacked = QStackedWidget()
 
+        self.home = pagina_principal ()
+        self.calendario = tela_de_anos ()
         self.acoes = Janelinha ()
         self.empregados = tela_de_empregados ()
+        self.validadores = tela_dos_validadores ()
 
+        self.botaostacked.addWidget (self.home)
+        self.botaostacked.addWidget (self.calendario)
         self.botaostacked.addWidget (self.acoes)
         self.botaostacked.addWidget (self.empregados)
+        self.botaostacked.addWidget (self.validadores)
 
         layout.addWidget (self.botaostacked)
+
+        self.btn_home.clicked.connect (
+            lambda: self.botaostacked.setCurrentWidget (self.home)
+        )
+        
+        self.btn_calendario.clicked.connect (
+            lambda: self.botaostacked.setCurrentWidget (self.calendario)
+        )
 
         self.btn_acoes.clicked.connect (
             lambda: self.botaostacked.setCurrentWidget (self.acoes)
@@ -163,6 +177,12 @@ class ModeloTelaAdministrador(QMainWindow):
         self.btn_empregados.clicked.connect (
             lambda: self.botaostacked.setCurrentWidget (self.empregados)
         )
+
+        self.btn_validadores.clicked.connect (
+            lambda: self.botaostacked.setCurrentWidget (self.validadores)
+        )
+
+        paginaprincipal.setCurrentIndex(self.home)
 
         # pagina_home = QFrame()
         # pagina_calendario = QFrame()
