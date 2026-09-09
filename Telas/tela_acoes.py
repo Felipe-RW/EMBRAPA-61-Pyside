@@ -7,7 +7,6 @@ from PySide6.QtWidgets import (
     QComboBox, QAbstractButton, QSizePolicy
 )
 
-
 #Area dos botões interruptores com a interacao
 
 class Interruptorzinho(QAbstractButton):
@@ -63,7 +62,7 @@ class Janelinha(QMainWindow):
         self.setWindowTitle("tela_administrador_acoes_gestaoAcoes")
         self.resize(1600, 1010)
         self.setMinimumSize(1100, 650)
-        self.setStyleSheet("background-color: #EEF1F5; font-family: 'Verdana';")
+        self.setStyleSheet("background-color: white; font-family: 'Verdana';")
 
         painel_central = self._montar_conteudo()
         self.setCentralWidget(painel_central)
@@ -93,6 +92,7 @@ class Janelinha(QMainWindow):
         botao_nova_acao.setStyleSheet("""
             QPushButton {
                 background-color: #058914;
+                border-radius: 10px;
                 color: white;
                 padding: 0 20px;
                 font-size: 13px;
@@ -133,7 +133,6 @@ class Janelinha(QMainWindow):
                 color: #FFFFFF;
                 background-color: #134593;
             }
-           
         """)
 
         botao_baixar_excel.setFocusPolicy(Qt.NoFocus)
@@ -153,7 +152,7 @@ class Janelinha(QMainWindow):
                 background-repeat: no-repeat;
                 background-position: right center;
                 padding-right: 10px;
-                font-size: 16px;
+                font-size: 13px;
                 border: 1px solid #ccc;
                 border-radius: 5px;
                 background-color: white;
@@ -206,6 +205,7 @@ class Janelinha(QMainWindow):
                 background-color: white;
                 border-radius: 5px;
                 border: 2px solid #4E73AE;
+                font-weight: regular;
                 font-size: 13px;
                 color: #374151;
                 font-family: 'Verdana';
@@ -247,11 +247,13 @@ class Janelinha(QMainWindow):
             combo_setor.addItems(["Setor", "CIPT", "SPAT", "NCO"])
             combo_setor.setFocusPolicy(Qt.NoFocus)
             combo_setor.setStyleSheet("""QComboBox{
-            border: 0;
+            border: none;
             }
+
             QComboBox:drop-down{
             border: none;
             }
+
             QComboBox:down-arrow{
             image: url(Imagens/seta_pra_baixo.png);
             }
