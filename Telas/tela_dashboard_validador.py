@@ -2,7 +2,7 @@ import sys
 import os
 
 from PySide6.QtCore import Qt
-from PySide6.QtGui import QStandardItemModel, QStandardItem, QPixmap
+from PySide6.QtGui import QStandardItemModel, QStandardItem, QPixmap, QPainter
 from PySide6.QtWidgets import (
     QApplication,
     QWidget,
@@ -18,7 +18,8 @@ from PySide6.QtWidgets import (
     QFileDialog,
     QListView,
     QMainWindow,
-    QButtonGroup
+    QButtonGroup,
+    QProgressBar
 )
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -28,6 +29,26 @@ from Utilitarios.btn_layout import btn_layout
 
 BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 LOGO = os.path.join(BASE, "Imagens", "Embrapa-Logo.png")
+
+
+def icone_branco(caminho, tamanho):
+    pixmap = QPixmap(caminho).scaled(
+        tamanho,
+        tamanho,
+        Qt.KeepAspectRatio,
+        Qt.SmoothTransformation
+    )
+
+    resultado = QPixmap(pixmap.size())
+    resultado.fill(Qt.transparent)
+
+    painter = QPainter(resultado)
+    painter.drawPixmap(0, 0, pixmap)
+    painter.setCompositionMode(QPainter.CompositionMode_SourceIn)
+    painter.fillRect(resultado.rect(), Qt.white)
+    painter.end()
+
+    return resultado
 
 
 class ModeloTelaValidador(QMainWindow):
@@ -142,7 +163,7 @@ class ModeloTelaValidador(QMainWindow):
         """)
 
         nome_tela = QLabel(
-            "Nome da Tela",
+            "Painel Principal",
             cabecalho
         )
 
@@ -212,88 +233,307 @@ class ModeloTelaValidador(QMainWindow):
             }
         """)
 
-        card1 = QLabel(paginaprincipal)
-        card1.setFixedSize(300, 238)
-        card1.move(50, 100)
-
-        card1.setText(
-            "Total de ações\n\n"
-            "realizadas:\n\n"
-            "50"
-        )
-
-        card1.setAlignment(Qt.AlignCenter)
-
-        card1.setStyleSheet("""
+        card_realizadas = QLabel(paginaprincipal)
+        card_realizadas.setFixedSize(300, 238)
+        card_realizadas.move(50, 100)
+        card_realizadas.setStyleSheet("""
             QLabel {
                 background-color: #013171;
-                color: white;
                 border-radius: 20px;
-                font-size: 24px;
-                font-family: Verdana;
             }
         """)
 
-        card2 = QLabel(paginaprincipal)
-        card2.setFixedSize(300, 238)
-        card2.move(450, 100)
+        card_realizadas_texto = QLabel(card_realizadas)
+        card_realizadas_texto.setText("Total de ações\n   realizadas:")
+        card_realizadas_texto.setFixedSize(300, 80)
+        card_realizadas_texto.move(0, 10)
+        card_realizadas_texto.setAlignment(Qt.AlignCenter)
+        card_realizadas_texto.setStyleSheet("""
+            QLabel {
+                background-color: transparent;
+                color: white;
+                font-size: 24px;
+                font-family: Verdana;
+                font-weight: normal;
+            }
+        """)
 
-        card2.setText(
-            "Aprovadas\n\n"
-            "10"
-        )
+        card_realizadas_numero = QLabel(card_realizadas)
+        card_realizadas_numero.setText("35")
+        card_realizadas_numero.setFixedSize(300, 90)
+        card_realizadas_numero.move(0, 80)
+        card_realizadas_numero.setAlignment(Qt.AlignCenter)
+        card_realizadas_numero.setStyleSheet("""
+            QLabel {
+                background-color: transparent;
+                color: white;
+                font-size: 50px;
+                font-family: Verdana;
+                font-weight: bold;
+            }
+        """)
 
-        card2.setAlignment(Qt.AlignCenter)
-
-        card2.setStyleSheet("""
+        card_aprovadas = QLabel(paginaprincipal)
+        card_aprovadas.setFixedSize(300, 238)
+        card_aprovadas.move(450, 100)
+        card_aprovadas.setStyleSheet("""
             QLabel {
                 background-color: #058914;
-                color: white;
                 border-radius: 20px;
-                font-size: 24px;
-                font-family: Verdana;
             }
         """)
 
-        card3 = QLabel(paginaprincipal)
-        card3.setFixedSize(300, 238)
-        card3.move(850, 100)
+        icone_aprovadas = QLabel(card_aprovadas)
+        icone_aprovadas.setFixedSize(35, 35)
+        icone_aprovadas.move(25, 18)
 
-        card3.setText(
-            "Em análise\n\n"
-            "30"
+        icone_aprovadas.setPixmap(
+            icone_branco(
+                os.path.join(BASE, "Imagens", "check.png"),
+                30
+            )
         )
 
-        card3.setAlignment(Qt.AlignCenter)
+        icone_aprovadas.setStyleSheet("""
+            QLabel {
+                background-color: transparent;
+            }
+        """)
 
-        card3.setStyleSheet("""
+        card_aprovadas_texto = QLabel(card_aprovadas)
+        card_aprovadas_texto.setText("Aprovadas:")
+        card_aprovadas_texto.setFixedSize(300, 40)
+        card_aprovadas_texto.move(0, 10)
+        card_aprovadas_texto.setAlignment(Qt.AlignCenter)
+        card_aprovadas_texto.setStyleSheet("""
+            QLabel {
+                background-color: transparent;
+                color: white;
+                font-size: 24px;
+                font-family: Verdana;
+                font-weight: normal;
+            }
+        """)
+
+        card_aprovadas_numero = QLabel(card_aprovadas)
+        card_aprovadas_numero.setText("15")
+        card_aprovadas_numero.setFixedSize(300, 70)
+        card_aprovadas_numero.move(0, 80)
+        card_aprovadas_numero.setAlignment(Qt.AlignCenter)
+        card_aprovadas_numero.setStyleSheet("""
+            QLabel {
+                background-color: transparent;
+                color: white;
+                font-size: 50px;
+                font-family: Verdana;
+                font-weight: bold;
+            }
+        """)
+
+        card_aprovadas_pct = QLabel(card_aprovadas)
+        card_aprovadas_pct.setText("42%")
+        card_aprovadas_pct.setFixedSize(300, 30)
+        card_aprovadas_pct.move(0, 165)
+        card_aprovadas_pct.setAlignment(Qt.AlignCenter)
+        card_aprovadas_pct.setStyleSheet("""
+            QLabel {
+                background-color: transparent;
+                color: white;
+                font-size: 20px;
+                font-family: Verdana;
+                font-weight: bold;
+            }
+        """)
+
+        card_aprovadas_barra = QProgressBar(card_aprovadas)
+        card_aprovadas_barra.setGeometry(50, 200, 200, 12)
+        card_aprovadas_barra.setValue(42)
+        card_aprovadas_barra.setTextVisible(False)
+        card_aprovadas_barra.setStyleSheet("""
+            QProgressBar {
+                background-color: #2e6033;
+                border-radius: 6px;
+                border: none;
+            }
+            QProgressBar::chunk {
+                background-color: #ffffff;
+                border-radius: 6px;
+            }
+        """)
+
+        card_analise = QLabel(paginaprincipal)
+        card_analise.setFixedSize(300, 238)
+        card_analise.move(850, 100)
+        card_analise.setStyleSheet("""
             QLabel {
                 background-color: #0088FF;
-                color: white;
                 border-radius: 20px;
-                font-size: 24px;
-                font-family: Verdana;
             }
         """)
 
-        card4 = QLabel(paginaprincipal)
-        card4.setFixedSize(300, 238)
-        card4.move(1250, 100)
+        icone_analise = QLabel(card_analise)
+        icone_analise.setFixedSize(35, 35)
+        icone_analise.move(25, 18)
 
-        card4.setText(
-            "Negadas\n\n"
-            "10"
+        icone_analise.setPixmap(
+            icone_branco(
+                os.path.join(BASE, "Imagens", "relogio.png"),
+                35
+            )
         )
 
-        card4.setAlignment(Qt.AlignCenter)
-
-        card4.setStyleSheet("""
+        icone_analise.setStyleSheet("""
             QLabel {
-                background-color: #FD7B01;
+                background-color: transparent;
+            }
+        """)
+
+        card_analise_texto = QLabel(card_analise)
+        card_analise_texto.setText("Em análise:")
+        card_analise_texto.setFixedSize(300, 40)
+        card_analise_texto.move(0, 10)
+        card_analise_texto.setAlignment(Qt.AlignCenter)
+        card_analise_texto.setStyleSheet("""
+            QLabel {
+                background-color: transparent;
                 color: white;
-                border-radius: 20px;
                 font-size: 24px;
                 font-family: Verdana;
+                font-weight: normal;
+            }
+        """)
+
+        card_analise_numero = QLabel(card_analise)
+        card_analise_numero.setText("15")
+        card_analise_numero.setFixedSize(300, 70)
+        card_analise_numero.move(0, 80)
+        card_analise_numero.setAlignment(Qt.AlignCenter)
+        card_analise_numero.setStyleSheet("""
+            QLabel {
+                background-color: transparent;
+                color: white;
+                font-size: 50px;
+                font-family: Verdana;
+                font-weight: bold;
+            }
+        """)
+
+        card_analise_pct = QLabel(card_analise)
+        card_analise_pct.setText("42%")
+        card_analise_pct.setFixedSize(300, 30)
+        card_analise_pct.move(0, 165)
+        card_analise_pct.setAlignment(Qt.AlignCenter)
+        card_analise_pct.setStyleSheet("""
+            QLabel {
+                background-color: transparent;
+                color: white;
+                font-size: 20px;
+                font-family: Verdana;
+                font-weight: bold;
+            }
+        """)
+
+        card_analise_barra = QProgressBar(card_analise)
+        card_analise_barra.setGeometry(50, 200, 200, 12)
+        card_analise_barra.setValue(42)
+        card_analise_barra.setTextVisible(False)
+        card_analise_barra.setStyleSheet("""
+            QProgressBar {
+                background-color: #55a8f5;
+                border-radius: 6px;
+                border: none;
+            }
+            QProgressBar::chunk {
+                background-color: #ffffff;
+                border-radius: 6px;
+            }
+        """)
+
+        card_negadas = QLabel(paginaprincipal)
+        card_negadas.setFixedSize(300, 238)
+        card_negadas.move(1250, 100)
+        card_negadas.setStyleSheet("""
+            QLabel {
+                background-color: #FD7B01;
+                border-radius: 20px;
+            }
+        """)
+
+        icone_negadas = QLabel(card_negadas)
+        icone_negadas.setFixedSize(35, 35)
+        icone_negadas.move(25, 18)
+
+        icone_negadas.setPixmap(
+            icone_branco(
+                os.path.join(BASE, "Imagens", "cruz.png"),
+                30
+            )
+        )
+
+        icone_negadas.setStyleSheet("""
+            QLabel {
+                background-color: transparent;
+            }
+        """)
+
+        card_negadas_texto = QLabel(card_negadas)
+        card_negadas_texto.setText("Negadas:")
+        card_negadas_texto.setFixedSize(300, 40)
+        card_negadas_texto.move(0, 10)
+        card_negadas_texto.setAlignment(Qt.AlignCenter)
+        card_negadas_texto.setStyleSheet("""
+            QLabel {
+                background-color: transparent;
+                color: white;
+                font-size: 24px;
+                font-family: Verdana;
+                font-weight: normal;
+            }
+        """)
+
+        card_negadas_numero = QLabel(card_negadas)
+        card_negadas_numero.setText("5")
+        card_negadas_numero.setFixedSize(300, 70)
+        card_negadas_numero.move(0, 80)
+        card_negadas_numero.setAlignment(Qt.AlignCenter)
+        card_negadas_numero.setStyleSheet("""
+            QLabel {
+                background-color: transparent;
+                color: white;
+                font-size: 50px;
+                font-family: Verdana;
+                font-weight: bold;
+            }
+        """)
+
+        card_negadas_pct = QLabel(card_negadas)
+        card_negadas_pct.setText("15%")
+        card_negadas_pct.setFixedSize(300, 30)
+        card_negadas_pct.move(0, 165)
+        card_negadas_pct.setAlignment(Qt.AlignCenter)
+        card_negadas_pct.setStyleSheet("""
+            QLabel {
+                background-color: transparent;
+                color: white;
+                font-size: 20px;
+                font-family: Verdana;
+                font-weight: bold;
+            }
+        """)
+
+        card_negadas_barra = QProgressBar(card_negadas)
+        card_negadas_barra.setGeometry(50, 200, 200, 12)
+        card_negadas_barra.setValue(15)
+        card_negadas_barra.setTextVisible(False)
+        card_negadas_barra.setStyleSheet("""
+            QProgressBar {
+                background-color: #f7a052;
+                border-radius: 6px;
+                border: none;
+            }
+            QProgressBar::chunk {
+                background-color: #ffffff;
+                border-radius: 6px;
             }
         """)
 
@@ -310,7 +550,7 @@ class ModeloTelaValidador(QMainWindow):
         """)
 
         circulo_status_aprovadas = QLabel(paginaprincipal)
-        circulo_status_aprovadas.setGeometry(590, 600, 16, 16)
+        circulo_status_aprovadas.setGeometry(540, 550, 16, 16)
         circulo_status_aprovadas.setStyleSheet("""
             QLabel {
                 border-radius: 8px;
@@ -318,8 +558,30 @@ class ModeloTelaValidador(QMainWindow):
             }
         """)
 
+        texto_aprovadas = QLabel(paginaprincipal)
+        texto_aprovadas.setText("Aprovadas")
+        texto_aprovadas.move(570, 550)
+        texto_aprovadas.setStyleSheet("""
+            QLabel {
+                font-size: 16px;
+                font-family: Verdana;
+                font-style: bold;
+            }
+        """)
+
+        subtitulo_aprovadas = QLabel(paginaprincipal)
+        subtitulo_aprovadas.setText("10 (20%)")
+        subtitulo_aprovadas.move(575, 570)
+        subtitulo_aprovadas.setStyleSheet("""
+            QLabel {
+                font-size: 14px;
+                font-family: Verdana;
+                font-style: bold;
+            }
+        """)
+
         circulo_status_analise = QLabel(paginaprincipal)
-        circulo_status_analise.setGeometry(590, 650, 16, 16)
+        circulo_status_analise.setGeometry(540, 650, 16, 16)
         circulo_status_analise.setStyleSheet("""
             QLabel {
                 border-radius: 8px;
@@ -327,15 +589,58 @@ class ModeloTelaValidador(QMainWindow):
             }
         """)
 
+        texto_analise = QLabel(paginaprincipal)
+        texto_analise.setText("Em análise")
+        texto_analise.move(570, 650)
+        texto_analise.setStyleSheet("""
+            QLabel {
+                font-size: 16px;
+                font-family: Verdana;
+                font-style: bold;
+            }
+        """)
+
+        subtitulo_analise = QLabel(paginaprincipal)
+        subtitulo_analise.setText("15 (42%)")
+        subtitulo_analise.move(575, 670)
+        subtitulo_analise.setStyleSheet("""
+            QLabel {
+                font-size: 14px;
+                font-family: Verdana;
+                font-style: bold;
+            }
+        """)
+
         circulo_status_reprovadas = QLabel(paginaprincipal)
-        circulo_status_reprovadas.setGeometry(590, 700, 16, 16)
+        circulo_status_reprovadas.setGeometry(540, 750, 16, 16)
         circulo_status_reprovadas.setStyleSheet("""
             QLabel {
                 border-radius: 8px;
-                background-color: #058914;
+                background-color: #FD7B01;
             }
         """)
-        
+
+        texto_negadas = QLabel(paginaprincipal)
+        texto_negadas.setText("Negadas")
+        texto_negadas.move(570, 750)
+        texto_negadas.setStyleSheet("""
+            QLabel {
+                font-size: 16px;
+                font-family: Verdana;
+                font-style: bold;
+            }
+        """)
+
+        subtitulo_negadas = QLabel(paginaprincipal)
+        subtitulo_negadas.setText("10 (20%)")
+        subtitulo_negadas.move(570, 770)
+        subtitulo_negadas.setStyleSheet("""
+            QLabel {
+                font-size: 14px;
+                font-family: Verdana;
+                font-style: bold;
+            }
+        """)
 
         quadro_resumo = QLabel(paginaprincipal)
         quadro_resumo.setFixedSize(700, 500)
@@ -380,8 +685,8 @@ class ModeloTelaValidador(QMainWindow):
             QLabel {
                 background-color: #6EC178;
                 border-radius: 10px;
-              }
-         """)
+            }
+        """)
 
         texto_maior_resumo = QLabel(paginaprincipal)
         texto_maior_resumo.setText("Maior volume")
@@ -392,13 +697,12 @@ class ModeloTelaValidador(QMainWindow):
                 font-size: 18px;
                 font-family: Verdana;
                 font-style: bold;
-             }
+            }
         """)
 
         subtitulo_maior_volume = QLabel(paginaprincipal)
         subtitulo_maior_volume.setText("Março/2026 \n 28 Ações")
         subtitulo_maior_volume.move(1000, 545)
-
 
         quadro_menor_resumo = QLabel(paginaprincipal)
         quadro_menor_resumo.setFixedSize(657, 108)
@@ -474,7 +778,6 @@ class ModeloTelaValidador(QMainWindow):
         subtitulo_comparacao = QLabel(paginaprincipal)
         subtitulo_comparacao.setText("Aumento de 12%\nem relação ao mês anterior")
         subtitulo_comparacao.move(1000, 805)
-        
 
 
 if __name__ == "__main__":
