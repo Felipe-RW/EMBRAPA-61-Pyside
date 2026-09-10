@@ -8,7 +8,7 @@ from PySide6.QtWidgets import (
     QPushButton, QVBoxLayout, QWidget
 )
   
-"""A tela pin precisa fazer import de ControleDeAcesso, TelaAutenticacaoBase. Muito obrigado! """
+
 
 CAMINHO_LOGO = os.path.join(os.path.dirname(__file__), "imagens", "embrapagadodecorte.jpg")
 CAMINHO_FUNDO = os.path.join(os.path.dirname(__file__), "imagens", "fundo_login.png")
@@ -24,17 +24,15 @@ class Perfil:
 
     TODOS = (PESQUISADOR, VALIDADOR, COMITE, ADMINISTRADOR)
 
-
 class ControleDeAcesso:
     
 
     _autorizados = {
-        "jordana.dark@embrapa.br": Perfil.PESQUISADOR,
-        "diana.mirror@embrapa.br": Perfil.PESQUISADOR,
-        "angel.gray@embrapa.br": Perfil.VALIDADOR,
-        "narciso.water@embrapa.br": Perfil.COMITE,
-        "admin@embrapa.br": Perfil.ADMINISTRADOR,
-    }
+    "jordana.dark@embrapa.br": Perfil.PESQUISADOR,
+    "diana.mirror@embrapa.br": Perfil.PESQUISADOR,
+    "angel.gray@embrapa.br": Perfil.VALIDADOR,
+    "narciso.water@embrapa.br": Perfil.COMITE,
+    "admin@embrapa.br": Perfil.ADMINISTRADOR,}
 
     @classmethod
     def esta_autorizado(cls, email: str) -> bool:
@@ -66,7 +64,7 @@ def _icone_usuario() -> QIcon:
     painter.setRenderHint(QPainter.Antialiasing)
     painter.setFont(QFont("Segoe UI", 11))
     painter.setPen(QColor("#9AA1AC"))
-    painter.drawText(pixmap.rect(), Qt.AlignCenter, "👤")
+
     painter.end()
     return QIcon(pixmap)
 
@@ -121,19 +119,13 @@ class FundoOndulado(QWidget):
             painter.setPen(Qt.NoPen)
             painter.setBrush(cor)
             painter.drawPath(caminho)
-
-
 class TelaAutenticacaoBase(FundoOndulado):
-    
-
     LARGURA_CARD = 420       
     LARGURA_CARD_MAXIMA = 640 
 
     def titulo_tela(self) -> str:
         
-        raise NotImplementedError(
-            f"{type(self).__name__} precisa implementar titulo_tela()."
-        )
+        raise NotImplementedError(f"{type(self).__name__} precisa implementar titulo_tela().")
 
     def _montar_card(self):
        
@@ -165,8 +157,6 @@ class TelaAutenticacaoBase(FundoOndulado):
             label_logo.setText("Embrapa\nGado de Corte")
         label_logo.setAlignment(Qt.AlignCenter)
         return label_logo
-
-
 class LoginScreen(TelaAutenticacaoBase):
   
     login_solicitado = Signal(str)  
@@ -210,7 +200,7 @@ class LoginScreen(TelaAutenticacaoBase):
         botao_entrar.setCursor(Qt.PointingHandCursor)
         botao_entrar.setFixedHeight(44)
         botao_entrar.setStyleSheet("""
-            QPushButton { background-color: #1E9E4F; color: white; border-radius: 8px; font-weight: 700; }
+            QPushButton { background-color: #058914; color: white; border-radius: 8px; font-weight: 700; }
             QPushButton:hover { background-color: #188540; }
         """)
         botao_entrar.clicked.connect(self._entrar)
@@ -236,8 +226,6 @@ class LoginScreen(TelaAutenticacaoBase):
     def limpar(self):
         self.campo_email.clear()
 
-
-
 def _ao_logar_com_sucesso(email: str):
     perfil = ControleDeAcesso.perfil_de(email)
     QMessageBox.information(
@@ -245,7 +233,6 @@ def _ao_logar_com_sucesso(email: str):
         f"E-mail autorizado: {email}\nPerfil: {perfil}\n\n"
         f"(Aguardando a tela de PIN.)"
     )
-
 
 def main():
     app = QApplication(sys.argv)
@@ -268,7 +255,6 @@ def main():
 
     janela.show()
     sys.exit(app.exec())
-
 
 if __name__ == "__main__":
     main()
