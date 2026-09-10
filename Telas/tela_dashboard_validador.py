@@ -163,7 +163,7 @@ class ModeloTelaValidador(QMainWindow):
         """)
 
         nome_tela = QLabel(
-            "Painel Principal",
+            "Painel principal",
             cabecalho
         )
 
