@@ -138,8 +138,17 @@ class tela_minhas_acoes(QWidget):
         barra_filtro = QHBoxLayout()
         barra_filtro.setContentsMargins(0, 0, 0, 20)
 
-        self.botao_novo = QPushButton("+  Nova Ação")
+        self.botao_novo = QPushButton(" Nova Ação")
         self.botao_novo.setFixedSize(165, 42)
+
+        self.botao_novo_icone = QIcon ("Imagens/icone_nova_acao.png")
+        self.botao_novo.setIcon (self.botao_novo_icone)
+
+        botao_excel = QPushButton("  Baixar em Excel ")
+        botao_excel.setFixedSize(230, 45)
+        
+        botao_excel_icone = QIcon ("Imagens/Excel-Icone.png")
+        botao_excel.setIcon (botao_excel_icone)
 
         self.botao_novo.setStyleSheet("""
             QPushButton {
@@ -304,7 +313,7 @@ class tela_minhas_acoes(QWidget):
                 QPushButton {
                     background-color: #2C66BF;
                     color: white;
-                    border: none;
+                    border: 3px solid #134593;
                     border-radius: 10px;
                     font-size: 18px;
                 }
