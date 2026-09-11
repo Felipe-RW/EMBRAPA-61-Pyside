@@ -80,6 +80,7 @@ QFrame#aiai{{
     max-width :900px;
     max-height: 80px;
     background-color:{OFF_WHITE};
+    border-radius: 20%;
 }}
 
 QLineEdit#input{{
@@ -105,8 +106,9 @@ QComboBox#acoes:down-arrow{{
 image: url(Imagens/Vector_dropdown.png);
 }}
 
-Qlabel#txt{{
-    margin-right: 150px;
+Qlabel#txt_acoes{{
+    color: #00409A;
+    font-size:17px;
 
 }}
 
