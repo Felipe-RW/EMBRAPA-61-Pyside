@@ -1,11 +1,12 @@
 import sys, os
 from PySide6.QtCore import Qt, QRectF
-from PySide6.QtGui import QStandardItemModel, QStandardItem, QPixmap, QColor, QPainter
+from PySide6.QtGui import QStandardItemModel, QStandardItem, QPixmap, QColor, QPainter, QPen, QFont
 from PySide6.QtWidgets import (
     QApplication, QWidget, QLabel, QLineEdit, QTextEdit, 
     QComboBox, QPushButton, QVBoxLayout, QHBoxLayout, 
     QFrame, QFileDialog, QListView,QMainWindow, QButtonGroup, QProgressBar
 )
+from PySide6.QtCharts import QChart, QChartView, QPieSeries, QPieSlice
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, BASE_DIR)
@@ -14,6 +15,56 @@ from Utilitarios.btn_layout import btn_layout
 
 BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 LOGO = os.path.join(BASE, "Imagens", "Embrapa-Logo.png")
+
+class GraficoDonut(QMainWindow):
+    def __init__(self):
+        super().__init__()
+
+        self.setWindowTitle("Gráfico Donut")
+        self.resize(600, 400)
+
+        series = QPieSeries()
+       
+        series.setHoleSize(0.4) 
+        series.clear()
+
+        fonte_interna = QFont("Arial", 9, QFont.Weight.Bold)
+            
+        fatia1 = series.append("Aprovadas<br>110 (50%)", 50)
+        fatia1.setBrush(QColor("#007948"))
+        fatia1.setPen(QPen(Qt.PenStyle.NoPen))
+        fatia1.setLabelVisible(True)
+        fatia1.setLabelPosition(QPieSlice.LabelPosition.LabelInsideHorizontal)
+        fatia1.setLabelColor(QColor("#FFFFFF"))
+        fatia1.setLabelFont(fonte_interna)
+
+        fatia2 = series.append("Em análise<br>55 (25%)", 25)
+        fatia2.setBrush(QColor("#E87109"))
+        fatia2.setPen(QPen(Qt.PenStyle.NoPen))
+        fatia2.setLabelVisible(True)
+        fatia2.setLabelPosition(QPieSlice.LabelPosition.LabelInsideHorizontal)
+        fatia2.setLabelColor(QColor("#FFFFFF"))
+        fatia2.setLabelFont(fonte_interna)
+
+        fatia3 = series.append("Negadas<br>55 (25%)", 25)
+        fatia3.setBrush(QColor("#0064AC"))
+        fatia3.setPen(QPen(Qt.PenStyle.NoPen))
+        fatia3.setLabelVisible(True)
+        fatia3.setLabelPosition(QPieSlice.LabelPosition.LabelInsideHorizontal)
+        fatia3.setLabelColor(QColor("#FFFFFF"))
+        fatia3.setLabelFont(fonte_interna)
+   
+        chart = QChart()
+        chart.addSeries(series)
+        chart.setAnimationOptions(QChart.AnimationOption.SeriesAnimations)
+        chart.legend().setAlignment(Qt.AlignmentFlag.AlignRight)
+
+        self.chart_view = QChartView(chart)
+        self.chart_view.setRenderHint(QPainter.RenderHint.Antialiasing)
+
+        self.setCentralWidget(self.chart_view)
+
+
 
 class ModeloTelaComite(QMainWindow):
     def __init__(self):
@@ -169,7 +220,8 @@ class ModeloTelaComite(QMainWindow):
         layout_acoes.setSpacing(20)
 
         total_acoes = QFrame()
-        total_acoes.setFixedHeight(180)
+        total_acoes.setFixedHeight(240)
+        total_acoes.setFixedWidth(340)
         total_acoes.setStyleSheet("QFrame { background-color: #013171; border-radius: 15px; }")
         layout_total = QVBoxLayout(total_acoes)
         
@@ -185,7 +237,8 @@ class ModeloTelaComite(QMainWindow):
         layout_total.addWidget(valor_total)
 
         acoes_aprovadas = QFrame()
-        acoes_aprovadas.setFixedHeight(180)
+        acoes_aprovadas.setFixedHeight(240)
+        acoes_aprovadas.setFixedWidth(340)
         acoes_aprovadas.setStyleSheet("QFrame { background-color: #058914; border-radius: 15px; }")
         layout_aprovadas = QVBoxLayout(acoes_aprovadas)
         
@@ -216,7 +269,8 @@ class ModeloTelaComite(QMainWindow):
         layout_aprovadas.addWidget(barra_aprovadas)
 
         acoes_analise = QFrame()
-        acoes_analise.setFixedHeight(180)
+        acoes_analise.setFixedHeight(240)
+        acoes_analise.setFixedWidth(340)
         acoes_analise.setStyleSheet("QFrame { background-color: #0088FF; border-radius: 15px; }")
         layout_analise = QVBoxLayout(acoes_analise)
         
@@ -247,7 +301,8 @@ class ModeloTelaComite(QMainWindow):
         layout_analise.addWidget(barra_analise)
 
         acoes_negadas = QFrame()
-        acoes_negadas.setFixedHeight(180)
+        acoes_negadas.setFixedHeight(240)
+        acoes_negadas.setFixedWidth(340)
         acoes_negadas.setStyleSheet("QFrame { background-color: #FD7B01; border-radius: 15px; }")
         layout_negadas = QVBoxLayout(acoes_negadas)
         
@@ -296,31 +351,13 @@ class ModeloTelaComite(QMainWindow):
         titulo_grafico.setStyleSheet("font-size: 20px; font-weight: bold; color: #000000; border: none;")
         layout_painel_grafico.addWidget(titulo_grafico)
 
-        layout_rosca = QHBoxLayout()
-        
-        grafico_rosca = DonutChartWidget()
-        layout_rosca.addWidget(grafico_rosca)
-
-        layout_legenda = QVBoxLayout()
-        layout_legenda.setAlignment(Qt.AlignVCenter)
-        
-        leg_aprovadas = QLabel("<span style='color:#058914; font-size:20px;'>●</span> <b>Aprovadas</b><br>&nbsp;&nbsp;&nbsp;110 (50%)")
-        leg_aprovadas.setStyleSheet("font-size: 14px; color: #333333; font-weight: normal; border: none;")
-        
-        leg_analise = QLabel("<span style='color:#0088FF; font-size:20px;'>●</span> <b>Em análise</b><br>&nbsp;&nbsp;&nbsp;55 (25%)")
-        leg_analise.setStyleSheet("font-size: 14px; color: #333333; font-weight: normal; border: none;")
-        
-        leg_negadas = QLabel("<span style='color:#FD7B01; font-size:20px;'>●</span> <b>Negadas</b><br>&nbsp;&nbsp;&nbsp;55 (25%)")
-        leg_negadas.setStyleSheet("font-size: 14px; color: #333333; font-weight: normal; border: none;")
-        
-        layout_legenda.addWidget(leg_aprovadas)
-        layout_legenda.addWidget(leg_analise)
-        layout_legenda.addWidget(leg_negadas)
-
-        layout_rosca.addLayout(layout_legenda)
-        layout_painel_grafico.addLayout(layout_rosca)
+        layout_donut = QHBoxLayout()
+        grafico_donut = GraficoDonut()
+        layout_donut.addWidget(grafico_donut)
+        layout_painel_grafico.addLayout(layout_donut)
 
         painel_resumo = QFrame()
+        painel_resumo.setFixedWidth(860)
         painel_resumo.setStyleSheet("QFrame { background-color: #ffffff; border: 1px solid #e0e0e0; border-radius: 16px; }")
         layout_painel_resumo = QVBoxLayout(painel_resumo)
 
@@ -339,10 +376,13 @@ class ModeloTelaComite(QMainWindow):
         icone_maior.setStyleSheet("background-color: #C8E6C9; color: #2E7D32; font-size: 24px; border-radius: 10px; border: none;")
         
         textos_maior = QVBoxLayout()
+
         titulo_maior = QLabel("Maior Volume")
         titulo_maior.setStyleSheet("font-size: 15px; font-weight: bold; color: #000000; border: none;")
+
         sub1_maior = QLabel("Março/2026")
         sub1_maior.setStyleSheet("font-size: 12px; color: #666666; font-weight: normal; border: none;")
+
         sub2_maior = QLabel("28 Pesquisas")
         sub2_maior.setStyleSheet("font-size: 12px; color: #666666; font-weight: normal; border: none;")
         textos_maior.addWidget(titulo_maior)
@@ -387,12 +427,16 @@ class ModeloTelaComite(QMainWindow):
         icone_comp.setStyleSheet("background-color: #BBDEFB; color: #1565C0; font-size: 24px; border-radius: 10px; border: none;")
         
         textos_comp = QVBoxLayout()
+
         titulo_comp = QLabel("Comparação")
         titulo_comp.setStyleSheet("font-size: 15px; font-weight: bold; color: #000000; border: none;")
+
         sub1_comp = QLabel("Aumento de 12% em")
         sub1_comp.setStyleSheet("font-size: 12px; color: #666666; font-weight: normal; border: none;")
+
         sub2_comp = QLabel("relação ao mês anterior")
         sub2_comp.setStyleSheet("font-size: 12px; color: #666666; font-weight: normal; border: none;")
+
         textos_comp.addWidget(titulo_comp)
         textos_comp.addWidget(sub1_comp)
         textos_comp.addWidget(sub2_comp)
