@@ -3,7 +3,7 @@ from PySide6.QtGui import QIcon
 from PySide6.QtWidgets import QPushButton, QHBoxLayout, QLabel
 
 class btn_layout(QPushButton):
-    def __init__(self, path, texto, parent=None):
+    def __init__(self, path, texto, ativo = False, parent=None):
         super().__init__(parent)
 
         self.setStyleSheet ("""
@@ -30,6 +30,31 @@ class btn_layout(QPushButton):
             }
         """)
 
+        self.setCursor(Qt.PointingHandCursor)
+
+        if ativo:
+             self.setStyleSheet("""
+            QPushButton {
+                height: 50px;
+                padding: 10px;
+                border: none;
+                background-color: white;
+                border-top-left-radius: 20px;
+                border-bottom-left-radius: 20px;
+            }
+                           
+            QLabel {
+                background-color: white;
+                text-align: center;
+                font-family: Verdana;
+                font-weight: bold;
+                color: #09185E;
+                font-size: 20px;
+            }
+            }
+             """)
+             self.unsetCursor()
+
         layout = QHBoxLayout(self)
         layout.setContentsMargins(20, 0, 10, 0)
 
@@ -41,8 +66,6 @@ class btn_layout(QPushButton):
 
         self.icone_label.setAttribute(Qt.WA_TransparentForMouseEvents)
         self.texto_label.setAttribute(Qt.WA_TransparentForMouseEvents)
-
-        self.setCursor(Qt.PointingHandCursor)
 
         layout.addWidget(self.icone_label)
         layout.addStretch()

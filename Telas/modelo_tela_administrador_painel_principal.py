@@ -1,20 +1,45 @@
 import sys, os
 from PySide6.QtCore import Qt
-from PySide6.QtGui import QStandardItemModel, QStandardItem, QPixmap
+from PySide6.QtGui import QStandardItemModel, QStandardItem, QPixmap, QRegion
 from PySide6.QtWidgets import (
     QApplication, QWidget, QLabel, QLineEdit, QTextEdit, 
     QComboBox, QPushButton, QVBoxLayout, QHBoxLayout, 
     QFrame, QFileDialog, QListView,QMainWindow, QButtonGroup,
-    QScrollArea, QSizePolicy
+    QScrollArea, QSizePolicy, QStackedWidget
 )
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, BASE_DIR)
 
 from Utilitarios.btn_layout import btn_layout
+from Telas.modelo_tela_administrador_calendario import ModeloTelaAdministradorCalendario
 
 BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 LOGO = os.path.join(BASE, "Imagens", "Embrapa-Logo.png")
+
+
+class PainelPrincipal(QWidget):
+    def __init__(self):
+        super().__init__()
+        self.setMinimumWidth(1600)
+        self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        self.setContentsMargins(0, 0, 40, 0)
+        self.setStyleSheet("""
+                background-color: #ffffff;
+                border-top-left-radius: 20px;
+                border-top-right-radius: 20px;
+        """)
+
+        painel_layout = QVBoxLayout(self)
+        painel_layout.setContentsMargins(0, 0, 0, 0)
+        painel_layout.setSpacing(0)
+
+        label = QLabel ("Painel Principal", self)
+        label.setAlignment(Qt.AlignCenter)
+        painel_layout.addWidget(label)
+
+        self.setLayout(painel_layout)
+
 
 class ModeloTelaAdministrador(QMainWindow):
     def __init__(self):
@@ -42,8 +67,6 @@ class ModeloTelaAdministrador(QMainWindow):
         layout_principal = QHBoxLayout(conteudo_pagina)
         layout_principal.setContentsMargins(0, 0, 0, 0)
         layout_principal.setSpacing(0)
-
-        self.setCentralWidget(self.area_scroll)
         
         menu_lateral = QWidget(self)
         menu_lateral.setFixedWidth(280)
@@ -177,41 +200,29 @@ class ModeloTelaAdministrador(QMainWindow):
         cabecalho_layout.addStretch()
         cabecalho_layout.addWidget(botao_logout)
 
-        frame_principal = QFrame(self)
-        frame_principal.setFixedWidth(1600)
-        frame_principal.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Expanding)
-        frame_principal.setContentsMargins(0, 0, 0, 0)
-        frame_principal.setStyleSheet("""
-            QFrame{
-                background-color: #ffffff;
-                border-top-left-radius: 20px;
-                border-top-right-radius: 20px;
-            }
+        frame_principal = QStackedWidget(self)
+        frame_principal.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
 
-        """)
+        self.painel_princpal = PainelPrincipal()
+        frame_principal.addWidget(self.painel_princpal)
+        self.tela_calendario = ModeloTelaAdministradorCalendario()
+        frame_principal.addWidget(self.tela_calendario)
 
-
-        frame_principal_layout = QVBoxLayout(frame_principal)
-        frame_principal_layout.setAlignment(Qt.AlignTop)
-
+        self.btn_home.clicked.connect(lambda: frame_principal.setCurrentIndex(0))
+        self.btn_calendario.clicked.connect(lambda: frame_principal.setCurrentIndex(1))
+        self.btn_acoes.clicked.connect(lambda: frame_principal.setCurrentIndex(2))
+        self.btn_empregados.clicked.connect(lambda: frame_principal.setCurrentIndex(3))
+        self.btn_validadores.clicked.connect(lambda: frame_principal.setCurrentIndex(4))
 
         # As seguintes linhas de código são apenas para exemplo, seu código vai ser colocado seguindo esse exemplo:
-        # titulo = QLabel("Título", frame_principal)
-        # titulo.setAlignment(Qt.AlignCenter)
-        # titulo.setGeometry(760, 40, 150, 50)
-        # titulo.setStyleSheet("""
-        #     QLabel{
-        #         font-size: 36px;
-
-        #     }
-
-        # """)
 
         layout_pagina.addWidget(cabecalho)
         layout_pagina.addWidget(frame_principal)
 
         layout_principal.addWidget(menu_lateral)
         layout_principal.addWidget(pagina_principal)
+
+        self.setCentralWidget(self.area_scroll)
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
