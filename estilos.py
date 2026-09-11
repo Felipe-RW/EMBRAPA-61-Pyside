@@ -1,19 +1,15 @@
+
 ESTILO = """
 
-QWidget {
-    font-family: Verdana;
+/* FUNDO DO POPUP */
+
+QWidget#fundo {
+    background-color: #f7f7f8;
+    border-radius: 12px;
 }
 
 
-/* POPUP */
-
-QWidget#popup {
-    background-color: #FFFFFF;
-    border-radius: 20px;
-}
-
-
-/* ÁREA CINZA */
+/* AREA CINZA */
 
 QWidget#areaCinza {
     background-color: #DFDFDF;
@@ -24,7 +20,6 @@ QWidget#areaCinza {
 
 QLabel#titulo {
     color: #000000;
-
     font-family: Verdana;
     font-size: 32px;
     font-weight: bold;
@@ -35,7 +30,6 @@ QLabel#titulo {
 
 QLabel#tituloSecao {
     color: #000000;
-
     font-family: Verdana;
     font-size: 20px;
     font-weight: bold;
@@ -47,10 +41,8 @@ QLabel#tituloSecao {
 QPushButton#botaoRelatorio {
     background-color: #356394;
     color: #FFFFFF;
-
     border: none;
-    border-radius: 20px;
-
+    border-radius: 18px;
     font-family: Verdana;
     font-size: 14px;
     font-weight: bold;
@@ -62,12 +54,10 @@ QPushButton#botaoRelatorio {
 QPushButton#botaoAzul {
     background-color: #356394;
     color: #FFFFFF;
-
     border: none;
-    border-radius: 20px;
-
+    border-radius: 12px;
     font-family: Verdana;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: bold;
 }
 
@@ -77,12 +67,10 @@ QPushButton#botaoAzul {
 QPushButton#botaoBranco {
     background-color: #FFFFFF;
     color: #000000;
-
     border: none;
-    border-radius: 20px;
-
+    border-radius: 12px;
     font-family: Verdana;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: bold;
 }
 
@@ -92,10 +80,8 @@ QPushButton#botaoBranco {
 QPushButton#botaoGerar {
     background-color: #263878;
     color: #FFFFFF;
-
     border: none;
-    border-radius: 20px;
-
+    border-radius: 15px;
     font-family: Verdana;
     font-size: 13px;
     font-weight: bold;
@@ -107,9 +93,7 @@ QPushButton#botaoGerar {
 QPushButton#botaoFechar {
     background-color: transparent;
     color: #000000;
-
     border: none;
-
     font-family: Verdana;
     font-size: 27px;
     font-weight: bold;
@@ -120,10 +104,8 @@ QPushButton#botaoFechar {
 
 QCheckBox {
     color: #303438;
-
     font-family: Verdana;
     font-size: 14px;
-
     spacing: 10px;
 }
 
@@ -131,9 +113,7 @@ QCheckBox {
 QCheckBox::indicator {
     width: 23px;
     height: 23px;
-
     background-color: #F5F5F2;
-
     border: 1px solid #72937A;
     border-radius: 8px;
 }
@@ -148,16 +128,13 @@ QCheckBox::indicator:checked {
 
 QLineEdit {
     background-color: #FFFFFF;
-
     border: 1px solid #8D8D8D;
     border-radius: 12px;
-
     color: #555555;
-
     font-family: Verdana;
     font-size: 16px;
-
     padding-left: 12px;
+    padding-right: 40px;
 }
 
 
@@ -165,3 +142,4 @@ QLineEdit::placeholder {
     color: #888888;
 }
 """
+
