@@ -305,7 +305,7 @@ class tela_minhas_acoes(QWidget):
                     background-color: #2C66BF;
                     color: white;
                     border: none;
-                    border-radius: 6px;
+                    border-radius: 10px;
                     font-size: 18px;
                 }
 
@@ -349,7 +349,8 @@ class tela_minhas_acoes(QWidget):
             QTableWidget {
                 background-color: white;
                 border: 1px solid black;
-                border-radius: 14px;
+                border-top-right-radius: 14px;
+                border-top-left-radius: 14px;
                 gridline-color: transparent;
                 font-size: 18px;
                 font-weight: normal;
