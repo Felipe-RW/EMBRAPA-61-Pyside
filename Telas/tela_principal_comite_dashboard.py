@@ -64,8 +64,6 @@ class GraficoDonut(QMainWindow):
 
         self.setCentralWidget(self.chart_view)
 
-
-
 class ModeloTelaComite(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -221,7 +219,7 @@ class ModeloTelaComite(QMainWindow):
 
         total_acoes = QFrame()
         total_acoes.setFixedHeight(240)
-        total_acoes.setFixedWidth(340)
+        total_acoes.setFixedWidth(365)
         total_acoes.setStyleSheet("QFrame { background-color: #013171; border-radius: 15px; }")
         layout_total = QVBoxLayout(total_acoes)
         
@@ -238,7 +236,7 @@ class ModeloTelaComite(QMainWindow):
 
         acoes_aprovadas = QFrame()
         acoes_aprovadas.setFixedHeight(240)
-        acoes_aprovadas.setFixedWidth(340)
+        acoes_aprovadas.setFixedWidth(365)
         acoes_aprovadas.setStyleSheet("QFrame { background-color: #058914; border-radius: 15px; }")
         layout_aprovadas = QVBoxLayout(acoes_aprovadas)
         
@@ -270,7 +268,7 @@ class ModeloTelaComite(QMainWindow):
 
         acoes_analise = QFrame()
         acoes_analise.setFixedHeight(240)
-        acoes_analise.setFixedWidth(340)
+        acoes_analise.setFixedWidth(365)
         acoes_analise.setStyleSheet("QFrame { background-color: #0088FF; border-radius: 15px; }")
         layout_analise = QVBoxLayout(acoes_analise)
         
@@ -302,7 +300,7 @@ class ModeloTelaComite(QMainWindow):
 
         acoes_negadas = QFrame()
         acoes_negadas.setFixedHeight(240)
-        acoes_negadas.setFixedWidth(340)
+        acoes_negadas.setFixedWidth(365)
         acoes_negadas.setStyleSheet("QFrame { background-color: #FD7B01; border-radius: 15px; }")
         layout_negadas = QVBoxLayout(acoes_negadas)
         
@@ -357,7 +355,7 @@ class ModeloTelaComite(QMainWindow):
         layout_painel_grafico.addLayout(layout_donut)
 
         painel_resumo = QFrame()
-        painel_resumo.setFixedWidth(860)
+        painel_resumo.setFixedWidth(820)
         painel_resumo.setStyleSheet("QFrame { background-color: #ffffff; border: 1px solid #e0e0e0; border-radius: 16px; }")
         layout_painel_resumo = QVBoxLayout(painel_resumo)
 
