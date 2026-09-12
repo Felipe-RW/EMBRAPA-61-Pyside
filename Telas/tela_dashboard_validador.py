@@ -1,26 +1,13 @@
-import sys
-import os
+import sys, os
 
-from PySide6.QtCore import Qt
-from PySide6.QtGui import QStandardItemModel, QStandardItem, QPixmap, QPainter
+from PySide6.QtCore import Qt, QRectF
+from PySide6.QtGui import QStandardItemModel, QStandardItem, QPixmap, QColor, QPainter, QPen, QFont
 from PySide6.QtWidgets import (
-    QApplication,
-    QWidget,
-    QLabel,
-    QLineEdit,
-    QTextEdit,
-    QComboBox,
-    QPushButton,
-    QVBoxLayout,
-    QHBoxLayout,
-    QCheckBox,
-    QFrame,
-    QFileDialog,
-    QListView,
-    QMainWindow,
-    QButtonGroup,
-    QProgressBar
+    QApplication, QWidget, QLabel, QLineEdit, QTextEdit, 
+    QComboBox, QPushButton, QVBoxLayout, QHBoxLayout, 
+    QFrame, QFileDialog, QListView,QMainWindow, QButtonGroup, QProgressBar
 )
+from PySide6.QtCharts import QChart, QChartView, QPieSeries, QPieSlice
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, BASE_DIR)
@@ -31,24 +18,53 @@ BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 LOGO = os.path.join(BASE, "Imagens", "Embrapa-Logo.png")
 
 
-def icone_branco(caminho, tamanho):
-    pixmap = QPixmap(caminho).scaled(
-        tamanho,
-        tamanho,
-        Qt.KeepAspectRatio,
-        Qt.SmoothTransformation
-    )
+class GraficoDonut(QMainWindow):
+    def __init__(self):
+        super().__init__()
 
-    resultado = QPixmap(pixmap.size())
-    resultado.fill(Qt.transparent)
+        self.setWindowTitle("Gráfico Donut")
+        self.resize(600, 400)
 
-    painter = QPainter(resultado)
-    painter.drawPixmap(0, 0, pixmap)
-    painter.setCompositionMode(QPainter.CompositionMode_SourceIn)
-    painter.fillRect(resultado.rect(), Qt.white)
-    painter.end()
+        series = QPieSeries()
+       
+        series.setHoleSize(0.4) 
+        series.clear()
 
-    return resultado
+        fonte_interna = QFont("Arial", 9, QFont.Weight.Bold)
+            
+        fatia1 = series.append("Aprovadas<br>10 (20%)", 50)
+        fatia1.setBrush(QColor("#007948"))
+        fatia1.setPen(QPen(Qt.PenStyle.NoPen))
+        fatia1.setLabelVisible(True)
+        fatia1.setLabelPosition(QPieSlice.LabelPosition.LabelInsideHorizontal)
+        fatia1.setLabelColor(QColor("#FFFFFF"))
+        fatia1.setLabelFont(fonte_interna)
+
+        fatia2 = series.append("Em análise<br>30 (60%)", 25)
+        fatia2.setBrush(QColor("#E87109"))
+        fatia2.setPen(QPen(Qt.PenStyle.NoPen))
+        fatia2.setLabelVisible(True)
+        fatia2.setLabelPosition(QPieSlice.LabelPosition.LabelInsideHorizontal)
+        fatia2.setLabelColor(QColor("#FFFFFF"))
+        fatia2.setLabelFont(fonte_interna)
+
+        fatia3 = series.append("Negadas<br>10 (10%)", 25)
+        fatia3.setBrush(QColor("#0064AC"))
+        fatia3.setPen(QPen(Qt.PenStyle.NoPen))
+        fatia3.setLabelVisible(True)
+        fatia3.setLabelPosition(QPieSlice.LabelPosition.LabelInsideHorizontal)
+        fatia3.setLabelColor(QColor("#FFFFFF"))
+        fatia3.setLabelFont(fonte_interna)
+   
+        chart = QChart()
+        chart.addSeries(series)
+        chart.setAnimationOptions(QChart.AnimationOption.SeriesAnimations)
+        chart.legend().setAlignment(Qt.AlignmentFlag.AlignRight)
+
+        self.chart_view = QChartView(chart)
+        self.chart_view.setRenderHint(QPainter.RenderHint.Antialiasing)
+
+        self.setCentralWidget(self.chart_view)
 
 
 class ModeloTelaValidador(QMainWindow):
@@ -199,7 +215,7 @@ class ModeloTelaValidador(QMainWindow):
         paginaprincipal.setGeometry(
             280,
             70,
-            1600,
+            1640,
             1010
         )
 
@@ -211,573 +227,281 @@ class ModeloTelaValidador(QMainWindow):
             }
         """)
 
-        titulo = QLabel(
-            "DashBoard",
-            paginaprincipal
-        )
 
+        janela = QWidget(paginaprincipal)
+        janela.setObjectName("janela_validador")
+        janela.setGeometry(0, 0, 1640, 1010)
+        janela.setStyleSheet("background-color: transparent;")
+
+        layout_principal = QVBoxLayout(janela)
+        layout_principal.setContentsMargins(40, 30, 40, 30)
+        layout_principal.setSpacing(25)
+
+        layout_titulo = QHBoxLayout()
+        layout_titulo.addStretch()
+
+        titulo = QLabel("Dashboard")
+        titulo.setStyleSheet("font-size: 32px; font-weight: bold; color: #000000;")
         titulo.setAlignment(Qt.AlignCenter)
+        layout_titulo.addWidget(titulo)
 
-        titulo.setGeometry(
-            700,
-            30,
-            250,
-            70
-        )
+        layout_titulo.addStretch()
 
-        titulo.setStyleSheet("""
-            QLabel {
-                background-color: transparent;
-                color: #000000;
-                font-size: 36px;
-            }
-        """)
-
-        card_realizadas = QLabel(paginaprincipal)
-        card_realizadas.setFixedSize(300, 238)
-        card_realizadas.move(50, 100)
-        card_realizadas.setStyleSheet("""
-            QLabel {
-                background-color: #013171;
-                border-radius: 20px;
-            }
-        """)
-
-        card_realizadas_texto = QLabel(card_realizadas)
-        card_realizadas_texto.setText("Total de ações\n   realizadas:")
-        card_realizadas_texto.setFixedSize(300, 80)
-        card_realizadas_texto.move(0, 10)
-        card_realizadas_texto.setAlignment(Qt.AlignCenter)
-        card_realizadas_texto.setStyleSheet("""
-            QLabel {
-                background-color: transparent;
-                color: white;
-                font-size: 24px;
-                font-family: Verdana;
-                font-weight: normal;
-            }
-        """)
-
-        card_realizadas_numero = QLabel(card_realizadas)
-        card_realizadas_numero.setText("35")
-        card_realizadas_numero.setFixedSize(300, 90)
-        card_realizadas_numero.move(0, 80)
-        card_realizadas_numero.setAlignment(Qt.AlignCenter)
-        card_realizadas_numero.setStyleSheet("""
-            QLabel {
-                background-color: transparent;
-                color: white;
-                font-size: 50px;
-                font-family: Verdana;
+        btn_ano = QComboBox()
+        btn_ano.setStyleSheet("""  
+            QComboBox {
+                background-color: #ffffff; 
+                color: #333333;
                 font-weight: bold;
-            }
-        """)
-
-        card_aprovadas = QLabel(paginaprincipal)
-        card_aprovadas.setFixedSize(300, 238)
-        card_aprovadas.move(450, 100)
-        card_aprovadas.setStyleSheet("""
-            QLabel {
-                background-color: #058914;
-                border-radius: 20px;
-            }
-        """)
-
-        icone_aprovadas = QLabel(card_aprovadas)
-        icone_aprovadas.setFixedSize(35, 35)
-        icone_aprovadas.move(25, 18)
-
-        icone_aprovadas.setPixmap(
-            icone_branco(
-                os.path.join(BASE, "Imagens", "check.png"),
-                30
-            )
-        )
-
-        icone_aprovadas.setStyleSheet("""
-            QLabel {
-                background-color: transparent;
-            }
-        """)
-
-        card_aprovadas_texto = QLabel(card_aprovadas)
-        card_aprovadas_texto.setText("Aprovadas:")
-        card_aprovadas_texto.setFixedSize(300, 40)
-        card_aprovadas_texto.move(0, 10)
-        card_aprovadas_texto.setAlignment(Qt.AlignCenter)
-        card_aprovadas_texto.setStyleSheet("""
-            QLabel {
-                background-color: transparent;
-                color: white;
-                font-size: 24px;
-                font-family: Verdana;
-                font-weight: normal;
-            }
-        """)
-
-        card_aprovadas_numero = QLabel(card_aprovadas)
-        card_aprovadas_numero.setText("15")
-        card_aprovadas_numero.setFixedSize(300, 70)
-        card_aprovadas_numero.move(0, 80)
-        card_aprovadas_numero.setAlignment(Qt.AlignCenter)
-        card_aprovadas_numero.setStyleSheet("""
-            QLabel {
-                background-color: transparent;
-                color: white;
-                font-size: 50px;
-                font-family: Verdana;
-                font-weight: bold;
-            }
-        """)
-
-        card_aprovadas_pct = QLabel(card_aprovadas)
-        card_aprovadas_pct.setText("42%")
-        card_aprovadas_pct.setFixedSize(300, 30)
-        card_aprovadas_pct.move(0, 165)
-        card_aprovadas_pct.setAlignment(Qt.AlignCenter)
-        card_aprovadas_pct.setStyleSheet("""
-            QLabel {
-                background-color: transparent;
-                color: white;
-                font-size: 20px;
-                font-family: Verdana;
-                font-weight: bold;
-            }
-        """)
-
-        card_aprovadas_barra = QProgressBar(card_aprovadas)
-        card_aprovadas_barra.setGeometry(50, 200, 200, 12)
-        card_aprovadas_barra.setValue(42)
-        card_aprovadas_barra.setTextVisible(False)
-        card_aprovadas_barra.setStyleSheet("""
-            QProgressBar {
-                background-color: #2e6033;
-                border-radius: 6px;
-                border: none;
-            }
-            QProgressBar::chunk {
-                background-color: #ffffff;
-                border-radius: 6px;
-            }
-        """)
-
-        card_analise = QLabel(paginaprincipal)
-        card_analise.setFixedSize(300, 238)
-        card_analise.move(850, 100)
-        card_analise.setStyleSheet("""
-            QLabel {
-                background-color: #0088FF;
-                border-radius: 20px;
-            }
-        """)
-
-        icone_analise = QLabel(card_analise)
-        icone_analise.setFixedSize(35, 35)
-        icone_analise.move(25, 18)
-
-        icone_analise.setPixmap(
-            icone_branco(
-                os.path.join(BASE, "Imagens", "relogio.png"),
-                35
-            )
-        )
-
-        icone_analise.setStyleSheet("""
-            QLabel {
-                background-color: transparent;
-            }
-        """)
-
-        card_analise_texto = QLabel(card_analise)
-        card_analise_texto.setText("Em análise:")
-        card_analise_texto.setFixedSize(300, 40)
-        card_analise_texto.move(0, 10)
-        card_analise_texto.setAlignment(Qt.AlignCenter)
-        card_analise_texto.setStyleSheet("""
-            QLabel {
-                background-color: transparent;
-                color: white;
-                font-size: 24px;
-                font-family: Verdana;
-                font-weight: normal;
-            }
-        """)
-
-        card_analise_numero = QLabel(card_analise)
-        card_analise_numero.setText("15")
-        card_analise_numero.setFixedSize(300, 70)
-        card_analise_numero.move(0, 80)
-        card_analise_numero.setAlignment(Qt.AlignCenter)
-        card_analise_numero.setStyleSheet("""
-            QLabel {
-                background-color: transparent;
-                color: white;
-                font-size: 50px;
-                font-family: Verdana;
-                font-weight: bold;
-            }
-        """)
-
-        card_analise_pct = QLabel(card_analise)
-        card_analise_pct.setText("42%")
-        card_analise_pct.setFixedSize(300, 30)
-        card_analise_pct.move(0, 165)
-        card_analise_pct.setAlignment(Qt.AlignCenter)
-        card_analise_pct.setStyleSheet("""
-            QLabel {
-                background-color: transparent;
-                color: white;
-                font-size: 20px;
-                font-family: Verdana;
-                font-weight: bold;
-            }
-        """)
-
-        card_analise_barra = QProgressBar(card_analise)
-        card_analise_barra.setGeometry(50, 200, 200, 12)
-        card_analise_barra.setValue(42)
-        card_analise_barra.setTextVisible(False)
-        card_analise_barra.setStyleSheet("""
-            QProgressBar {
-                background-color: #55a8f5;
-                border-radius: 6px;
-                border: none;
-            }
-            QProgressBar::chunk {
-                background-color: #ffffff;
-                border-radius: 6px;
-            }
-        """)
-
-        card_negadas = QLabel(paginaprincipal)
-        card_negadas.setFixedSize(300, 238)
-        card_negadas.move(1250, 100)
-        card_negadas.setStyleSheet("""
-            QLabel {
-                background-color: #FD7B01;
-                border-radius: 20px;
-            }
-        """)
-
-        icone_negadas = QLabel(card_negadas)
-        icone_negadas.setFixedSize(35, 35)
-        icone_negadas.move(25, 18)
-
-        icone_negadas.setPixmap(
-            icone_branco(
-                os.path.join(BASE, "Imagens", "cruz.png"),
-                30
-            )
-        )
-
-        icone_negadas.setStyleSheet("""
-            QLabel {
-                background-color: transparent;
-            }
-        """)
-
-        card_negadas_texto = QLabel(card_negadas)
-        card_negadas_texto.setText("Negadas:")
-        card_negadas_texto.setFixedSize(300, 40)
-        card_negadas_texto.move(0, 10)
-        card_negadas_texto.setAlignment(Qt.AlignCenter)
-        card_negadas_texto.setStyleSheet("""
-            QLabel {
-                background-color: transparent;
-                color: white;
-                font-size: 24px;
-                font-family: Verdana;
-                font-weight: normal;
-            }
-        """)
-
-        card_negadas_numero = QLabel(card_negadas)
-        card_negadas_numero.setText("5")
-        card_negadas_numero.setFixedSize(300, 70)
-        card_negadas_numero.move(0, 80)
-        card_negadas_numero.setAlignment(Qt.AlignCenter)
-        card_negadas_numero.setStyleSheet("""
-            QLabel {
-                background-color: transparent;
-                color: white;
-                font-size: 50px;
-                font-family: Verdana;
-                font-weight: bold;
-            }
-        """)
-
-        card_negadas_pct = QLabel(card_negadas)
-        card_negadas_pct.setText("15%")
-        card_negadas_pct.setFixedSize(300, 30)
-        card_negadas_pct.move(0, 165)
-        card_negadas_pct.setAlignment(Qt.AlignCenter)
-        card_negadas_pct.setStyleSheet("""
-            QLabel {
-                background-color: transparent;
-                color: white;
-                font-size: 20px;
-                font-family: Verdana;
-                font-weight: bold;
-            }
-        """)
-
-        card_negadas_barra = QProgressBar(card_negadas)
-        card_negadas_barra.setGeometry(50, 200, 200, 12)
-        card_negadas_barra.setValue(15)
-        card_negadas_barra.setTextVisible(False)
-        card_negadas_barra.setStyleSheet("""
-            QProgressBar {
-                background-color: #f7a052;
-                border-radius: 6px;
-                border: none;
-            }
-            QProgressBar::chunk {
-                background-color: #ffffff;
-                border-radius: 6px;
-            }
-        """)
-
-        quadro_grafico = QLabel(paginaprincipal)
-        quadro_grafico.setFixedSize(700, 500)
-        quadro_grafico.move(50, 400)
-
-        quadro_grafico.setStyleSheet("""
-            QLabel {
-                background-color: white;
-                border: 1px solid #C3C3C3;
-                border-radius: 10px;
-            }
-        """)
-
-        circulo_status_aprovadas = QLabel(paginaprincipal)
-        circulo_status_aprovadas.setGeometry(540, 550, 16, 16)
-        circulo_status_aprovadas.setStyleSheet("""
-            QLabel {
                 border-radius: 8px;
-                background-color: #058914;
-            }
-        """)
-
-        texto_aprovadas = QLabel(paginaprincipal)
-        texto_aprovadas.setText("Aprovadas")
-        texto_aprovadas.move(570, 550)
-        texto_aprovadas.setStyleSheet("""
-            QLabel {
+                padding: 6px 16px;
+                border: 1px solid #d0d0d0;
                 font-size: 16px;
-                font-family: Verdana;
-                font-style: bold;
-            }
+            } 
         """)
+        btn_ano.addItems(["2026", "2025", "2024", "2023"])
+        btn_ano.setFixedWidth(130)
+        layout_titulo.addWidget(btn_ano)
 
-        subtitulo_aprovadas = QLabel(paginaprincipal)
-        subtitulo_aprovadas.setText("10 (20%)")
-        subtitulo_aprovadas.move(575, 570)
-        subtitulo_aprovadas.setStyleSheet("""
-            QLabel {
-                font-size: 14px;
-                font-family: Verdana;
-                font-style: bold;
-            }
+        layout_principal.addLayout(layout_titulo)
+
+        layout_acoes = QHBoxLayout()
+        layout_acoes.setSpacing(20)
+
+        total_acoes = QFrame()
+        total_acoes.setFixedHeight(240)
+        total_acoes.setFixedWidth(365)
+        total_acoes.setStyleSheet("QFrame { background-color: #013171; border-radius: 15px; }")
+        layout_total = QVBoxLayout(total_acoes)
+        
+        titulo_total = QLabel("Total de Ações\nrealizadas:")
+        titulo_total.setStyleSheet("color: #ffffff; font-size: 18px; border: none;")
+        titulo_total.setAlignment(Qt.AlignCenter)
+        
+        valor_total = QLabel("50")
+        valor_total.setStyleSheet("color: #ffffff; font-size: 42px; border: none;")
+        valor_total.setAlignment(Qt.AlignCenter)
+        
+        layout_total.addWidget(titulo_total)
+        layout_total.addWidget(valor_total)
+
+        acoes_aprovadas = QFrame()
+        acoes_aprovadas.setFixedHeight(240)
+        acoes_aprovadas.setFixedWidth(365)
+        acoes_aprovadas.setStyleSheet("QFrame { background-color: #058914; border-radius: 15px; }")
+        layout_aprovadas = QVBoxLayout(acoes_aprovadas)
+        
+        titulo_aprovadas = QLabel(" Aprovadas")
+        titulo_aprovadas.setStyleSheet("color: #ffffff; font-size: 18px; border: none;")
+        titulo_aprovadas.setAlignment(Qt.AlignCenter)
+        
+        valor_aprovadas = QLabel("10")
+        valor_aprovadas.setStyleSheet("color: #ffffff; font-size: 42px; border: none;")
+        valor_aprovadas.setAlignment(Qt.AlignCenter)
+        
+        pct_aprovadas = QLabel("20%")
+        pct_aprovadas.setStyleSheet("color: #ffffff; font-size: 16px; border: none;")
+        pct_aprovadas.setAlignment(Qt.AlignCenter)
+
+        barra_aprovadas = QProgressBar()
+        barra_aprovadas.setFixedHeight(8)
+        barra_aprovadas.setTextVisible(False)
+        barra_aprovadas.setValue(50)
+        barra_aprovadas.setStyleSheet("""
+            QProgressBar { background-color: rgba(255, 255, 255, 0.3); border-radius: 4px; border: none; }
+            QProgressBar::chunk { background-color: #ffffff; border-radius: 4px; }
         """)
+        
+        layout_aprovadas.addWidget(titulo_aprovadas)
+        layout_aprovadas.addWidget(valor_aprovadas)
+        layout_aprovadas.addWidget(pct_aprovadas)
+        layout_aprovadas.addWidget(barra_aprovadas)
 
-        circulo_status_analise = QLabel(paginaprincipal)
-        circulo_status_analise.setGeometry(540, 650, 16, 16)
-        circulo_status_analise.setStyleSheet("""
-            QLabel {
-                border-radius: 8px;
-                background-color: #0088FF;
-            }
+        acoes_analise = QFrame()
+        acoes_analise.setFixedHeight(240)
+        acoes_analise.setFixedWidth(365)
+        acoes_analise.setStyleSheet("QFrame { background-color: #0088FF; border-radius: 15px; }")
+        layout_analise = QVBoxLayout(acoes_analise)
+        
+        titulo_analise = QLabel(" Em análise")
+        titulo_analise.setStyleSheet("color: #ffffff; font-size: 18px; border: none;")
+        titulo_analise.setAlignment(Qt.AlignCenter)
+        
+        valor_analise = QLabel("30")
+        valor_analise.setStyleSheet("color: #ffffff; font-size: 42px; border: none;")
+        valor_analise.setAlignment(Qt.AlignCenter)
+        
+        pct_analise = QLabel("60%")
+        pct_analise.setStyleSheet("color: #ffffff; font-size: 16px; border: none;")
+        pct_analise.setAlignment(Qt.AlignCenter)
+
+        barra_analise = QProgressBar()
+        barra_analise.setFixedHeight(8)
+        barra_analise.setTextVisible(False)
+        barra_analise.setValue(25)
+        barra_analise.setStyleSheet("""
+            QProgressBar { background-color: rgba(255, 255, 255, 0.3); border-radius: 4px; border: none; }
+            QProgressBar::chunk { background-color: #ffffff; border-radius: 4px; }
         """)
+        
+        layout_analise.addWidget(titulo_analise)
+        layout_analise.addWidget(valor_analise)
+        layout_analise.addWidget(pct_analise)
+        layout_analise.addWidget(barra_analise)
 
-        texto_analise = QLabel(paginaprincipal)
-        texto_analise.setText("Em análise")
-        texto_analise.move(570, 650)
-        texto_analise.setStyleSheet("""
-            QLabel {
-                font-size: 16px;
-                font-family: Verdana;
-                font-style: bold;
-            }
+        acoes_negadas = QFrame()
+        acoes_negadas.setFixedHeight(240)
+        acoes_negadas.setFixedWidth(365)
+        acoes_negadas.setStyleSheet("QFrame { background-color: #FD7B01; border-radius: 15px; }")
+        layout_negadas = QVBoxLayout(acoes_negadas)
+        
+        titulo_negadas = QLabel(" Negadas")
+        titulo_negadas.setStyleSheet("color: #ffffff; font-size: 18px; border: none;")
+        titulo_negadas.setAlignment(Qt.AlignCenter)
+        
+        valor_negadas = QLabel("10")
+        valor_negadas.setStyleSheet("color: #ffffff; font-size: 42px; border: none;")
+        valor_negadas.setAlignment(Qt.AlignCenter)
+        
+        pct_negadas = QLabel("20%")
+        pct_negadas.setStyleSheet("color: #ffffff; font-size: 16px; border: none;")
+        pct_negadas.setAlignment(Qt.AlignCenter)
+
+        barra_negadas = QProgressBar()
+        barra_negadas.setFixedHeight(8)
+        barra_negadas.setTextVisible(False)
+        barra_negadas.setValue(25)
+        barra_negadas.setStyleSheet("""
+            QProgressBar { background-color: rgba(255, 255, 255, 0.3); border-radius: 4px; border: none; }
+            QProgressBar::chunk { background-color: #ffffff; border-radius: 4px; }
         """)
+        
+        layout_negadas.addWidget(titulo_negadas)
+        layout_negadas.addWidget(valor_negadas)
+        layout_negadas.addWidget(pct_negadas)
+        layout_negadas.addWidget(barra_negadas)
 
-        subtitulo_analise = QLabel(paginaprincipal)
-        subtitulo_analise.setText("15 (42%)")
-        subtitulo_analise.move(575, 670)
-        subtitulo_analise.setStyleSheet("""
-            QLabel {
-                font-size: 14px;
-                font-family: Verdana;
-                font-style: bold;
-            }
-        """)
+        layout_acoes.addWidget(total_acoes)
+        layout_acoes.addWidget(acoes_aprovadas)
+        layout_acoes.addWidget(acoes_analise)
+        layout_acoes.addWidget(acoes_negadas)
 
-        circulo_status_reprovadas = QLabel(paginaprincipal)
-        circulo_status_reprovadas.setGeometry(540, 750, 16, 16)
-        circulo_status_reprovadas.setStyleSheet("""
-            QLabel {
-                border-radius: 8px;
-                background-color: #FD7B01;
-            }
-        """)
+        layout_principal.addLayout(layout_acoes)
 
-        texto_negadas = QLabel(paginaprincipal)
-        texto_negadas.setText("Negadas")
-        texto_negadas.move(570, 750)
-        texto_negadas.setStyleSheet("""
-            QLabel {
-                font-size: 16px;
-                font-family: Verdana;
-                font-style: bold;
-            }
-        """)
+        layout_inferior = QHBoxLayout()
+        layout_inferior.setSpacing(20)
 
-        subtitulo_negadas = QLabel(paginaprincipal)
-        subtitulo_negadas.setText("10 (20%)")
-        subtitulo_negadas.move(570, 770)
-        subtitulo_negadas.setStyleSheet("""
-            QLabel {
-                font-size: 14px;
-                font-family: Verdana;
-                font-style: bold;
-            }
-        """)
+        painel_grafico = QFrame()
+        painel_grafico.setStyleSheet("QFrame { background-color: #ffffff; border: 1px solid #e0e0e0; border-radius: 16px; }")
+        layout_painel_grafico = QVBoxLayout(painel_grafico)
+        
+        titulo_grafico = QLabel("Distribuição das Ações")
+        titulo_grafico.setAlignment(Qt.AlignCenter)
+        titulo_grafico.setStyleSheet("font-size: 20px; font-weight: bold; color: #000000; border: none;")
+        layout_painel_grafico.addWidget(titulo_grafico)
 
-        quadro_resumo = QLabel(paginaprincipal)
-        quadro_resumo.setFixedSize(700, 500)
-        quadro_resumo.move(858, 400)
+        layout_donut = QHBoxLayout()
+        grafico_donut = GraficoDonut()
+        layout_donut.addWidget(grafico_donut)
+        layout_painel_grafico.addLayout(layout_donut)
 
-        quadro_resumo.setStyleSheet("""
-            QLabel {
-                background-color: white;
-                border: 1px solid #C3C3C3;
-                border-radius: 10px;
-            }
-        """)
+        painel_resumo = QFrame()
+        painel_resumo.setFixedWidth(820)
+        painel_resumo.setStyleSheet("QFrame { background-color: #ffffff; border: 1px solid #e0e0e0; border-radius: 16px; }")
+        layout_painel_resumo = QVBoxLayout(painel_resumo)
 
-        texto_resumo = QLabel(paginaprincipal)
-        texto_resumo.setText("Resumo rápido")
-        texto_resumo.move(1100, 430)
-        texto_resumo.setStyleSheet("""
-            QLabel {
-                color: black;
-                font-size: 24px;
-                font-family: Verdana;
-                font-style: bold;
-            }
-        """)
+        titulo_resumo = QLabel("Resumo rápido")
+        titulo_resumo.setAlignment(Qt.AlignCenter)
+        titulo_resumo.setStyleSheet("font-size: 20px; font-weight: bold; color: #000000; border: none;")
+        layout_painel_resumo.addWidget(titulo_resumo)
 
-        quadro_maior_resumo = QLabel(paginaprincipal)
-        quadro_maior_resumo.setFixedSize(657, 108)
-        quadro_maior_resumo.move(880, 500)
+        item_maior = QFrame()
+        item_maior.setStyleSheet("QFrame { border: 1px solid #e0e0e0; border-radius: 12px; background-color: #ffffff; }")
+        layout_maior = QHBoxLayout(item_maior)
+        
+        icone_maior = QLabel("↑")
+        icone_maior.setFixedSize(50, 50)
+        icone_maior.setAlignment(Qt.AlignCenter)
+        icone_maior.setStyleSheet("background-color: #C8E6C9; color: #2E7D32; font-size: 24px; border-radius: 10px; border: none;")
+        
+        textos_maior = QVBoxLayout()
 
-        quadro_maior_resumo.setStyleSheet("""
-            QLabel {
-                background-color: white;
-                border: 1px solid #C3C3C3;
-                border-radius: 10px;
-            }
-        """)
+        titulo_maior = QLabel("Maior Volume")
+        titulo_maior.setStyleSheet("font-size: 15px; font-weight: bold; color: #000000; border: none;")
 
-        maior_volume_icone = QLabel(paginaprincipal)
-        maior_volume_icone.setFixedSize(80, 80)
-        maior_volume_icone.move(890, 515)
-        maior_volume_icone.setStyleSheet("""
-            QLabel {
-                background-color: #6EC178;
-                border-radius: 10px;
-            }
-        """)
+        sub1_maior = QLabel("Março/2026")
+        sub1_maior.setStyleSheet("font-size: 12px; color: #666666; font-weight: normal; border: none;")
 
-        texto_maior_resumo = QLabel(paginaprincipal)
-        texto_maior_resumo.setText("Maior volume")
-        texto_maior_resumo.move(1000, 515)
-        texto_maior_resumo.setStyleSheet("""
-            QLabel {
-                color: black;
-                font-size: 18px;
-                font-family: Verdana;
-                font-style: bold;
-            }
-        """)
+        sub2_maior = QLabel("28 Ações")
+        sub2_maior.setStyleSheet("font-size: 12px; color: #666666; font-weight: normal; border: none;")
+        textos_maior.addWidget(titulo_maior)
+        textos_maior.addWidget(sub1_maior)
+        textos_maior.addWidget(sub2_maior)
+        
+        layout_maior.addWidget(icone_maior)
+        layout_maior.addLayout(textos_maior)
+        layout_maior.addStretch()
 
-        subtitulo_maior_volume = QLabel(paginaprincipal)
-        subtitulo_maior_volume.setText("Março/2026 \n 28 Ações")
-        subtitulo_maior_volume.move(1000, 545)
+        item_menor = QFrame()
+        item_menor.setStyleSheet("QFrame { border: 1px solid #e0e0e0; border-radius: 12px; background-color: #ffffff; }")
+        layout_menor = QHBoxLayout(item_menor)
+        
+        icone_menor = QLabel("↓")
+        icone_menor.setFixedSize(50, 50)
+        icone_menor.setAlignment(Qt.AlignCenter)
+        icone_menor.setStyleSheet("background-color: #FFE0B2; color: #E65100; font-size: 24px; border-radius: 10px; border: none;")
+        
+        textos_menor = QVBoxLayout()
+        titulo_menor = QLabel("Menor Volume")
+        titulo_menor.setStyleSheet("font-size: 15px; font-weight: bold; color: #000000; border: none;")
+        sub1_menor = QLabel("Julho/2026")
+        sub1_menor.setStyleSheet("font-size: 12px; color: #666666; font-weight: normal; border: none;")
+        sub2_menor = QLabel("12 Ações")
+        sub2_menor.setStyleSheet("font-size: 12px; color: #666666; font-weight: normal; border: none;")
+        textos_menor.addWidget(titulo_menor)
+        textos_menor.addWidget(sub1_menor)
+        textos_menor.addWidget(sub2_menor)
+        
+        layout_menor.addWidget(icone_menor)
+        layout_menor.addLayout(textos_menor)
+        layout_menor.addStretch()
 
-        quadro_menor_resumo = QLabel(paginaprincipal)
-        quadro_menor_resumo.setFixedSize(657, 108)
-        quadro_menor_resumo.move(880, 630)
+        item_comp = QFrame()
+        item_comp.setStyleSheet("QFrame { border: 1px solid #e0e0e0; border-radius: 12px; background-color: #ffffff; }")
+        layout_comp = QHBoxLayout(item_comp)
+        
+        icone_comp = QLabel("📊")
+        icone_comp.setFixedSize(50, 50)
+        icone_comp.setAlignment(Qt.AlignCenter)
+        icone_comp.setStyleSheet("background-color: #BBDEFB; color: #1565C0; font-size: 24px; border-radius: 10px; border: none;")
+        
+        textos_comp = QVBoxLayout()
 
-        quadro_menor_resumo.setStyleSheet("""
-            QLabel {
-                background-color: white;
-                border: 1px solid #C3C3C3;
-                border-radius: 10px;
-            }
-        """)
+        titulo_comp = QLabel("Comparação")
+        titulo_comp.setStyleSheet("font-size: 15px; font-weight: bold; color: #000000; border: none;")
 
-        menor_volume_icone = QLabel(paginaprincipal)
-        menor_volume_icone.setFixedSize(80, 80)
-        menor_volume_icone.move(890, 645)
-        menor_volume_icone.setStyleSheet("""
-             QLabel {
-                background-color: #FFB570;
-                border-radius: 10px;
-             }
-        """)
+        sub1_comp = QLabel("Aumento de 12% em")
+        sub1_comp.setStyleSheet("font-size: 12px; color: #666666; font-weight: normal; border: none;")
 
-        texto_menor_resumo = QLabel(paginaprincipal)
-        texto_menor_resumo.setText("Menor volume")
-        texto_menor_resumo.move(1000, 645)
-        texto_menor_resumo.setStyleSheet("""
-            QLabel {
-                color: black;
-                font-size: 18px;
-                font-family: Verdana;
-                font-style: bold;
-             }
-        """)
+        sub2_comp = QLabel("relação ao mês anterior")
+        sub2_comp.setStyleSheet("font-size: 12px; color: #666666; font-weight: normal; border: none;")
 
-        subtitulo_menor_volume = QLabel(paginaprincipal)
-        subtitulo_menor_volume.setText("Julho/2026 \n 12 Ações")
-        subtitulo_menor_volume.move(1000, 675)
+        textos_comp.addWidget(titulo_comp)
+        textos_comp.addWidget(sub1_comp)
+        textos_comp.addWidget(sub2_comp)
+        
+        layout_comp.addWidget(icone_comp)
+        layout_comp.addLayout(textos_comp)
+        layout_comp.addStretch()
 
-        quadro_comparacao = QLabel(paginaprincipal)
-        quadro_comparacao.setFixedSize(657, 108)
-        quadro_comparacao.move(880, 760)
-        quadro_comparacao.setStyleSheet("""
-            QLabel {
-                background-color: white;
-                border: 1px solid #C3C3C3;
-                border-radius: 10px;
-            }
-        """)
+        layout_painel_resumo.addWidget(item_maior)
+        layout_painel_resumo.addWidget(item_menor)
+        layout_painel_resumo.addWidget(item_comp)
 
-        comparacao_icone = QLabel(paginaprincipal)
-        comparacao_icone.setFixedSize(80, 80)
-        comparacao_icone.move(890, 775)
-        comparacao_icone.setStyleSheet("""
-            QLabel {
-                background-color: #89BFEF;
-                border-radius: 10px;
-             }
-        """)
+        layout_inferior.addWidget(painel_grafico)
+        layout_inferior.addWidget(painel_resumo)
 
-        texto_comparacao = QLabel(paginaprincipal)
-        texto_comparacao.setText("Comparação")
-        texto_comparacao.move(1000, 775)
-        texto_comparacao.setStyleSheet("""
-            QLabel {
-                color: black;
-                font-size: 18px;
-                font-family: Verdana;
-                font-style: bold;
-             }
-        """)
-
-        subtitulo_comparacao = QLabel(paginaprincipal)
-        subtitulo_comparacao.setText("Aumento de 12%\nem relação ao mês anterior")
-        subtitulo_comparacao.move(1000, 805)
+        layout_principal.addLayout(layout_inferior)
 
 
 if __name__ == "__main__":
