@@ -211,7 +211,7 @@ class ModeloTelaAdministrador(QMainWindow):
 
         
         sublayou_interno_inferior= QVBoxLayout()
-        sublayou_interno_inferior.setContentsMargins(0, 0, 0, 0)
+        sublayou_interno_inferior.setContentsMargins(0, 100, 0, 0)
 
         quant_linhas= 5
 
