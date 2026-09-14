@@ -2,7 +2,7 @@ BACKGROUND = "Imagens/background.png"
 VERDE =  "#058914"
 BRANCO = "#FFFFFF"
 PRETO = "#000000"
-OFF_WHITE = "#A0C7FA"
+OFF_WHITE = "#EDF4FD"
 SETA = "Imagens/Vector-dropdown.png"
 QSS = f"""
 QFrame#a{{background-image:url({BACKGROUND});
