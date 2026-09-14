@@ -2,7 +2,7 @@ import sys
 
 from PySide6.QtWidgets import QApplication
 
-from popup_relatorio import PopupRelatorio
+from Telas.popup_relatorio import PopupRelatorio
 
 
 from PySide6.QtWidgets import QLineEdit
