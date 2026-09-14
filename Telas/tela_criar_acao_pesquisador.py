@@ -16,9 +16,7 @@ BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 LOGO = os.path.join(BASE, "Imagens", "Embrapa-Logo.png")
 
 
-# ---------------------------------------------------------------------------
-# Área de arrastar/soltar comprovantes
-# ---------------------------------------------------------------------------
+
 class DragDropUploadArea(QFrame):
     def __init__(self):
         super().__init__()
@@ -91,9 +89,7 @@ class DragDropUploadArea(QFrame):
             )
 
 
-# ---------------------------------------------------------------------------
-# Conteúdo da tela "Criar ação" (vai dentro do paginaprincipal)
-# ---------------------------------------------------------------------------
+
 class CriarAcaoWidget(QWidget):
     def __init__(self):
         super().__init__()
