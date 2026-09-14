@@ -220,7 +220,7 @@ class ModeloTelaComite(QMainWindow):
 
         """)
 
-        funcao_empregado = QLabel("Comitê", cabecalho)
+        funcao_empregado = QLabel("Administrador", cabecalho)
 
         funcao_empregado.setGeometry(470, 22, 200, 30)
 
