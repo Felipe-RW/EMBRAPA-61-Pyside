@@ -148,27 +148,27 @@ class ModeloTelaAdministrador(QMainWindow):
 
         self.botaostacked = QStackedWidget()
 
-        self.home = pagina_principal ()
-        self.calendario = tela_de_anos ()
+        # self.home = pagina_principal ()
+        # self.calendario = tela_de_anos ()
         self.acoes = Janelinha ()
         self.empregados = tela_de_empregados ()
-        self.validadores = tela_dos_validadores ()
+        # self.validadores = tela_dos_validadores ()
 
-        self.botaostacked.addWidget (self.home)
-        self.botaostacked.addWidget (self.calendario)
+        # self.botaostacked.addWidget (self.home)
+        # self.botaostacked.addWidget (self.calendario)
         self.botaostacked.addWidget (self.acoes)
         self.botaostacked.addWidget (self.empregados)
-        self.botaostacked.addWidget (self.validadores)
+        # self.botaostacked.addWidget (self.validadores)
 
         layout.addWidget (self.botaostacked)
 
-        self.btn_home.clicked.connect (
-            lambda: self.botaostacked.setCurrentWidget (self.home)
-        )
+        # self.btn_home.clicked.connect (
+        #     lambda: self.botaostacked.setCurrentWidget (self.home)
+        # )
         
-        self.btn_calendario.clicked.connect (
-            lambda: self.botaostacked.setCurrentWidget (self.calendario)
-        )
+        # self.btn_calendario.clicked.connect (
+        #     lambda: self.botaostacked.setCurrentWidget (self.calendario)
+        # )
 
         self.btn_acoes.clicked.connect (
             lambda: self.botaostacked.setCurrentWidget (self.acoes)
@@ -178,54 +178,11 @@ class ModeloTelaAdministrador(QMainWindow):
             lambda: self.botaostacked.setCurrentWidget (self.empregados)
         )
 
-        self.btn_validadores.clicked.connect (
-            lambda: self.botaostacked.setCurrentWidget (self.validadores)
-        )
-
-        paginaprincipal.setCurrentIndex(self.home)
-
-        # pagina_home = QFrame()
-        # pagina_calendario = QFrame()
-        # pagina_acoes = QFrame()
-        # pagina_empregados = QFrame()
-        # pagina_validadores = QFrame()
-
-        # paginaprincipal.addWidget(pagina_home)
-        # paginaprincipal.addWidget(pagina_calendario)
-        # paginaprincipal.addWidget(pagina_acoes)
-        # paginaprincipal.addWidget(pagina_empregados)
-        # paginaprincipal.addWidget(pagina_validadores)
-
-        # self.btn_home.clicked.connect(
-        #     lambda: paginaprincipal.setCurrentIndex(0)
+        # self.btn_validadores.clicked.connect (
+        #     lambda: self.botaostacked.setCurrentWidget (self.validadores)
         # )
 
-        # self.btn_calendario.clicked.connect(
-        #     lambda: paginaprincipal.setCurrentIndex(1)
-        # )
-
-        # self.btn_acoes.clicked.connect(
-        #     lambda: paginaprincipal.setCurrentIndex(2)
-        # )
-
-        # self.btn_empregados.clicked.connect(
-        #     lambda: paginaprincipal.setCurrentIndex(3)
-        # )
-
-        # self.btn_validadores.clicked.connect(
-        #     lambda: paginaprincipal.setCurrentIndex(4)
-        # )
-
-        # paginaprincipal.setCurrentIndex(0)
-
-        # titulo = QLabel("Título", paginaprincipal)
-        # titulo.setAlignment(Qt.AlignCenter)
-        # titulo.setGeometry(820, 80, 150, 50)
-        # titulo.setStyleSheet("""
-        #     QLabel{
-        #         font-size: 36px;
-        #     }
-        # """)
+        # paginaprincipal.setCurrentIndex(self.home)
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
