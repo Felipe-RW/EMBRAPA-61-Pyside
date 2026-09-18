@@ -17,6 +17,7 @@ from PySide6.QtWidgets import (
     QFrame,
 )
 
+#commit
 
 class tela_minhas_acoes(QWidget):
 

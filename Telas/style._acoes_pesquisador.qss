@@ -23,4 +23,5 @@ QTableWidget::item, QTableView::item {
 """
 
 
+
 sua_tabela.setStyleSheet(style)
