@@ -31,7 +31,6 @@ class ModeloTelaAdministrador(QMainWindow):
             }
         """)
 
-
         self.area_scroll = QScrollArea()
         self.area_scroll.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
         self.area_scroll.setWidgetResizable(True)
@@ -77,13 +76,11 @@ class ModeloTelaAdministrador(QMainWindow):
         self.grupo_botoes.addButton(self.btn_acoes)
         
         menu_lateral_layout.addStretch()
-        
 
         pagina_principal = QWidget()
         layout_pagina = QVBoxLayout(pagina_principal)
         layout_pagina.setContentsMargins(0, 0, 0, 0)
         layout_pagina.setSpacing(0)
-    
 
         cabecalho = QWidget(self)
         cabecalho.setFixedSize(1640, 70)
@@ -113,7 +110,6 @@ class ModeloTelaAdministrador(QMainWindow):
                 font-size: 24px;
                 color: #ffffff;
             }
-
         """)
 
         funcao_empregado = QLabel("Validador", cabecalho)
@@ -123,7 +119,6 @@ class ModeloTelaAdministrador(QMainWindow):
                 color: #ffffff;
                 font-size: 24px;
             }
-
         """)
 
         nome_tela = QLabel("Nome da Tela", cabecalho)
@@ -134,7 +129,6 @@ class ModeloTelaAdministrador(QMainWindow):
                 font-size: 20px;
                 font-weight: lighter
             }
-
         """)
 
         botao_logout = QPushButton("Logout", cabecalho)
@@ -176,13 +170,10 @@ class ModeloTelaAdministrador(QMainWindow):
                 border-top-left-radius: 20px;
                 border-top-right-radius: 20px;
             }
-
         """)
-
 
         frame_principal_layout = QVBoxLayout(frame_principal)
         frame_principal_layout.setAlignment(Qt.AlignTop)
-
 
         # As seguintes linhas de código são apenas para exemplo, seu código vai ser colocado seguindo esse exemplo:
         # titulo = QLabel("Título", frame_principal)

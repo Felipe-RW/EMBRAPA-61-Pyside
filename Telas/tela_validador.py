@@ -5,8 +5,11 @@ from PySide6.QtWidgets import (
     QApplication, QWidget, QLabel, QLineEdit, QTextEdit, 
     QComboBox, QPushButton, QVBoxLayout, QHBoxLayout, 
     QFrame, QFileDialog, QListView,QMainWindow, QButtonGroup,
-    QScrollArea, QSizePolicy
+    QScrollArea, QSizePolicy, QStackedWidget
 )
+
+from tela_dashboard_validador import GraficoDonut
+from tela_validador_validacoes import 
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, BASE_DIR)
@@ -161,19 +164,19 @@ class ModeloTelaAdministrador(QMainWindow):
         cabecalho_layout.addWidget(botao_logout)
 
         frame_principal = QFrame(self)
-        frame_principal.setFixedWidth(1600)
-        frame_principal.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Expanding)
-        frame_principal.setContentsMargins(0, 0, 0, 0)
+        frame_principal.setGeometry(280, 70, 1600, 1010)
         frame_principal.setStyleSheet("""
             QFrame{
                 background-color: #ffffff;
                 border-top-left-radius: 20px;
-                border-top-right-radius: 20px;
+                border-top-right-radius: 20px
             }
         """)
 
         frame_principal_layout = QVBoxLayout(frame_principal)
-        frame_principal_layout.setAlignment(Qt.AlignTop)
+        frame_principal_layout.setContentsMargins(50, 50, 50, 100)
+
+        self.botaostacked = QStackedWidget()
 
         # As seguintes linhas de código são apenas para exemplo, seu código vai ser colocado seguindo esse exemplo:
         # titulo = QLabel("Título", frame_principal)
