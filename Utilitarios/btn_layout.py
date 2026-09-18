@@ -42,14 +42,8 @@ class btn_layout(QPushButton):
         self.icone_label.setAttribute(Qt.WA_TransparentForMouseEvents)
         self.texto_label.setAttribute(Qt.WA_TransparentForMouseEvents)
 
-<<<<<<< HEAD
-<<<<<<< HEAD
         self.setCursor(Qt.PointingHandCursor)
 
-=======
->>>>>>> dd7e3adc4966701bb9b0f34ea381015e0e6f5760
-=======
->>>>>>> e9a9153824d338c96c74a0990eb0f0127208f2fb
         layout.addWidget(self.icone_label)
         layout.addStretch()
         layout.addWidget(self.texto_label)
