@@ -24,6 +24,7 @@ class GraficoDonut(QMainWindow):
 
         self.setWindowTitle("Gráfico Donut")
         self.resize(600, 400)
+        #tr
 
         series = QPieSeries()
        
@@ -67,170 +68,25 @@ class GraficoDonut(QMainWindow):
         self.setCentralWidget(self.chart_view)
 
 
-class ModeloTelaValidador(QMainWindow):
+class TelaDashboardValidador(QWidget):
 
     def __init__(self):
         super().__init__()
 
-        self.setWindowTitle("Criar ação")
-        self.setFixedSize(1920, 1080)
-
-        self.setStyleSheet("""
-            QWidget {
-                font-family: Verdana;
-                font-weight: bold;
-                background-color: #356394;
-            }
-        """)
-
-        menu_lateral = QWidget(self)
-        menu_lateral.setGeometry(0, 0, 280, 1080)
-
-        menu_lateral.setStyleSheet("""
-            QWidget {
-                background-color: #356394;
-            }
-        """)
-
-        menu_lateral_layout = QVBoxLayout(menu_lateral)
-        menu_lateral_layout.setContentsMargins(30, 0, 0, 0)
-        menu_lateral_layout.setSpacing(5)
-
-        self.btn_home = btn_layout(
-            os.path.join(BASE, "Imagens", "Painel-Principal-Icone.png"),
-            "Painel Principal"
-        )
-
-        self.btn_acoes = btn_layout(
-            os.path.join(BASE, "Imagens", "Validações-Icone.png"),
-            "Validações"
-        )
-
-        logo_label = QLabel()
-
-        logo = QPixmap(LOGO)
-
-        logo_certa = logo.scaled(
-            220,
-            190,
-            Qt.KeepAspectRatio,
-            Qt.SmoothTransformation
-        )
-
-        logo_label.setPixmap(logo_certa)
-        logo_label.setAlignment(Qt.AlignLeft)
-
-        menu_lateral_layout.addWidget(logo_label)
-        menu_lateral_layout.addWidget(self.btn_home)
-        menu_lateral_layout.addWidget(self.btn_acoes)
-
-        self.grupo_botoes = QButtonGroup(self)
-        self.grupo_botoes.setExclusive(True)
-        self.grupo_botoes.addButton(self.btn_home)
-        self.grupo_botoes.addButton(self.btn_acoes)
-
-        menu_lateral_layout.addStretch()
-
-        cabecalho = QWidget(self)
-        cabecalho.setGeometry(280, 0, 1640, 70)
-
-        cabecalho.setStyleSheet("""
-            QWidget {
-                background-color: #356394;
-            }
-        """)
-
-        nome_empregado = QLabel(
-            "Fulano da Silva Rodrigues",
-            cabecalho
-        )
-
-        nome_empregado.setGeometry(35, 22, 400, 30)
-
-        nome_empregado.setStyleSheet("""
-            QLabel {
-                font-size: 24px;
-                color: #ffffff;
-            }
-        """)
-
-        separador = QLabel("|", cabecalho)
-        separador.setGeometry(420, 22, 5, 30)
-
-        separador.setStyleSheet("""
-            QLabel {
-                font-size: 24px;
-                color: #ffffff;
-            }
-        """)
-
-        funcao_empregado = QLabel(
-            "Validador",
-            cabecalho
-        )
-
-        funcao_empregado.setGeometry(470, 22, 200, 30)
-
-        funcao_empregado.setStyleSheet("""
-            QLabel {
-                color: #ffffff;
-                font-size: 24px;
-            }
-        """)
-
-        nome_tela = QLabel(
-            "Painel principal",
-            cabecalho
-        )
-
-        nome_tela.setGeometry(1000, 22, 300, 30)
-
-        nome_tela.setStyleSheet("""
-            QLabel {
-                color: #ffffff;
-                font-size: 20px;
-                font-weight: lighter;
-            }
-        """)
-
-        botao_logout = QPushButton(
-            "Logout",
-            cabecalho
-        )
-
-        botao_logout.setGeometry(1450, 15, 150, 40)
-
-        botao_logout.setStyleSheet("""
-            QPushButton {
-                background-color: #ffffff;
-                color: #08175C;
-                font-size: 18px;
-                border: none;
-                border-radius: 10px;
-            }
-        """)
-
-        paginaprincipal = QFrame(self)
-
-        paginaprincipal.setGeometry(
-            280,
-            70,
-            1640,
-            1010
-        )
-
+        paginaprincipal = QFrame (self)
+        paginaprincipal.setGeometry(0, 0, 1460, 1010)
+        # paginaprincipal.resize(1920, 1010)
         paginaprincipal.setStyleSheet("""
-            QFrame {
+            QFrame{
                 background-color: #ffffff;
                 border-top-left-radius: 20px;
-                border-top-right-radius: 20px;
+                border-top-right-radius: 20px
             }
         """)
-
 
         janela = QWidget(paginaprincipal)
         janela.setObjectName("janela_validador")
-        janela.setGeometry(0, 0, 1640, 1010)
+        janela.setGeometry(0, 0, 1460, 1010)
         janela.setStyleSheet("background-color: transparent;")
 
         layout_principal = QVBoxLayout(janela)
@@ -409,6 +265,7 @@ class ModeloTelaValidador(QMainWindow):
         painel_resumo.setFixedWidth(820)
         painel_resumo.setStyleSheet("QFrame { background-color: #ffffff; border: 1px solid #e0e0e0; border-radius: 16px; }")
         layout_painel_resumo = QVBoxLayout(painel_resumo)
+        layout_painel_resumo.addSpacing(40)
 
         titulo_resumo = QLabel("Resumo rápido")
         titulo_resumo.setAlignment(Qt.AlignCenter)
@@ -503,11 +360,10 @@ class ModeloTelaValidador(QMainWindow):
 
         layout_principal.addLayout(layout_inferior)
 
-
 if __name__ == "__main__":
     app = QApplication(sys.argv)
 
-    window = ModeloTelaValidador()
+    window = TelaDashboardValidador()
     window.show()
 
     sys.exit(app.exec())
