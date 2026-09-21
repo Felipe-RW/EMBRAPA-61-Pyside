@@ -78,7 +78,7 @@ class tela_minhas_acoes(QWidget):
         botao_excel.setStyleSheet("""
             QPushButton {
                 background-color: white;
-                border: 1px solid #9AB7D9;
+                border: 1px solid #000000;
                 border-radius: 9px;
                 color: #174EA6;
                 font-size: 18px;
