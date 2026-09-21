@@ -1,10 +1,10 @@
 import sys, os
-from PySide6.QtCore import Qt
-from PySide6.QtGui import QStandardItemModel, QStandardItem, QPixmap, QColor, QRegion, QPainterPath
+from PySide6.QtCore import QEasingCurve, Qt, QPropertyAnimation, Signal, Property, QRectF
+from PySide6.QtGui import QStandardItemModel, QStandardItem, QPixmap, QColor, QRegion, QPainterPath, QPainter
 from PySide6.QtWidgets import (
     QApplication, QWidget, QLabel, QLineEdit, QTextEdit, 
     QComboBox, QPushButton, QVBoxLayout, QHBoxLayout, 
-    QFrame, QFileDialog, QListView, QMainWindow, QButtonGroup, QCheckBox, QTableWidgetItem,QTableWidget
+    QFrame, QFileDialog, QListView, QMainWindow, QButtonGroup, QCheckBox, QTableWidgetItem,QTableWidget, QAbstractButton, 
 )
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -233,7 +233,6 @@ class ModeloTelaAdministrador(QMainWindow):
         tabelaSetores.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
         tabelaSetores.setVerticalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
         
-        # O seletor QTableWidget::item:hover foi removido para tirar o efeito de hover
         tabelaSetores.setStyleSheet("""
             QTableWidget {
                 background-color: #ffffff;
@@ -274,17 +273,14 @@ class ModeloTelaAdministrador(QMainWindow):
             item_setor.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
             item_setor.setFlags(Qt.ItemFlag.ItemIsEnabled)
             
-            # CORES INVERTIDAS: Ímpares (1, 3...) recebem azul e Pares (0, 2...) recebem branco
             if indice % 2 != 0:
                 cor_fundo = "#E9F2FF"  # Ímpar (Azul)
             else:
                 cor_fundo = "#ffffff"  # Par (Branco)
 
-            # Aplica a cor de fundo no texto do setor (Coluna 0)
             item_setor.setBackground(QColor(cor_fundo))
             tabelaSetores.setItem(indice, 0, item_setor) 
 
-            # Aplica a mesma cor de fundo no container do Switch (Coluna 1)
             container_switch = QFrame()
             container_switch.setStyleSheet(f"""
                 QFrame {{
@@ -298,7 +294,7 @@ class ModeloTelaAdministrador(QMainWindow):
             layoutSwitch.setSpacing(0)
             layoutSwitch.setAlignment(Qt.AlignmentFlag.AlignCenter) 
 
-            botaoSwitch = QCheckBox()
+            botaoSwitch = BotãoCheck(ligado=True)  
             botaoSwitch.setStyleSheet("background-color: transparent; border: none;") 
             
             layoutSwitch.addWidget(botaoSwitch)
@@ -310,7 +306,51 @@ class ModeloTelaAdministrador(QMainWindow):
         layoutInterno.addLayout(sublayouInternoSuperior)
         layoutInterno.addLayout(sublayouInternoInferior)
 
+class BotãoCheck(QAbstractButton):
+    def __init__(self, parent=None, ligado=True):
+        super().__init__(parent)
+        self.setCheckable(True)
+        self.setChecked(ligado)
+        self.setCursor(Qt.ArrowCursor)
+        self.setFixedSize(46, 24)
+        self.setFocusPolicy(Qt.NoFocus)
 
+        self.setChecked(True)
+
+        self._posicao_bolinha = 25
+        self._animacao = QPropertyAnimation(self, b"posicao_bolinha", self)
+        self._animacao.setDuration(150)
+        self._animacao.setEasingCurve(QEasingCurve.InOutCubic)
+
+        self.toggled.connect(self._ao_clicar)
+
+    def _ao_clicar(self, ligado):
+            self._animacao.stop()
+            self._animacao.setStartValue(self._posicao_bolinha)
+            self._animacao.setEndValue(25 if ligado else 3)
+            self._animacao.start()
+    
+    def pegar_posicao_bolinha(self):
+        return self._posicao_bolinha
+
+    def definir_posicao_bolinha(self, pos):
+        self._posicao_bolinha = pos
+        self.update()
+
+    posicao_bolinha = Property(float, pegar_posicao_bolinha, definir_posicao_bolinha)
+
+    def paintEvent(self, event):
+        pintor = QPainter(self)
+        pintor.setRenderHint(QPainter.Antialiasing)
+        pintor.setPen(Qt.NoPen)
+
+        retangulo = QRectF(0, 0, self.width(), self.height())
+        cor_fundo = QColor("#C9CFD8") if self.isChecked() else QColor("#058914")
+        pintor.setBrush(cor_fundo)
+        pintor.drawRoundedRect(retangulo, retangulo.height() / 2, retangulo.height() / 2)
+
+        pintor.setBrush(QColor("#FFFFFF"))
+        pintor.drawEllipse(int(self._posicao_bolinha), 3, 18, 18)
 
 
 
