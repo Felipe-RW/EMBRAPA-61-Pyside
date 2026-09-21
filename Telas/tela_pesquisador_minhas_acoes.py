@@ -1,7 +1,7 @@
-import sys, os
+import sys
 
 from PySide6.QtCore import Qt
-from PySide6.QtGui import QFont, QColor, QIcon
+from PySide6.QtGui import QFont, QColor
 from PySide6.QtWidgets import (
     QApplication,
     QWidget,
@@ -17,13 +17,15 @@ from PySide6.QtWidgets import (
     QFrame,
 )
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-LAYOUT_DIR = sys.path.insert(0, BASE_DIR)
+#commit
 
 class tela_minhas_acoes(QWidget):
 
     def __init__(self):
         super().__init__()
+
+        self.setWindowTitle("Minhas ações")
+        self.setFixedSize(1060, 620)
 
         self.criar_interface()
 
@@ -31,7 +33,7 @@ class tela_minhas_acoes(QWidget):
 
         self.setStyleSheet("""
             QWidget {
-                font-family: Verdana;
+                font-family: Arial;
             }
 
             #conteudo {
@@ -56,32 +58,29 @@ class tela_minhas_acoes(QWidget):
         barra_nav = QHBoxLayout()
         barra_nav.setContentsMargins(0, 0, 0, 20)
 
-        titulo = QLabel("Minhas Ações")
+        titulo = QLabel("Minhas Pesquisas")
 
-        fonte_titulo = QFont("Verdana", 24)
+        fonte_titulo = QFont("Arial", 24)
         fonte_titulo.setBold(True)
 
         titulo.setFont(fonte_titulo)
-        titulo.setStyleSheet("color: black;")
+        titulo.setStyleSheet("color: #174EA6;")
         titulo.setAlignment(Qt.AlignCenter)
 
         barra_nav.addStretch()
         barra_nav.addWidget(titulo)
         barra_nav.addStretch()
 
-        botao_excel = QPushButton("  Baixar em Excel ")
-        botao_excel.setFixedSize(230, 45)
-
-        botao_excel_icone = QIcon ("Imagens/Excel-Icone.png")
-        botao_excel.setIcon (botao_excel_icone)
+        botao_excel = QPushButton("▣  Baixar em Excel")
+        botao_excel.setFixedSize(175, 45)
 
         botao_excel.setStyleSheet("""
             QPushButton {
                 background-color: white;
-                border: 1px solid #000000;
+                border: 1px solid #9AB7D9;
                 border-radius: 9px;
                 color: #174EA6;
-                font-size: 18px;
+                font-size: 14px;
                 font-weight: bold;
                 padding-left: 8px;
             }
@@ -114,7 +113,7 @@ class tela_minhas_acoes(QWidget):
                 border-radius: 9px;
                 padding-left: 16px;
                 color: #174EA6;
-                font-size: 18px;
+                font-size: 14px;
                 font-weight: bold;
             }
 
@@ -139,15 +138,15 @@ class tela_minhas_acoes(QWidget):
         barra_filtro.setContentsMargins(0, 0, 0, 20)
 
         self.botao_novo = QPushButton("+  Nova Ação")
-        self.botao_novo.setFixedSize(165, 42)
+        self.botao_novo.setFixedSize(140, 42)
 
         self.botao_novo.setStyleSheet("""
             QPushButton {
-                background-color: #058914;
+                background-color: #0BA84A;
                 color: white;
                 border: none;
                 border-radius: 9px;
-                font-size: 18px;
+                font-size: 14px;
                 font-weight: bold;
             }
 
@@ -158,6 +157,17 @@ class tela_minhas_acoes(QWidget):
 
         barra_filtro.addWidget(self.botao_novo)
         barra_filtro.addStretch()
+
+        filtrar = QLabel("Filtrar")
+
+        fonte_filtrar = QFont("Arial", 13)
+        fonte_filtrar.setBold(True)
+
+        filtrar.setFont(fonte_filtrar)
+        filtrar.setStyleSheet("color: #666666;")
+
+        barra_filtro.addWidget(filtrar)
+        barra_filtro.addSpacing(12)
 
         pesquisa = QLineEdit()
         pesquisa.setPlaceholderText("Pesquisar...")
@@ -170,8 +180,8 @@ class tela_minhas_acoes(QWidget):
                 border-radius: 9px;
                 padding-left: 14px;
                 padding-right: 35px;
-                color: #B3B3B3;
-                font-size: 18px;
+                color: #333333;
+                font-size: 13px;
             }
 
             QLineEdit:focus {
@@ -179,44 +189,7 @@ class tela_minhas_acoes(QWidget):
             }
         """)
 
-        filtro = QComboBox()
-        filtro.setPlaceholderText ("Filtrar")
-        filtro.setCurrentIndex (-1)
-        filtro.addItems([
-            "Aprovado",
-            "Recusado",
-            "Análise",
-        ])
-
-        filtro.setFixedSize(125, 45)
-        
-        filtro.setStyleSheet("""
-            QComboBox {
-                background-color: white;
-                border: 1px solid #9AB7D9;
-                border-radius: 9px;
-                padding-left: 16px;
-                color: #686868;
-                font-family: Verdana;
-                font-size: 18px;
-            }
-        
-            QComboBox::drop-down {
-                border: none;
-                width: 30px;
-            }
-        
-            QComboBox QAbstractItemView {
-                background-color: white;
-                border: 1px solid #9AB7D9;
-                selection-background-color: #EAF2FF;
-                selection-color: #174EA6;
-            }
-        """)
-
         barra_filtro.addWidget(pesquisa)
-        barra_filtro.addSpacing(20)
-        barra_filtro.addWidget(filtro)
 
         layout_conteudo.addLayout(barra_filtro)
 
@@ -224,14 +197,14 @@ class tela_minhas_acoes(QWidget):
         self.tabela.setColumnCount(5)
 
         self.tabela.setHorizontalHeaderLabels([
-            "Título",
+            "Título de pesquisa",
             "Tipo",
             "Data",
             "Status",
             "Ação"
         ])
 
-        acoes = [
+        pesquisas = [
             ["Desempenho de bovinos", "Artigo Científico", "29/05/2026", "Aprovado"],
             ["Produção sustentável", "Artigo Científico", "21/12/2024", "Análise"],
             ["Redução da degradação do solo", "Artigo Científico", "10/10/2010", "Recusado"],
@@ -243,14 +216,14 @@ class tela_minhas_acoes(QWidget):
             ["Sistemas de manejo do solo", "Artigo Científico", "29/06/2026", "Aprovado"],
         ]
 
-        self.tabela.setRowCount(len(acoes))
+        self.tabela.setRowCount(len(pesquisas))
 
-        for linha, acoes_data in enumerate(acoes):
+        for linha, pesquisa_data in enumerate(pesquisas):
 
             for coluna in range(4):
 
                 item = QTableWidgetItem(
-                    acoes_data[coluna]
+                    pesquisa_data[coluna]
                 )
 
                 item.setFlags(
@@ -271,24 +244,24 @@ class tela_minhas_acoes(QWidget):
 
                 if coluna == 3:
 
-                    fonte_status = QFont("Verdana", 18)
-                    fonte_status.setBold(False)
+                    fonte_status = QFont("Arial", 12)
+                    fonte_status.setBold(True)
 
                     item.setFont(fonte_status)
 
-                    if acoes_data[coluna] == "Aprovado":
+                    if pesquisa_data[coluna] == "Aprovado":
                         item.setForeground(
-                            QColor("#058914")
+                            QColor("#159447")
                         )
 
-                    elif acoes_data[coluna] == "Análise":
+                    elif pesquisa_data[coluna] == "Análise":
                         item.setForeground(
-                            QColor("#FFCC00")
+                            QColor("#E5A300")
                         )
 
-                    elif acoes_data[coluna] == "Recusado":
+                    elif pesquisa_data[coluna] == "Recusado":
                         item.setForeground(
-                            QColor("#FF0000")
+                            QColor("#E53935")
                         )
 
                 self.tabela.setItem(
@@ -298,15 +271,15 @@ class tela_minhas_acoes(QWidget):
                 )
 
             botao_editar = QPushButton("Editar")
-            botao_editar.setFixedSize(100, 32)
+            botao_editar.setFixedSize(110, 32)
 
             botao_editar.setStyleSheet("""
                 QPushButton {
-                    background-color: #2C66BF;
+                    background-color: #0875E1;
                     color: white;
                     border: none;
                     border-radius: 6px;
-                    font-size: 18px;
+                    font-size: 13px;
                 }
 
                 QPushButton:hover {
@@ -320,8 +293,6 @@ class tela_minhas_acoes(QWidget):
             )
 
             widget_container = QWidget()
-
-            widget_container.setStyleSheet("background: transparent;")
 
             layout_container = QHBoxLayout(
                 widget_container
@@ -348,12 +319,11 @@ class tela_minhas_acoes(QWidget):
         self.tabela.setStyleSheet("""
             QTableWidget {
                 background-color: white;
-                border: 1px solid black;
+                border: 1px solid #0875E1;
                 border-radius: 14px;
-                gridline-color: transparent;
-                font-size: 18px;
-                font-weight: normal;
-                color: black;
+                gridline-color: #D4E1EF;
+                font-size: 12px;
+                color: #222222;
                 outline: none;
             }
 
@@ -369,21 +339,17 @@ class tela_minhas_acoes(QWidget):
             }
 
             QHeaderView::section {
-                background-color: #356394;
+                background-color: #0875E1;
                 color: white;
                 border: none;
-                border-right: 1px solid #356394;
+                border-right: 1px solid #4D9BEA;
                 font-size: 14px;
                 font-weight: bold;
                 padding: 8px;
             }
 
             QHeaderView::section:last {
-                border-top-right-radius: 13px;
-            }
-
-            QHeaderView::section:first {
-                border-top-left-radius: 13px;
+                border-right: none;
             }
 
             QScrollBar:vertical {
@@ -400,10 +366,10 @@ class tela_minhas_acoes(QWidget):
         ):
             self.tabela.setRowHeight(
                 linha,
-                68
+                42
             )
 
-        self.tabela.setFixedHeight(650)
+        self.tabela.setFixedHeight(420)
 
         header = self.tabela.horizontalHeader()
 
@@ -417,13 +383,13 @@ class tela_minhas_acoes(QWidget):
 
         header.setSectionResizeMode(4, QHeaderView.Fixed)
 
-        self.tabela.setColumnWidth(1,220)
+        self.tabela.setColumnWidth(1,195)
 
-        self.tabela.setColumnWidth(2,200)
+        self.tabela.setColumnWidth(2,135)
 
-        self.tabela.setColumnWidth(3,160)
+        self.tabela.setColumnWidth(3,145)
 
-        self.tabela.setColumnWidth(4,140)
+        self.tabela.setColumnWidth(4,125)
 
         self.tabela.verticalHeader().setVisible(False)
 
