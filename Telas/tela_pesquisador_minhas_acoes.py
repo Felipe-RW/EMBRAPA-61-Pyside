@@ -20,7 +20,7 @@ from PySide6.QtWidgets import (
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 LAYOUT_DIR = sys.path.insert(0, BASE_DIR)
 
-class tela_minhas_acoes(QWidget):
+class tela_minhas_acoes(QFrame):
 
     def __init__(self):
         super().__init__()
