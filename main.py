@@ -31,5 +31,5 @@ pin.voltar_login_solicitado.connect(lambda: stacked_widget.setCurrentWidget(logi
 
 janela.setCentralWidget(stacked_widget)
 
-janela.show()
+janela.showMaximized()
 sys.exit(app.exec())
