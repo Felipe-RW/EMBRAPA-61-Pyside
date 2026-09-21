@@ -198,8 +198,27 @@ class TelaDeAnos ():
         """)
 
     def calendario(self):
-        cardCalendario = Qwidget(self)
-        
+        cardCalendario = QWidget(self)
+        cardCalendario.setFixedSize(350, 380)
+        cardCalendario.setStyleSheet("""
+        background-color: white; 
+        border: 1px solid #D0D7DE; 
+        border-radius: 20px;
+        """)
+
+        botaoAtivoInativo= QPushButton("Ativo/Inativo")
+
+
+
+        botaoEditar= QPushButton("Editar")
+        botaoEditar.setFixedSize(200, 42)
+        botaoEditar.setStyleSheet("""
+            background-color: #1A5FB4;
+            color: white;
+            border-radius: 10px;
+            font-weight: bold;
+        """)
+
 
 
 
