@@ -18,7 +18,7 @@ LOGO = os.path.join(BASE, "Imagens", "Embrapa-Logo.png")
 from tela_dashboard_validador import TelaDashboardValidador
 # from tela_validador_validacoes import validacoes
 
-class ModeloTelaAdministrador(QMainWindow):
+class TelaValidador(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setWindowTitle("Criar ação")
@@ -44,10 +44,7 @@ class ModeloTelaAdministrador(QMainWindow):
         menu_lateral_layout.setContentsMargins(30, 0, 0, 0)
 
         self.btn_home = btn_layout (os.path.join(BASE, "Imagens/Painel-Principal-Icone.png"), "Painel Principal")
-        self.btn_calendario = btn_layout (os.path.join(BASE, "Imagens/Calendario-Icone.png"), "Calendário")
-        self.btn_acoes = btn_layout (os.path.join(BASE, "Imagens/Ações-Icone.png"), "Ações")
-        self.btn_empregados = btn_layout (os.path.join(BASE, "Imagens/Empregados-Icone.png"), "Empregados")
-        self.btn_validadores = btn_layout (os.path.join(BASE, "Imagens/Validadores-Icone.png"), "Validadores")
+        self.btn_validacoes = btn_layout (os.path.join(BASE, "Imagens/Validações-Icone.png"), "Validações")
 
         logo_label = QLabel ()
         logo = QPixmap (LOGO)
@@ -58,21 +55,12 @@ class ModeloTelaAdministrador(QMainWindow):
         menu_lateral_layout.addWidget(logo_label)
         menu_lateral_layout.addWidget(self.btn_home)
         menu_lateral_layout.setSpacing(5)
-        menu_lateral_layout.addWidget(self.btn_calendario)
-        menu_lateral_layout.setSpacing(5)
-        menu_lateral_layout.addWidget(self.btn_acoes)
-        menu_lateral_layout.setSpacing(5)
-        menu_lateral_layout.addWidget(self.btn_empregados)
-        menu_lateral_layout.setSpacing(5)
-        menu_lateral_layout.addWidget(self.btn_validadores)
+        menu_lateral_layout.addWidget(self.btn_validacoes)
             
         self.grupo_botoes = QButtonGroup(self)
         self.grupo_botoes.setExclusive(True)
         self.grupo_botoes.addButton(self.btn_home)
-        self.grupo_botoes.addButton(self.btn_calendario)
-        self.grupo_botoes.addButton(self.btn_acoes)
-        self.grupo_botoes.addButton(self.btn_empregados)
-        self.grupo_botoes.addButton(self.btn_validadores)
+        self.grupo_botoes.addButton(self.btn_validacoes)
         
         menu_lateral_layout.addStretch()
 
@@ -102,7 +90,7 @@ class ModeloTelaAdministrador(QMainWindow):
             }
         """)
 
-        funcao_empregado = QLabel("Administrador", cabecalho)
+        funcao_empregado = QLabel("Validador", cabecalho)
         funcao_empregado.setGeometry(470, 22, 200, 30)
         funcao_empregado.setStyleSheet("""
             QLabel{
@@ -160,14 +148,14 @@ class ModeloTelaAdministrador(QMainWindow):
             lambda: self.botaostacked.setCurrentWidget (self.dashboard_validador)
         )
         
-        # self.btn_acoes.clicked.connect (
+        # self.btn_validacoes.clicked.connect (
         #     lambda: self.botaostacked.setCurrentWidget (self.validacoes)
         # )
 
-        # paginaprincipal.setCurrentIndex(self.home)
+        self.botaostacked.setCurrentWidget(self.dashboard_validador)
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    window = ModeloTelaAdministrador()
+    window = TelaValidador()
     window.show()
     sys.exit(app.exec())
