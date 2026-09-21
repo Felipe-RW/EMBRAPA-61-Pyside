@@ -58,26 +58,26 @@ class tela_minhas_acoes(QWidget):
         barra_nav = QHBoxLayout()
         barra_nav.setContentsMargins(0, 0, 0, 20)
 
-        titulo = QLabel("Minhas Pesquisas")
+        titulo = QLabel("Minhas Ações")
 
         fonte_titulo = QFont("Arial", 24)
         fonte_titulo.setBold(True)
 
         titulo.setFont(fonte_titulo)
-        titulo.setStyleSheet("color: #174EA6;")
+        titulo.setStyleSheet("color: #000000;")
         titulo.setAlignment(Qt.AlignCenter)
 
         barra_nav.addStretch()
         barra_nav.addWidget(titulo)
         barra_nav.addStretch()
 
-        botao_excel = QPushButton("▣  Baixar em Excel")
+        botao_excel = QPushButton(" Baixar em Excel")
         botao_excel.setFixedSize(175, 45)
 
         botao_excel.setStyleSheet("""
             QPushButton {
                 background-color: white;
-                border: 1px solid #9AB7D9;
+                border: 1px solid #000000;
                 border-radius: 9px;
                 color: #174EA6;
                 font-size: 14px;
