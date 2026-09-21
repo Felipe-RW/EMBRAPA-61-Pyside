@@ -12,6 +12,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, BASE_DIR)
 
 from Utilitarios.btn_layout import btn_layout
+from tela_pesquisador_minhas_acoes import tela_minhas_acoes
+from tela_dashboard_pesquisador import GraficoDonut
 
 BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 LOGO = os.path.join(BASE, "Imagens", "Embrapa-Logo.png")
@@ -135,24 +137,25 @@ class ModeloTelaAdministrador(QMainWindow):
         layout = QVBoxLayout(paginaprincipal)
         layout.setContentsMargins(50, 50, 50, 100)
 
+        self.acoes = tela_minhas_acoes()
 
         self.botaostacked = QStackedWidget()
         
-        # self.home = pagina_principal ()
+
         # self.calendario = tela_de_anos ()
         # self.validadores = tela_dos_validadores ()
 
         # self.botaostacked.addWidget (self.home)
         # self.botaostacked.addWidget (self.calendario)
-        # self.botaostacked.addWidget (self.acoes)
+        self.botaostacked.addWidget (self.acoes)
         # self.botaostacked.addWidget (self.empregados)
         # self.botaostacked.addWidget (self.validadores)
 
         layout.addWidget (self.botaostacked)
 
         # self.btn_home.clicked.connect (
-        #     lambda: self.botaostacked.setCurrentWidget (self.home)
-        # )
+        #      lambda: self.botaostacked.setCurrentWidget (self.home)
+        #  )
         
         # self.btn_calendario.clicked.connect (
         #     lambda: self.botaostacked.setCurrentWidget (self.calendario)
