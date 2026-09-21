@@ -5,7 +5,7 @@ from PySide6.QtWidgets import (
     QApplication, QWidget, QLabel, QLineEdit, QTextEdit, 
     QComboBox, QPushButton, QVBoxLayout, QHBoxLayout, 
     QFrame, QFileDialog, QListView,QMainWindow, QButtonGroup,
-    QScrollArea, QSizePolicy
+    QScrollArea, QSizePolicy, QStackedWidget
 )
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -32,21 +32,8 @@ class ModeloTelaAdministrador(QMainWindow):
         """)
 
 
-        self.area_scroll = QScrollArea()
-        self.area_scroll.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
-        self.area_scroll.setWidgetResizable(True)
-
-        conteudo_pagina = QWidget()
-        self.area_scroll.setWidget(conteudo_pagina)
-
-        layout_principal = QHBoxLayout(conteudo_pagina)
-        layout_principal.setContentsMargins(0, 0, 0, 0)
-        layout_principal.setSpacing(0)
-
-        self.setCentralWidget(self.area_scroll)
-        
         menu_lateral = QWidget(self)
-        menu_lateral.setFixedWidth(280)
+        menu_lateral.setGeometry(0, 0, 280, 1080)
         menu_lateral.setStyleSheet("""
             QWidget{
                 background-color: #356394
@@ -55,7 +42,6 @@ class ModeloTelaAdministrador(QMainWindow):
 
         menu_lateral_layout = QVBoxLayout(menu_lateral)
         menu_lateral_layout.setContentsMargins(30, 0, 0, 0)
-        menu_lateral_layout.setAlignment(Qt.AlignmentFlag.AlignTop)
 
         self.btn_home = btn_layout (os.path.join(BASE, "Imagens/Painel-Principal-Icone.png"), "Painel Principal")
         self.btn_acoes = btn_layout (os.path.join(BASE, "Imagens/Ações-Icone.png"), "Minhas Ações")
@@ -79,26 +65,16 @@ class ModeloTelaAdministrador(QMainWindow):
         menu_lateral_layout.addStretch()
         
 
-        pagina_principal = QWidget()
-        layout_pagina = QVBoxLayout(pagina_principal)
-        layout_pagina.setContentsMargins(0, 0, 0, 0)
-        layout_pagina.setSpacing(0)
-    
-
         cabecalho = QWidget(self)
-        cabecalho.setFixedSize(1640, 70)
+        cabecalho.setGeometry(280, 0, 1640, 70)
         cabecalho.setStyleSheet("""
             QWidget{
                 background-color: #356394
             }
         """)
-
-        cabecalho_layout = QHBoxLayout(cabecalho)
-        cabecalho_layout.setContentsMargins(40, 0, 40, 0)
         
-
         nome_empregado = QLabel("Fulano da Silva Rodrigues", cabecalho)
-        nome_empregado.setSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Minimum)
+        nome_empregado.setGeometry(35, 22, 400, 30)
         nome_empregado.setStyleSheet("""
             QLabel{
                 font-size: 24px;
@@ -107,39 +83,35 @@ class ModeloTelaAdministrador(QMainWindow):
         """)
 
         separador = QLabel("|", cabecalho)
-        separador.setSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Minimum)
+        separador.setGeometry(420, 22, 5, 30)
         separador.setStyleSheet("""
             QLabel{
                 font-size: 24px;
                 color: #ffffff;
             }
-
         """)
 
         funcao_empregado = QLabel("Pesquisador", cabecalho)
-        funcao_empregado.setSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Minimum)
+        funcao_empregado.setGeometry(470, 22, 200, 30)
         funcao_empregado.setStyleSheet("""
             QLabel{
                 color: #ffffff;
-                font-size: 24px;
+                font-size: 24px
             }
-
         """)
 
         nome_tela = QLabel("Nome da Tela", cabecalho)
-        nome_tela.setSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Minimum)
+        nome_tela.setGeometry(1000, 22, 300, 30)
         nome_tela.setStyleSheet("""
             QLabel{
                 color: #ffffff;
                 font-size: 20px;
                 font-weight: lighter
             }
-
         """)
 
         botao_logout = QPushButton("Logout", cabecalho)
-        botao_logout.setFixedSize(150, 40)
-        botao_logout.setCursor(Qt.PointingHandCursor)
+        botao_logout.setGeometry(1450, 15, 150, 40)
         botao_logout.setStyleSheet("""
             QPushButton{
                 background-color: #ffffff;
@@ -148,59 +120,58 @@ class ModeloTelaAdministrador(QMainWindow):
                 border: 0px solid #ffffff;
                 border-radius: 10px;
             }
-
-            QPushButton:hover{
-                background-color: #8E8E93;
-                color: #FFFFFF;
-                cursor: pointer;
-            }
         """)
 
-        cabecalho_layout.addWidget(nome_empregado)
-        cabecalho_layout.addSpacing(30)
-        cabecalho_layout.addWidget(separador)
-        cabecalho_layout.addSpacing(30)
-        cabecalho_layout.addWidget(funcao_empregado)
-        cabecalho_layout.addStretch()
-        cabecalho_layout.addWidget(nome_tela)
-        cabecalho_layout.addStretch()
-        cabecalho_layout.addWidget(botao_logout)
-
-        frame_principal = QFrame(self)
-        frame_principal.setFixedWidth(1600)
-        frame_principal.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Expanding)
-        frame_principal.setContentsMargins(0, 0, 0, 0)
-        frame_principal.setStyleSheet("""
+        paginaprincipal = QFrame (self)
+        paginaprincipal.setGeometry(280, 70, 1600, 1010)
+        paginaprincipal.setStyleSheet("""
             QFrame{
                 background-color: #ffffff;
                 border-top-left-radius: 20px;
-                border-top-right-radius: 20px;
+                border-top-right-radius: 20px
             }
-
         """)
 
+        layout = QVBoxLayout(paginaprincipal)
+        layout.setContentsMargins(50, 50, 50, 100)
 
-        frame_principal_layout = QVBoxLayout(frame_principal)
-        frame_principal_layout.setAlignment(Qt.AlignTop)
 
+        self.botaostacked = QStackedWidget()
+        
+        # self.home = pagina_principal ()
+        # self.calendario = tela_de_anos ()
+        # self.validadores = tela_dos_validadores ()
 
-        # As seguintes linhas de código são apenas para exemplo, seu código vai ser colocado seguindo esse exemplo:
-        # titulo = QLabel("Título", frame_principal)
-        # titulo.setAlignment(Qt.AlignCenter)
-        # titulo.setGeometry(760, 40, 150, 50)
-        # titulo.setStyleSheet("""
-        #     QLabel{
-        #         font-size: 36px;
+        # self.botaostacked.addWidget (self.home)
+        # self.botaostacked.addWidget (self.calendario)
+        # self.botaostacked.addWidget (self.acoes)
+        # self.botaostacked.addWidget (self.empregados)
+        # self.botaostacked.addWidget (self.validadores)
 
-        #     }
+        layout.addWidget (self.botaostacked)
 
-        # """)
+        # self.btn_home.clicked.connect (
+        #     lambda: self.botaostacked.setCurrentWidget (self.home)
+        # )
+        
+        # self.btn_calendario.clicked.connect (
+        #     lambda: self.botaostacked.setCurrentWidget (self.calendario)
+        # )
 
-        layout_pagina.addWidget(cabecalho)
-        layout_pagina.addWidget(frame_principal)
+        self.btn_acoes.clicked.connect (
+            lambda: self.botaostacked.setCurrentWidget (self.acoes)
+        )
 
-        layout_principal.addWidget(menu_lateral)
-        layout_principal.addWidget(pagina_principal)
+        # self.btn_home.clicked.connect (
+        #     lambda: self.botaostacked.setCurrentWidget (self.empregados)
+        # )
+
+        # self.btn_validadores.clicked.connect (
+        #     lambda: self.botaostacked.setCurrentWidget (self.validadores)
+        # )
+
+        # paginaprincipal.setCurrentIndex(self.home)
+
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
