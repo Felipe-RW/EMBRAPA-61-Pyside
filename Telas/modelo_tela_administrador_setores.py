@@ -250,11 +250,10 @@ class ModeloTelaAdministrador(QMainWindow):
                 border: none;
                 color: #000000;      
                 font-size: 20px;     
-                font-weight: bold;   
+                font-weight: bold;
+                border-radius: 10px;   
             }
-            QTableWidget::item:alternate {
-                background-color: #E9F2FF;
-            }
+
             QTableWidget::item:selected {
                 background-color: transparent;
             }
