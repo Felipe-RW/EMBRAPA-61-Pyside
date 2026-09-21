@@ -73,24 +73,11 @@ class TelaDashboardValidador(QWidget):
     def __init__(self):
         super().__init__()
 
-        paginaprincipal = QFrame (self)
-        paginaprincipal.setGeometry(0, 0, 1460, 1010)
-        # paginaprincipal.resize(1920, 1010)
-        paginaprincipal.setStyleSheet("""
-            QFrame{
-                background-color: #ffffff;
-                border-top-left-radius: 20px;
-                border-top-right-radius: 20px
-            }
-        """)
+        self.setObjectName("janela_validador")
+        self.setStyleSheet("background-color: transparent;")
 
-        janela = QWidget(paginaprincipal)
-        janela.setObjectName("janela_validador")
-        janela.setGeometry(0, 0, 1460, 1010)
-        janela.setStyleSheet("background-color: transparent;")
-
-        layout_principal = QVBoxLayout(janela)
-        layout_principal.setContentsMargins(40, 30, 40, 30)
+        layout_principal = QVBoxLayout(self)
+        layout_principal.setContentsMargins(60, 10, 10, 20)
         layout_principal.setSpacing(25)
 
         layout_titulo = QHBoxLayout()
@@ -109,10 +96,9 @@ class TelaDashboardValidador(QWidget):
                 background-color: #ffffff; 
                 color: #333333;
                 font-weight: bold;
-                border-radius: 8px;
                 padding: 6px 16px;
                 border: 1px solid #d0d0d0;
-                font-size: 16px;
+                font-size: 22px;
             } 
         """)
         btn_ano.addItems(["2026", "2025", "2024", "2023"])
@@ -265,7 +251,6 @@ class TelaDashboardValidador(QWidget):
         painel_resumo.setFixedWidth(820)
         painel_resumo.setStyleSheet("QFrame { background-color: #ffffff; border: 1px solid #e0e0e0; border-radius: 16px; }")
         layout_painel_resumo = QVBoxLayout(painel_resumo)
-        layout_painel_resumo.addSpacing(40)
 
         titulo_resumo = QLabel("Resumo rápido")
         titulo_resumo.setAlignment(Qt.AlignCenter)
@@ -273,6 +258,7 @@ class TelaDashboardValidador(QWidget):
         layout_painel_resumo.addWidget(titulo_resumo)
 
         item_maior = QFrame()
+        item_maior.setFixedHeight(150)
         item_maior.setStyleSheet("QFrame { border: 1px solid #e0e0e0; border-radius: 12px; background-color: #ffffff; }")
         layout_maior = QHBoxLayout(item_maior)
         
@@ -297,9 +283,9 @@ class TelaDashboardValidador(QWidget):
         
         layout_maior.addWidget(icone_maior)
         layout_maior.addLayout(textos_maior)
-        layout_maior.addStretch()
 
         item_menor = QFrame()
+        item_menor.setFixedHeight(150)
         item_menor.setStyleSheet("QFrame { border: 1px solid #e0e0e0; border-radius: 12px; background-color: #ffffff; }")
         layout_menor = QHBoxLayout(item_menor)
         
@@ -321,9 +307,9 @@ class TelaDashboardValidador(QWidget):
         
         layout_menor.addWidget(icone_menor)
         layout_menor.addLayout(textos_menor)
-        layout_menor.addStretch()
 
         item_comp = QFrame()
+        item_comp.setFixedHeight(150)
         item_comp.setStyleSheet("QFrame { border: 1px solid #e0e0e0; border-radius: 12px; background-color: #ffffff; }")
         layout_comp = QHBoxLayout(item_comp)
         
@@ -349,11 +335,12 @@ class TelaDashboardValidador(QWidget):
         
         layout_comp.addWidget(icone_comp)
         layout_comp.addLayout(textos_comp)
-        layout_comp.addStretch()
 
+        layout_painel_resumo.addStretch()
         layout_painel_resumo.addWidget(item_maior)
         layout_painel_resumo.addWidget(item_menor)
         layout_painel_resumo.addWidget(item_comp)
+        layout_painel_resumo.addStretch()
 
         layout_inferior.addWidget(painel_grafico)
         layout_inferior.addWidget(painel_resumo)
