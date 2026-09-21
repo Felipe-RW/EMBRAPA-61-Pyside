@@ -184,6 +184,33 @@ class ModeloTelaAdministrador(QMainWindow):
 
         # paginaprincipal.setCurrentIndex(self.home)
 
+class TelaDeAnos ():
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle("Tela de Anos")
+        self.setMinimumSize(1920, 1080)
+        self.setStyleSheet("""
+            QWidget {
+                font-family: 'Verdana';
+                font-weight: bold;
+                background-color: #356394;
+            }
+        """)
+
+    def calendario(self):
+        cardCalendario = Qwidget(self)
+        
+
+
+
+    def layout(self):
+        layoutFundo=QFrame(self)
+        layoutFundo.setGeometry(278, 142, 1564, 888)
+
+
+
+
+
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     window = ModeloTelaAdministrador()
