@@ -1,4 +1,3 @@
-import sys
 from PySide6.QtWidgets import (
     QApplication, QDialog, QLabel, QTextEdit,
     QPushButton, QVBoxLayout, QHBoxLayout
@@ -7,8 +6,8 @@ from PySide6.QtCore import Qt
 from PySide6.QtGui import QPainter, QColor
 
 class PopupRejeicao(QDialog):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, parent=None):
+        super().__init__(parent)
 
         self.setFixedSize(830, 466)
 
@@ -58,11 +57,11 @@ class PopupRejeicao(QDialog):
             }
         """)
 
-        texto = QTextEdit()
-        texto.setPlaceholderText(
+        self.texto = QTextEdit()
+        self.texto.setPlaceholderText(
             "Explique o porquê a ação foi rejeitada, disserte sobre..."
         )
-        texto.setStyleSheet("""
+        self.texto.setStyleSheet("""
             QTextEdit {
                 border: 1px solid #999;
                 background-color: white;
@@ -119,7 +118,7 @@ class PopupRejeicao(QDialog):
         layout.setSpacing(15)
         layout.addLayout(cabecalho)
         layout.addWidget(razao)
-        layout.addWidget(texto)
+        layout.addWidget(self.texto)
         layout.addLayout(botoes)
 
         self.setLayout(layout)
@@ -139,12 +138,7 @@ class PopupRejeicao(QDialog):
         )
 
     def enviar(self):
-        motivo = self.findChild(QTextEdit).toPlainText()
+        # Acessa diretamente a variável do campo de texto
+        motivo = self.texto.toPlainText()
         print("Motivo:", motivo)
         self.close()
-
-
-app = QApplication(sys.argv)
-popup = PopupRejeicao()
-popup.exec()
-sys.exit()
