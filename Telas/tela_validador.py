@@ -9,7 +9,7 @@ from PySide6.QtWidgets import (
 )
 
 from tela_dashboard_validador import GraficoDonut
-from tela_validador_validacoes import 
+from tela_validador_validacoes import validacoes
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, BASE_DIR)
@@ -95,7 +95,6 @@ class ModeloTelaAdministrador(QMainWindow):
 
         cabecalho_layout = QHBoxLayout(cabecalho)
         cabecalho_layout.setContentsMargins(40, 0, 40, 0)
-        
 
         nome_empregado = QLabel("Fulano da Silva Rodrigues", cabecalho)
         nome_empregado.setSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Minimum)
@@ -178,17 +177,23 @@ class ModeloTelaAdministrador(QMainWindow):
 
         self.botaostacked = QStackedWidget()
 
-        # As seguintes linhas de código são apenas para exemplo, seu código vai ser colocado seguindo esse exemplo:
-        # titulo = QLabel("Título", frame_principal)
-        # titulo.setAlignment(Qt.AlignCenter)
-        # titulo.setGeometry(760, 40, 150, 50)
-        # titulo.setStyleSheet("""
-        #     QLabel{
-        #         font-size: 36px;
+        self.dashboard_validador = GraficoDonut()
+        self.validacoes = validacoes()
 
-        #     }
+        self.botaostacked.addWidget(self.dashboard_validador)
+        self.botaostacked.addWidget(self.validacoes)
 
-        # """)
+        layout_pagina.addWidget(self.botaostacked)
+
+        self.btn_home.clicked.connect (
+            lambda: self.botaostacked.setCurrentWidget (self.dashboard_validador)
+        )
+
+        self.btn_acoes.clicked.connect (
+            lambda: self.botaostacked.setCurrentWidget (self.validacoes)
+        )
+
+        pagina_principal.setCurrentIndex(self.dashboard_validador)
 
         layout_pagina.addWidget(cabecalho)
         layout_pagina.addWidget(frame_principal)
