@@ -17,6 +17,7 @@ LOGO = os.path.join(BASE, "Imagens", "Embrapa-Logo.png")
 
 from tela_acoes import Janelinha
 from tela_administrador_gestao_funcionarios import tela_de_empregados
+from dashboard_admin import Dashboard
 
 class ModeloTelaAdministrador(QMainWindow):
     def __init__(self):
@@ -111,7 +112,7 @@ class ModeloTelaAdministrador(QMainWindow):
             }
         """)
 
-        nome_tela = QLabel("Nome da Tela", cabecalho)
+        nome_tela = QLabel("Página principal", cabecalho)
         nome_tela.setGeometry(1000, 22, 300, 30)
         nome_tela.setStyleSheet("""
             QLabel{
@@ -148,13 +149,13 @@ class ModeloTelaAdministrador(QMainWindow):
 
         self.botaostacked = QStackedWidget()
 
-        # self.home = pagina_principal ()
+        self.home = Dashboard()
         # self.calendario = tela_de_anos ()
         self.acoes = Janelinha ()
         self.empregados = tela_de_empregados ()
         # self.validadores = tela_dos_validadores ()
 
-        # self.botaostacked.addWidget (self.home)
+        self.botaostacked.addWidget (self.home)
         # self.botaostacked.addWidget (self.calendario)
         self.botaostacked.addWidget (self.acoes)
         self.botaostacked.addWidget (self.empregados)
@@ -162,9 +163,9 @@ class ModeloTelaAdministrador(QMainWindow):
 
         layout.addWidget (self.botaostacked)
 
-        # self.btn_home.clicked.connect (
-        #     lambda: self.botaostacked.setCurrentWidget (self.home)
-        # )
+        self.btn_home.clicked.connect (
+            lambda: self.botaostacked.setCurrentWidget (self.home)
+        )
         
         # self.btn_calendario.clicked.connect (
         #     lambda: self.botaostacked.setCurrentWidget (self.calendario)
