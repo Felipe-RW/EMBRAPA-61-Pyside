@@ -132,7 +132,7 @@ class TelaValidador(QMainWindow):
         """)
 
         layout = QVBoxLayout(paginaprincipal)
-        layout.setContentsMargins(50, 50, 50, 100)
+        layout.setContentsMargins(0, 50, 50, 100)
 
         self.botaostacked = QStackedWidget()
 
