@@ -2,12 +2,17 @@ from PySide6.QtWidgets import QWidget,QLabel,QLineEdit,QApplication,QVBoxLayout,
 from PySide6.QtGui import QPixmap
 from PySide6.QtCore import Qt
 import sys
-from style import QSS
+
 
 
 
 LOGO = "Imagens/logo_embrapa.png"
 FECHAR = "Imagens/Vector.png"
+
+BACKGROUND = "Imagens/background.png"
+VERDE =  "#058914"
+BRANCO = "#FFFFFF"
+PRETO = "#000000"
 
 
 
@@ -17,7 +22,7 @@ class tela_pin(QFrame):
         super().__init__()
         self.setFixedSize(1920,1080)
         self.setWindowTitle("PIN")
-        self.setStyleSheet(QSS)
+        self.setStyleSheet(f"background-image:url({BACKGROUND})")
 
 
         layout_principal = QVBoxLayout()
@@ -25,8 +30,11 @@ class tela_pin(QFrame):
         self.setLayout  (layout_principal)
         window_pin = QWidget()
         window_pin.setFixedSize(1011,884)
-        window_pin.setStyleSheet(QSS)
-        window_pin.setObjectName("Painel")
+        window_pin.setStyleSheet(f"""
+        background:{BRANCO};
+        border-radius: 10px;"""
+        )
+        
         layout_principal.addWidget(window_pin)
         layout_principal.setAlignment(Qt.AlignCenter)
         window_pin.setLayout(layout_pin)
@@ -39,7 +47,7 @@ class tela_pin(QFrame):
         fechar = QLabel()
         map = QPixmap(FECHAR)
         fechar.setPixmap(map)
-        fechar.setObjectName("Botao_fechar")
+        fechar.setStyleSheet("background: none;")
         layout_pin.addWidget(fechar, alignment=Qt.AlignmentFlag.AlignLeft)
         
         
@@ -49,28 +57,46 @@ class tela_pin(QFrame):
         logo_embrapa.setPixmap(pixmap)
         logo_embrapa.setScaledContents(True)
         layout_pin.addWidget(logo_embrapa, alignment=Qt.AlignmentFlag.AlignCenter)
-        logo_embrapa.setObjectName("Logo")
+        logo_embrapa.setStyleSheet("""
+        max-width :476px;
+        max-height: 206px;""")
         
         
 
         sub_titulo = QLabel("Digite o PIN enviado para seu E-mail")
-        sub_titulo.setObjectName("sub_t")
+        sub_titulo.setStyleSheet(f"""
+            font-weight: bold;
+            font-size: 20px;
+            background : transparent;
+            font-family: Verdana;
+            """)
         layout_pin.addWidget(sub_titulo)
         sub_titulo.setAlignment(Qt.AlignCenter)
         
 
         input_pin = QLineEdit()
         layout_pin.addWidget(input_pin,alignment=Qt.AlignmentFlag.AlignCenter)
-        input_pin.setStyleSheet(QSS)
-        input_pin.setObjectName("Input_pin")
+        input_pin.setStyleSheet(f"""
+        min-width:612px ;
+        min-height:40px ;
+        border: 1px solid gray;
+        border-radius: 10px;""")
+       
         input_pin.setPlaceholderText("Digite o seu PIN.")
         
 
         botao_verificar = QPushButton("VERIFICAR")
         botao_verificar.setFixedSize(530,84)
         layout_pin.addWidget(botao_verificar,alignment=Qt.AlignmentFlag.AlignCenter)
-        botao_verificar.setStyleSheet(QSS)
-        botao_verificar.setObjectName("butao")
+        botao_verificar.setStyleSheet(f"""
+            background-color: {VERDE};
+            color:{BRANCO};
+            font-size: 20px;
+            font-family: Verdana;
+            font-weight: bold;
+            """
+            )
+        
         
 
 
