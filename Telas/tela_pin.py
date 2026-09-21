@@ -30,6 +30,7 @@ class tela_pin(QFrame):
         self.setLayout  (layout_principal)
         window_pin = QWidget()
         window_pin.setFixedSize(1011,884)
+        
         window_pin.setStyleSheet(f"""
         background:{BRANCO};
         border-radius: 10px;"""
@@ -40,7 +41,7 @@ class tela_pin(QFrame):
         window_pin.setLayout(layout_pin)
         layout_pin.setAlignment(Qt.AlignCenter)
         
-        layout_pin.setSpacing(70)
+        layout_pin.setSpacing(80)
         
         
 
@@ -77,10 +78,11 @@ class tela_pin(QFrame):
         input_pin = QLineEdit()
         layout_pin.addWidget(input_pin,alignment=Qt.AlignmentFlag.AlignCenter)
         input_pin.setStyleSheet(f"""
-        min-width:612px ;
-        min-height:40px ;
         border: 1px solid gray;
-        border-radius: 10px;""")
+        border-radius: 8px;
+        padding-left: 20px;
+        padding-right: 20px;""")
+        input_pin.setFixedSize(612, 99)
        
         input_pin.setPlaceholderText("Digite o seu PIN.")
         
