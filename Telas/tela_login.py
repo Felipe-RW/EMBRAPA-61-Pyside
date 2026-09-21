@@ -125,6 +125,7 @@ class LoginScreen(TelaAutenticacaoBase):
                 font-weight: 800;
                 color: #111111;
                 border: none;
+                font-family: Verdana;
             }
         """)
         titulo.setAlignment(Qt.AlignCenter)
@@ -137,6 +138,7 @@ class LoginScreen(TelaAutenticacaoBase):
                 color: #6B7280;
                 font-size: 18px;
                 border: none;
+                font-family: Verdana;
             }
         """)
         subtitulo.setAlignment(Qt.AlignCenter)
@@ -156,6 +158,7 @@ class LoginScreen(TelaAutenticacaoBase):
                 padding-left: 20px;
                 padding-right: 20px;
                 font-size: 18px;
+                font-family: Verdana;
             }
             QLineEdit:focus {
                 border: 2px solid #D0D0D0;
@@ -178,6 +181,7 @@ class LoginScreen(TelaAutenticacaoBase):
                 border-radius: 9px;
                 font-size: 24px;
                 font-weight: 700;
+                font-family: Verdana;
             }
             QPushButton:hover {
                 background-color: #04620F;

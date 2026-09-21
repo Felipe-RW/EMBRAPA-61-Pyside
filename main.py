@@ -1,59 +1,35 @@
 import sys
-
+from PySide6.QtWidgets import QApplication, QMainWindow, QStackedWidget
 from PySide6.QtCore import Qt
-from PySide6.QtWidgets import QApplication, QMainWindow
 
 from Telas.tela_login import LoginScreen
+from Telas.tela_pin import tela_pin
 
+app = QApplication(sys.argv)
 
-def ao_logar_com_sucesso(email):
-    print("E-mail informado:", email)
+janela = QMainWindow()
+janela.setWindowTitle("Embrapa Gado de Corte – Login")
+janela.setWindowFlags(
+    Qt.Window |
+    Qt.WindowMinimizeButtonHint |
+    Qt.WindowMaximizeButtonHint |
+    Qt.WindowCloseButtonHint
+)
+janela.resize(1280, 720)
+janela.setMinimumSize(1024, 600)
 
-def main():
+stacked_widget = QStackedWidget()
 
-    app = QApplication(sys.argv)
+login = LoginScreen()
+pin = tela_pin()
 
-    app.setStyleSheet("""
-        QWidget {
-            font-family: 'Segoe UI';
-            color: #1C1C1C;
-        }
-    """)
+stacked_widget.addWidget(login)
+stacked_widget.addWidget(pin)
 
-    janela = QMainWindow()
+login.login_solicitado.connect(lambda email: stacked_widget.setCurrentWidget(pin))
+pin.voltar_login_solicitado.connect(lambda: stacked_widget.setCurrentWidget(login))
 
-    janela.setWindowTitle(
-        "Embrapa Gado de Corte — Login"
-    )
+janela.setCentralWidget(stacked_widget)
 
-    janela.setWindowFlags(
-        Qt.Window |
-        Qt.WindowMinimizeButtonHint |
-        Qt.WindowMaximizeButtonHint |
-        Qt.WindowCloseButtonHint
-    )
-
-    janela.resize(1280, 720)
-
-    janela.setMinimumSize(
-        1024,
-        600
-    )
-
-    tela_login = LoginScreen()
-
-    tela_login.login_solicitado.connect(
-        ao_logar_com_sucesso
-    )
-
-    janela.setCentralWidget(
-        tela_login
-    )
-
-    janela.show()
-
-    sys.exit(app.exec())
-
-
-if __name__ == "__main__":
-    main()
+janela.show()
+sys.exit(app.exec())
