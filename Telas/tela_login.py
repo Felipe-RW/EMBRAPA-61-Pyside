@@ -24,15 +24,16 @@ from PySide6.QtWidgets import (
 
 CAMINHO_LOGO = os.path.join(
     os.path.dirname(__file__),
+    "..",
     "imagens",
     "logo_embrapa.png"
 )
 CAMINHO_FUNDO = os.path.join(
     os.path.dirname(__file__),
+    "..",
     "imagens",
     "background.png"
 )
-
 class FundoOndulado(QWidget):
 
     def paintEvent(self, event):
@@ -42,69 +43,27 @@ class FundoOndulado(QWidget):
 
         pixmap = QPixmap(CAMINHO_FUNDO)
 
-        if not pixmap.isNull():
-            escalada = pixmap.scaled(
-                self.size(),
-                Qt.KeepAspectRatioByExpanding,
-                Qt.SmoothTransformation
-            )
+        escalada = pixmap.scaled(
+            self.size(),
+            Qt.KeepAspectRatioByExpanding,
+            Qt.SmoothTransformation
+        )
 
-            x = (self.width() - escalada.width()) // 2
-            y = (self.height() - escalada.height()) // 2
+        x = (self.width() - escalada.width()) // 2
+        y = (self.height() - escalada.height()) // 2
 
-            painter.drawPixmap(x, y, escalada)
-        else:
-            self._pintar_gradiente_reserva(painter)
+        painter.drawPixmap(x, y, escalada)
 
         painter.end()
-
-    def _pintar_gradiente_reserva(self, painter):
-        largura = self.width()
-        altura = self.height()
-
-        gradiente = QLinearGradient(0, 0, largura, altura)
-        gradiente.setColorAt(0.0, QColor("#3D6796"))
-        gradiente.setColorAt(1.0, QColor("#1F3F63"))
-
-        painter.fillRect(self.rect(), gradiente)
-
-        camadas = [
-            (0.50, QColor(255, 255, 255, 16)),
-            (0.68, QColor(255, 255, 255, 12)),
-            (0.86, QColor(0, 0, 0, 22))
-        ]
-
-        for posicao_y, cor in camadas:
-            caminho = QPainterPath()
-            y_base = altura * posicao_y
-
-            caminho.moveTo(0, y_base)
-            caminho.cubicTo(
-                largura * 0.22, y_base - 70,
-                largura * 0.38, y_base + 70,
-                largura * 0.6, y_base
-            )
-            caminho.cubicTo(
-                largura * 0.78, y_base - 55,
-                largura * 0.9, y_base + 45,
-                largura, y_base - 15
-            )
-            caminho.lineTo(largura, altura)
-            caminho.lineTo(0, altura)
-            caminho.closeSubpath()
-
-            painter.setPen(Qt.NoPen)
-            painter.setBrush(cor)
-            painter.drawPath(caminho)
-
 class TelaAutenticacaoBase(FundoOndulado):
 
    
-    LARGURA_TELA = 1280
-    ALTURA_TELA = 720
+    LARGURA_TELA = 1920
+    ALTURA_TELA = 1080
     LARGURA_CARD = 1011
     ALTURA_CARD = 884
-
+    
+    
     def _montar_card(self):
         layout_externo = QVBoxLayout(self)
         layout_externo.setAlignment(Qt.AlignCenter)
@@ -136,6 +95,7 @@ class TelaAutenticacaoBase(FundoOndulado):
                 pixmap.scaledToWidth(
                     300,
                     Qt.SmoothTransformation
+
                 )
             )
         else:
