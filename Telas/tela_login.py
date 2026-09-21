@@ -197,39 +197,3 @@ class LoginScreen(TelaAutenticacaoBase):
 
     def limpar(self):
         self.campo_email.clear()
-
-def _ao_logar_com_sucesso(email):
-    pass
-
-def main():
-    app = QApplication(sys.argv)
-
-    app.setStyleSheet("""
-        QWidget {
-            font-family: 'Segoe UI';
-            color: #1C1C1C;
-        }
-    """)
-
-    janela = QMainWindow()
-    janela.setWindowTitle("Embrapa Gado de Corte — Login")
-    janela.setWindowFlags(
-        Qt.Window |
-        Qt.WindowMinimizeButtonHint |
-        Qt.WindowMaximizeButtonHint |
-        Qt.WindowCloseButtonHint
-    )
-    janela.resize(1280, 720)
-    janela.setMinimumSize(1024, 600)
-
-    tela_login = LoginScreen()
-    tela_login.login_solicitado.connect(_ao_logar_com_sucesso)
-
-    janela.setCentralWidget(tela_login)
-    janela.show()
-
-    sys.exit(app.exec())
-
-
-if __name__ == "__main__":
-    main()
