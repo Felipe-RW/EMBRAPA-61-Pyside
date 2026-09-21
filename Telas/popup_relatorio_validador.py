@@ -1,4 +1,3 @@
-import sys
 from PySide6.QtCore import Qt
 from PySide6.QtWidgets import (
     QApplication, QWidget, QDialog, QLabel,
@@ -235,12 +234,3 @@ class PopupRelatorio(QDialog):
         for nome, posicaoY in zip(pesquisadores, posicoesY):
             self.criarCheck(nome, 970, posicaoY)
 
-
-
-if __name__ == "__main__":
-    app = QApplication(sys.argv)
-
-    popup = PopupRelatorio()
-    popup.exec()
-
-    sys.exit(app.exec())
