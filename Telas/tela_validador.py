@@ -16,7 +16,7 @@ BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 LOGO = os.path.join(BASE, "Imagens", "Embrapa-Logo.png")
 
 from tela_dashboard_validador import TelaDashboardValidador
-# from tela_validador_validacoes import validacoes
+from tela_validador_minhasValidacoes import ModeloTelaValidador
 
 class TelaValidador(QMainWindow):
     def __init__(self):
@@ -137,10 +137,10 @@ class TelaValidador(QMainWindow):
         self.botaostacked = QStackedWidget()
 
         self.dashboard_validador = TelaDashboardValidador()
-        # self.validacoes = validacoes()
+        self.validacoes = ModeloTelaValidador()
 
         self.botaostacked.addWidget(self.dashboard_validador)
-        # self.botaostacked.addWidget(self.validacoes)
+        self.botaostacked.addWidget(self.validacoes)
 
         layout.addWidget (self.botaostacked)
 
@@ -148,9 +148,9 @@ class TelaValidador(QMainWindow):
             lambda: self.botaostacked.setCurrentWidget (self.dashboard_validador)
         )
         
-        # self.btn_validacoes.clicked.connect (
-        #     lambda: self.botaostacked.setCurrentWidget (self.validacoes)
-        # )
+        self.btn_validacoes.clicked.connect (
+            lambda: self.botaostacked.setCurrentWidget (self.validacoes)
+        )
 
         self.botaostacked.setCurrentWidget(self.dashboard_validador)
 
