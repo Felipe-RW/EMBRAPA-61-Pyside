@@ -149,13 +149,13 @@ class ModeloTelaAdministrador(QMainWindow):
         self.botaostacked = QStackedWidget()
 
         # self.home = pagina_principal ()
-        # self.calendario = tela_de_anos ()
+        self.calendario = TelaDeAnos ()
         self.acoes = Janelinha ()
         self.empregados = tela_de_empregados ()
         # self.validadores = tela_dos_validadores ()
 
         # self.botaostacked.addWidget (self.home)
-        # self.botaostacked.addWidget (self.calendario)
+        self.botaostacked.addWidget (self.calendario)
         self.botaostacked.addWidget (self.acoes)
         self.botaostacked.addWidget (self.empregados)
         # self.botaostacked.addWidget (self.validadores)
@@ -166,9 +166,9 @@ class ModeloTelaAdministrador(QMainWindow):
         #     lambda: self.botaostacked.setCurrentWidget (self.home)
         # )
         
-        # self.btn_calendario.clicked.connect (
-        #     lambda: self.botaostacked.setCurrentWidget (self.calendario)
-        # )
+        self.btn_calendario.clicked.connect (
+            lambda: self.botaostacked.setCurrentWidget (self.calendario)
+        )
 
         self.btn_acoes.clicked.connect (
             lambda: self.botaostacked.setCurrentWidget (self.acoes)
@@ -184,7 +184,7 @@ class ModeloTelaAdministrador(QMainWindow):
 
         # paginaprincipal.setCurrentIndex(self.home)
 
-class TelaDeAnos ():
+class TelaDeAnos (QFrame):
     def __init__(self):
         super().__init__()
         self.setWindowTitle("Tela de Anos")
@@ -206,7 +206,7 @@ class TelaDeAnos ():
         border-radius: 20px;
         """)
 
-        botaoAtivoInativo= QPushButton("Ativo/Inativo")
+        
 
 
 
